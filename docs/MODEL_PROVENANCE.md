@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Rust adapter actual validation —2026-10-28 Asia/Dhaka
+
+Wonder1.0 run764739c7/jobf88d3fb6:25902 input/24087 output tokens,estimate$0.585348, completedlocaltotal$9.113029. All staged source/diffs reviewed, temporarilyinstalled to runactualfullsuite withrealreleaseRustbinary. Result309passed/2failed/1existingwarning in24.82s. Original257 passed; realcanonical/variedflow, in-transaction recording, rollback/actor/replay passed. Failednewtestfactorytuple and missingi64stored-IDbound; independentmalformedresponseprobe observed rawTypeError for list/dict matchflag. Candidate restored fromHEAD/three newreviewfilesremoved; no unacceptedproductcodecommitted. Jobmarkedcorrections_requested. Focusedcorrection backgroundjob70e7731f queued using prompt34; no synchronousgenerationwaiting. FullpriorSTATE archived verbatim fortraceability/contextsize. APIruntime notcalled, no production/publication.
+
 ## Rust adapter review —2026-10-28 Asia/Dhaka
 
 Wonder1.0 run92914d15 (background job525a6130):19726 input/22330 output tokens, completed estimate$0.525504. All staged adapter/recovery/tests/docs reviewed, not installed. Lead isolated validator probe reproduced false-success acceptance for invalid candidate; input/snapshot/cleanup/test gaps also identified. Marked corrections_requested; next correction jobf88d3fb6 queued through dispatcher, no waiting. Cumulative completed estimate before that request$8.527681. Accepted product code and test evidence remain at standalone Rust milestone; no false claim of integrated tests passing.
