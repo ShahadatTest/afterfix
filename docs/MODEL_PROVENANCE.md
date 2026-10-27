@@ -2,7 +2,7 @@
 
 ## Durable case backend accepted —2026-10-28
 
-Wonder1.0 run8d4d9fb2/job b1ffb957:29245input/1458output,estimate$0.146140,cumulative$11.9035875. Reviewed2 exact edits/materialized against79e73ada using unique matches/AST/hashes; full diffs reviewed before installation with prior reviewed cd124fb1 main hooks. Focused23passed/1existingwarning5.16s; full350passed/1existingwarning28.49s. Multi-product baseline and strict read/selected fixture corrected, all mutation/marker/corruption/current-verification loops pass with real release Rust and offline FakeMeta. Exact key scan64 files zero hits before adding contract docs. Backend versioned full cases/read-only APIs accepted; frontend history/full download still pending. No paid runtime/browser/held-out evidence claimed this turn; no publication/deployment.
+Wonder1.0 run8d4d9fb2/job b1ffb957:29245input/1458output,estimate$0.146140,cumulative$11.9035875. Reviewed2 exact edits/materialized against79e73ada using unique matches/AST/hashes; full diffs reviewed before installation with prior reviewed cd124fb1 main hooks. Focused23passed/1existingwarning5.16s; full350passed/1existingwarning28.49s. Multi-product baseline and strict read/selected fixture corrected, all mutation/marker/corruption/current-verification loops pass with real release Rust and offline FakeMeta. Exact key scan64 files zero hits before adding contract docs. Backend versioned full cases/read-only APIs accepted; frontend history/full download still pending. No paid runtime/browser/held-out evidence claimed this turn; no publication/deployment. Accepted source checkpoint0eda9d9; next UI jobfc8e7676 queued via prompt43, four frontend sources only, no generation waiting.
 
 ## Two remaining report fixes —2026-10-28
 
