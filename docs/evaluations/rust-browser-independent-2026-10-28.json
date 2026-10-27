@@ -1,0 +1,90 @@
+{
+  "scope": "actual authenticated Chrome synthetic flow with real Meta and fixed Rust binary; not held-out evaluation",
+  "proposal_id": "PROP-05c7bbbf",
+  "repair_rows": [
+    {
+      "id": 21,
+      "qty": 10,
+      "reversed_ids": "[18]"
+    }
+  ],
+  "approvals": [
+    {
+      "id": "APPR-1cb92aab",
+      "actor_id": "operator"
+    }
+  ],
+  "audit_actors": [
+    {
+      "action": "approve",
+      "actor_id": "operator"
+    },
+    {
+      "action": "apply",
+      "actor_id": "operator"
+    }
+  ],
+  "final_stock": 110,
+  "unrelated_stock": 45,
+  "preserved_restock_ids": [
+    19
+  ],
+  "verification_pass": true,
+  "verification_checks": 10,
+  "post_apply_real_rust": {
+    "enabled": true,
+    "status": "verified",
+    "verifier_version": "0.1.0",
+    "snapshot_hash": "56a8b39f87bd3d5e797993dd6a5cb53651ff033d9d0081dc9de55f69839c0eca",
+    "checks": [
+      {
+        "name": "protocol_version",
+        "ok": true
+      },
+      {
+        "name": "stock_matches_ledger",
+        "ok": true
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true
+      },
+      {
+        "name": "ledger_actual",
+        "ok": true
+      },
+      {
+        "name": "outstanding_credit",
+        "ok": true
+      },
+      {
+        "name": "expected_stock",
+        "ok": true
+      },
+      {
+        "name": "reverse_event_ids",
+        "ok": true
+      }
+    ],
+    "ledger_actual": 110,
+    "expected_stock": 110,
+    "outstanding_credit": 0,
+    "reverse_event_ids": [],
+    "proposal_matches": null
+  },
+  "investigation_usage": {
+    "model": "muse-spark-1.3",
+    "requests": 3,
+    "input_tokens": 3296,
+    "output_tokens": 890,
+    "total_tokens": 4186,
+    "estimated_cost": 0.0079025,
+    "estimated_cost_usd": 0.0079025,
+    "cost_usd": 0.0079025,
+    "unknown_usage_calls": 0,
+    "unknown_usage": 0,
+    "reserved_output_tokens": 0,
+    "reserved_cost": 0,
+    "blocked": false
+  }
+}

@@ -1,8 +1,8 @@
 # AfterFix
 
-Evidence-driven recovery for an inventory double-delivery bug. The local React interface completes investigation, preview, explicit approval, repair and verification through FastAPI. A real Spark1.3 browser investigation identified a duplicate deduction; the approved repair restored stock from100 to110 while preserving the later restock and unrelated product. The exported synthetic report is in docs/evaluations/browser-live-recovery-2026-10-27.json. Backend suite257 passed; frontend strict TypeScript/Vite build passed. See docs/STATE.md for evidence and remaining validation.
+Evidence-driven recovery for an inventory double-delivery bug. The local React interface completes investigation, preview, explicit approval, repair and verification through FastAPI. A real Spark1.3 browser investigation identified a duplicate deduction; Rust independently checked the ledger before approval/apply, and the repair restored stock from100 to110 while preserving the later restock and unrelated product. Actual exported report: docs/evaluations/browser-rust-recovery-2026-10-28.json. Backend suite327 passed; frontend strict TypeScript/Vite build passed previously. See docs/STATE.md for evidence and remaining validation.
 
-Fixed v1 scope and ordered acceptance gates are in SPEC.md and docs/DELIVERY_PLAN.md. Operator/viewer access control and actor-bound approvals/audit are implemented and verified locally; backend suite now257 passed and authenticated browser recovery passed. Rust verification and more complete case reports remain planned. Current database is SQLite; a PostgreSQL migration is outside local v1. Portable bounded runtime setup is implemented; public hosting/security release work remains incomplete; see docs/SECURITY_REVIEW.md and docs/AUTH.md.
+Fixed v1 scope and ordered acceptance gates are in SPEC.md and docs/DELIVERY_PLAN.md. Operator/viewer access control, actor-bound approval/audit, required Rust agreement gates and portable bounded runtime are implemented and verified locally. Complete case reports and held-out evaluations remain. Current database is SQLite; a PostgreSQL migration is outside local v1. Public hosting/security release work remains incomplete; see docs/SECURITY_REVIEW.md and docs/AUTH.md.
 
 ## Quick start (lead to run, isolated env)
 
@@ -10,6 +10,7 @@ Fixed v1 scope and ordered acceptance gates are in SPEC.md and docs/DELIVERY_PLA
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+cargo build --locked --release --manifest-path rust-verifier/Cargo.toml
 pytest -q
 uvicorn app.main:app --reload
 ```
@@ -26,7 +27,7 @@ Flow: `POST /proposals` (draft) -> `GET /proposals/{id}/preview` (sandbox simula
 
 ## Integrity notes
 
-Standalone Rust verifier: `cargo test --locked --manifest-path rust-verifier/Cargo.toml`. Its strict bounded JSON protocol, checked arithmetic and historical repair/reference checks are documented in docs/RUST_PROTOCOL.md. It has been built/tested independently; API approval/apply integration is the next gate and is not active yet.
+Rust verifier: `cargo test --locked --manifest-path rust-verifier/Cargo.toml`. Its bounded JSON protocol and checked arithmetic/reference checks are in docs/RUST_PROTOCOL.md; required fixed-executable API integration is in docs/RUST_INTEGRATION.md. Missing binary, disagreement or invalid output blocks approval/apply without a fallback. Build the release artifact before running the recovery API/tests.
 
 - Apply holds `BEGIN IMMEDIATE` before any reads; same-key retries are validated against the bound proposal/approval; different keys cannot double-repair.
 - Evidence must cite both the original and every duplicate deduction; prior repairs are recorded as explicit reversed IDs.

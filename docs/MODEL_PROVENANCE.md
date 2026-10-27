@@ -1,5 +1,11 @@
 # Implementation provenance
 
+## Rust integration accepted —2026-10-28
+
+Wonder1.0 run4dd6fdde/job7e8aecad:12967input/4395output,estimate$0.139768. One exact test-fixture edit against22d6d403: real repeated orders, exclude already-reversed evidence, preserve unsorted valid historical reference sets. Lead reviewed/materialized exact matches and diff; source adapter/recovery from764739c7+22d6d403 unchanged. Full actual suite327passed/1existingwarning24.63s with required real Rust. No test assertions weakened. README/required Rust build and protocol docs updated; known UI/report gaps remain.
+
+Actual authenticated Chrome flow with live Spark1.3 runlive-463a6ad3:3calls,3296input/890output,$0.0079025 estimate. Preview100to110 with Rust agreement; separate approval/apply under operator,10 passing verification checks, actual JSON download. Independent DB confirms single repair/approval, preserved restock19/unrelated45 and both audit records with Rust0.1.0/current snapshot. Post-apply real Rust confirms outstanding0. Public reports browser-rust-recovery-2026-10-28.json/rust-browser-independent-2026-10-28.json; private screenshot retained. Not held-out or production evidence. Preview teardown exit0/keys removed/ports closed;62-file exact key scan passed. Cumulative completed estimate$10.0888515, no unknown reservations/provider balance claim. Next phase durable full cases/reports/UI; no publication/deployment.
+
 ## Exact-edit validation —2026-10-28
 
 Wonder1.0 run22d6d403/jobe893f601:23660input/7421output,estimate$0.243060,totalcompleted$9.941181. Onecomplete JSONartifact with12Metaauthored exactsource/testedits against764739c7. Leadreviewedallchanges, exactmaterializervalidateduniqueoldmatches/paths/base/AST/hashmetadata andstagedfullsources; resultingdiffsreviewedbeforelocalexecution. Actualfullsuite326passed/1fixturefailure/1existingwarning23.50s withrealRust. Newtestcreatedoneorderwhileexpectingduplicate; productchecks/alloldtests passed. Restoredacceptedworkingcode; candidateuncommitted. Nextjob7e8aecad requestsonlyonecorrectedtestfunction/manifest; context19e5036f is leadcopyof22d6d403testfile, notAPIgeneration. No APIruntimeinvestigation/production/publication.

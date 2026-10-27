@@ -3,7 +3,7 @@ import json
 import sqlite3
 import time
 import uuid
-from app import domain, store
+from app import domain, rust_verifier, store
 
 
 class StaleStateError(Exception):
@@ -46,8 +46,21 @@ def _event_dict(r):
     }
 
 
+def _strict_stored_ids(raw):
+    """Exact stored JSON int list; bool/string/float coercion is malformed."""
+    if not isinstance(raw, str) or len(raw.encode("utf-8")) > 4096:
+        raise ValueError("malformed")
+    vals = json.loads(raw)
+    if not isinstance(vals, list) or len(vals) > 200:
+        raise ValueError("malformed")
+    if any(isinstance(v, bool) or not isinstance(v, int) or v <= 0 or v > 2**63 - 1 for v in vals):
+        raise ValueError("malformed")
+    if len(set(vals)) != len(vals):
+        raise ValueError("malformed")
+    return sorted(vals)
+
+
 def _repair_state(conn, product_id):
-    """Validate all historical repair credits; never silently ignore corrupt refs."""
     rows = store.list_product_events(conn, product_id)
     by_order = {}
     for r in rows:
@@ -71,8 +84,8 @@ def _repair_state(conn, product_id):
             errors.append(f"repair {ev['id']}: missing repair_proposal_id")
             rp = None
         try:
-            vals = json.loads(ev["reversed_ids"] or "")
-            if not isinstance(vals, list) or not vals or any(isinstance(v, bool) or not isinstance(v, int) or v <= 0 for v in vals) or len(set(vals)) != len(vals):
+            vals = _strict_stored_ids(ev["reversed_ids"] or "")
+            if not vals:
                 raise ValueError
         except Exception:
             errors.append(f"repair {ev['id']}: malformed reversed_ids")
@@ -97,7 +110,7 @@ def _repair_state(conn, product_id):
                 errors.append(f"repair {ev['id']}: unknown repair proposal")
             else:
                 try:
-                    pids = sorted(int(x) for x in json.loads(prow["reverse_event_ids"]))
+                    pids = _strict_stored_ids(prow["reverse_event_ids"])
                 except Exception:
                     pids = None
                 if prow["product_id"] != product_id or prow["credit_qty"] != ev["qty"] or pids != sorted(vals) or prow["status"] != "applied":
@@ -109,10 +122,7 @@ def _repair_state(conn, product_id):
 
 
 def _store_proposal(conn, pid, incident_id, product_id, credit, reverse_ids, snap, status, reason):
-    conn.execute(
-        "INSERT INTO proposals(id, incident_id, product_id, credit_qty, reverse_event_ids, snapshot_hash, status, reason, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
-        (pid, incident_id, product_id, credit, json.dumps(sorted(reverse_ids)), snap, status, reason, int(time.time())),
-    )
+    conn.execute("INSERT INTO proposals(id, incident_id, product_id, credit_qty, reverse_event_ids, snapshot_hash, status, reason, created_at) VALUES (?,?,?,?,?,?,?,?,?)", (pid, incident_id, product_id, credit, json.dumps(sorted(reverse_ids)), snap, status, reason, int(time.time())))
     conn.commit()
 
 
@@ -121,14 +131,17 @@ def _get_proposal(conn, proposal_id):
     if row is None:
         raise NotFoundError("proposal not found")
     try:
-        rev = [int(x) for x in json.loads(row["reverse_event_ids"])]
+        rev = _strict_stored_ids(row["reverse_event_ids"])
     except Exception:
-        rev = []
-    return {
-        "proposal_id": row["id"], "status": row["status"], "incident_id": row["incident_id"],
-        "product_id": row["product_id"], "credit_qty": row["credit_qty"], "reverse_event_ids": rev,
-        "snapshot_hash": row["snapshot_hash"], "reason": row["reason"],
-    }
+        raise ApprovalError("malformed stored proposal")
+    credit = row["credit_qty"]
+    if isinstance(credit, bool) or not isinstance(credit, int) or credit < 0 or credit > 2**63 - 1:
+        raise ApprovalError("malformed stored proposal")
+    if row["status"] == "proposed" and (credit <= 0 or not rev):
+        raise ApprovalError("malformed stored proposal")
+    if row["status"] == "needs_review" and (credit != 0 or rev):
+        raise ApprovalError("malformed stored proposal")
+    return {"proposal_id": row["id"], "status": row["status"], "incident_id": row["incident_id"], "product_id": row["product_id"], "credit_qty": credit, "reverse_event_ids": rev, "snapshot_hash": row["snapshot_hash"], "reason": row["reason"]}
 
 
 def build_proposal(conn, incident_id, product_id, evidence_ids):
@@ -142,13 +155,14 @@ def build_proposal(conn, incident_id, product_id, evidence_ids):
     def needs(reason):
         _store_proposal(conn, pid, incident_id, product_id, 0, [], "", "needs_review", reason)
         return _get_proposal(conn, pid)
-
     if inc["product_id"] != product_id:
         return needs("wrong incident/product binding: incident does not concern this product")
     if not evidence_ids:
         return needs("empty evidence: no records cited")
     try:
-        uniq = sorted(set(int(x) for x in evidence_ids))
+        if any(isinstance(x, bool) or not isinstance(x, int) for x in evidence_ids):
+            raise ValueError
+        uniq = sorted(set(evidence_ids))
     except Exception:
         return needs("invalid evidence: event ids must be integers")
     if any(x <= 0 for x in uniq):
@@ -220,15 +234,7 @@ def _copy_conn(src):
 def _capture_baseline(src, p, snapshot_hash, before_stock, after_stock):
     products = [dict(r) for r in src.execute("SELECT product_id, name, stock FROM products ORDER BY product_id").fetchall()]
     events = [_event_dict(r) for r in src.execute("SELECT * FROM events ORDER BY id").fetchall()]
-    return {
-        "version": 2, "proposal_id": p["proposal_id"], "product_id": p["product_id"],
-        "snapshot_hash": snapshot_hash, "before_stock": before_stock, "after_stock": after_stock,
-        "credit_qty": p["credit_qty"], "reverse_event_ids": sorted(p["reverse_event_ids"]),
-        "restock_ids": sorted(e["id"] for e in events if e["product_id"] == p["product_id"] and e["kind"] == "restock"),
-        "restock_total": sum(e["qty"] for e in events if e["product_id"] == p["product_id"] and e["kind"] == "restock"),
-        "unrelated": [{"product_id": x["product_id"], "stock": x["stock"]} for x in products if x["product_id"] != p["product_id"]],
-        "products": products, "events": events,
-    }
+    return {"version": 2, "proposal_id": p["proposal_id"], "product_id": p["product_id"], "snapshot_hash": snapshot_hash, "before_stock": before_stock, "after_stock": after_stock, "credit_qty": p["credit_qty"], "reverse_event_ids": sorted(p["reverse_event_ids"]), "restock_ids": sorted(e["id"] for e in events if e["product_id"] == p["product_id"] and e["kind"] == "restock"), "restock_total": sum(e["qty"] for e in events if e["product_id"] == p["product_id"] and e["kind"] == "restock"), "unrelated": [{"product_id": x["product_id"], "stock": x["stock"]} for x in products if x["product_id"] != p["product_id"]], "products": products, "events": events}
 
 
 def _simulate(conn, p):
@@ -238,51 +244,68 @@ def _simulate(conn, p):
         before_fp = store.fingerprint(tmp, p["product_id"])
         unrelated_before = [dict(r) for r in tmp.execute("SELECT product_id, stock FROM products WHERE product_id != ?", (p["product_id"],)).fetchall()]
         restock_before = [dict(r) for r in tmp.execute("SELECT id, qty FROM events WHERE product_id=? AND kind='restock' ORDER BY id", (p["product_id"],)).fetchall()]
-        tmp.execute(
-            "INSERT INTO events(product_id, kind, qty, order_id, ts, note, reversed_ids, repair_proposal_id) VALUES (?,?,?,?,?,?,?,?)",
-            (p["product_id"], "repair_credit", p["credit_qty"], None, int(time.time()), "simulated repair", json.dumps(p["reverse_event_ids"]), p["proposal_id"]),
-        )
+        tmp.execute("INSERT INTO events(product_id, kind, qty, order_id, ts, note, reversed_ids, repair_proposal_id) VALUES (?,?,?,?,?,?,?,?)", (p["product_id"], "repair_credit", p["credit_qty"], None, int(time.time()), "simulated repair", json.dumps(p["reverse_event_ids"]), p["proposal_id"]))
         tmp.execute("UPDATE products SET stock = stock + ? WHERE product_id=?", (p["credit_qty"], p["product_id"]))
         after_led = domain.compute_ledger(tmp, p["product_id"])
         after = after_led["actual"]
-        checks = [
-            {"name": "repair_applies_cleanly", "ok": after == before + p["credit_qty"]},
-            {"name": "ledger_matches_stock_after", "ok": after_led["ledger_actual"] == after},
-            {"name": "no_outstanding_after", "ok": after_led["outstanding"] == 0},
-            {"name": "qty_consistent", "ok": after_led["qtys_consistent"]},
-        ]
-        return {
-            "before_stock": before, "after_stock": after, "before_fingerprint": before_fp,
-            "restock_before": restock_before, "unrelated_before": unrelated_before,
-            "after_ledger": {k: after_led[k] for k in ("ledger_actual", "outstanding", "restock_total", "repair_total")},
-            "checks": checks, "pass": all(c["ok"] for c in checks),
-        }
+        checks = [{"name": "repair_applies_cleanly", "ok": after == before + p["credit_qty"]}, {"name": "ledger_matches_stock_after", "ok": after_led["ledger_actual"] == after}, {"name": "no_outstanding_after", "ok": after_led["outstanding"] == 0}, {"name": "qty_consistent", "ok": after_led["qtys_consistent"]}]
+        return {"before_stock": before, "after_stock": after, "before_fingerprint": before_fp, "restock_before": restock_before, "unrelated_before": unrelated_before, "after_ledger": {k: after_led[k] for k in ("ledger_actual", "outstanding", "restock_total", "repair_total")}, "checks": checks, "pass": all(c["ok"] for c in checks)}
     finally:
         tmp.close()
+
+
+def _candidate(p):
+    return {"credit_qty": p["credit_qty"], "reverse_event_ids": sorted(p["reverse_event_ids"])}
+
+
+def _rust_gate(conn, p, expected_after=None):
+    try:
+        result = rust_verifier.verify_current(conn, p["product_id"], _candidate(p))
+    except rust_verifier.RustVerificationError as exc:
+        raise ApprovalError(f"rust verification failed: {exc.code}") from None
+    if result.get("proposal_matches") is not True:
+        raise ApprovalError("rust verification failed: candidate_mismatch")
+    if expected_after is not None and result.get("expected_stock") != expected_after:
+        raise ApprovalError("rust verification failed: candidate_mismatch")
+    return result
+
+
+def _rust_public_on_snapshot(snap_conn, p, candidate):
+    snap = store.fingerprint(snap_conn, p["product_id"])
+    try:
+        return rust_verifier.verify_current(snap_conn, p["product_id"], candidate, snapshot_hash=snap), True
+    except rust_verifier.RustVerificationError as exc:
+        return rust_verifier.failure_public(exc, snap), False
+    except Exception:
+        return rust_verifier.failure_public(rust_verifier.RustVerificationError("rust_unavailable"), snap), False
 
 
 def preview_proposal(conn, proposal_id):
     p = _get_proposal(conn, proposal_id)
     if p["status"] == "needs_review":
         return {"proposal": p, "status": "needs_review", "reason": p["reason"]}
-    led = domain.compute_ledger(conn, p["product_id"])
-    current = store.fingerprint(conn, p["product_id"])
-    sim = _simulate(conn, p)
-    unrelated = [dict(r) for r in conn.execute("SELECT product_id, stock FROM products WHERE product_id != ?", (p["product_id"],)).fetchall()]
-    return {
-        "proposal": p, "status": "proposed", "before_stock": sim["before_stock"], "after_stock": sim["after_stock"],
-        "credit_qty": p["credit_qty"], "reverse_event_ids": p["reverse_event_ids"],
-        "preserved_restock_ids": [r["id"] for r in sim["restock_before"]], "unrelated_products": unrelated,
-        "diff": {"stock_delta": sim["after_stock"] - sim["before_stock"], "events_added": 1, "restocks_untouched": [r["id"] for r in sim["restock_before"]]},
-        "simulation_checks": sim["checks"], "simulation_pass": sim["pass"],
-        "invariants": [
-            {"name": "ledger_matches_stock", "ok": led["stock_matches_ledger"]},
-            {"name": "credit_equals_outstanding", "ok": p["credit_qty"] == led["outstanding"]},
-            {"name": "qty_consistent", "ok": led["qtys_consistent"]},
-            {"name": "simulation_pass", "ok": sim["pass"]},
-        ],
-        "snapshot_match": current == p["snapshot_hash"],
-    }
+    snap_conn = _copy_conn(conn)
+    try:
+        sp = _get_proposal(snap_conn, proposal_id)
+        if sp["status"] == "needs_review":
+            return {"proposal": sp, "status": "needs_review", "reason": sp["reason"]}
+        if sp["status"] == "applied":
+            led = domain.compute_ledger(snap_conn, sp["product_id"])
+            current = store.fingerprint(snap_conn, sp["product_id"])
+            rust, rust_ok = _rust_public_on_snapshot(snap_conn, sp, None)
+            unrelated = [dict(r) for r in snap_conn.execute("SELECT product_id, stock FROM products WHERE product_id != ?", (sp["product_id"],)).fetchall()]
+            restocks = [r["id"] for r in snap_conn.execute("SELECT id FROM events WHERE product_id=? AND kind='restock' ORDER BY id", (sp["product_id"],)).fetchall()]
+            return {"proposal": sp, "status": "applied", "before_stock": led["actual"], "after_stock": led["actual"], "credit_qty": sp["credit_qty"], "reverse_event_ids": sp["reverse_event_ids"], "preserved_restock_ids": restocks, "unrelated_products": unrelated, "diff": {"stock_delta": 0, "events_added": 0, "restocks_untouched": restocks}, "simulation_checks": [], "simulation_pass": False, "invariants": [{"name": "ledger_matches_stock", "ok": led["stock_matches_ledger"]}, {"name": "qty_consistent", "ok": led["qtys_consistent"]}, {"name": "rust_agreement", "ok": rust_ok}], "snapshot_match": current == sp["snapshot_hash"], "rust_verification": rust}
+        if sp["status"] not in ("proposed", "approved"):
+            return {"proposal": sp, "status": sp["status"], "reason": sp["reason"]}
+        led = domain.compute_ledger(snap_conn, sp["product_id"])
+        current = store.fingerprint(snap_conn, sp["product_id"])
+        sim = _simulate(snap_conn, sp)
+        rust, rust_ok = _rust_public_on_snapshot(snap_conn, sp, _candidate(sp))
+        unrelated = [dict(r) for r in snap_conn.execute("SELECT product_id, stock FROM products WHERE product_id != ?", (sp["product_id"],)).fetchall()]
+        return {"proposal": sp, "status": sp["status"], "before_stock": sim["before_stock"], "after_stock": sim["after_stock"], "credit_qty": sp["credit_qty"], "reverse_event_ids": sp["reverse_event_ids"], "preserved_restock_ids": [r["id"] for r in sim["restock_before"]], "unrelated_products": unrelated, "diff": {"stock_delta": sim["after_stock"] - sim["before_stock"], "events_added": 1, "restocks_untouched": [r["id"] for r in sim["restock_before"]]}, "simulation_checks": sim["checks"], "simulation_pass": bool(sim["pass"] and rust_ok), "invariants": [{"name": "ledger_matches_stock", "ok": led["stock_matches_ledger"]}, {"name": "credit_equals_outstanding", "ok": sp["credit_qty"] == led["outstanding"]}, {"name": "qty_consistent", "ok": led["qtys_consistent"]}, {"name": "simulation_pass", "ok": sim["pass"]}, {"name": "rust_agreement", "ok": rust_ok}], "snapshot_match": current == sp["snapshot_hash"], "rust_verification": rust}
+    finally:
+        snap_conn.close()
 
 
 def approve_proposal(conn, proposal_id, snapshot_hash, actor_id="local-core"):
@@ -301,6 +324,8 @@ def approve_proposal(conn, proposal_id, snapshot_hash, actor_id="local-core"):
         sp = _get_proposal(snap_conn, proposal_id)
         if sp != p:
             raise StaleStateError("stale snapshot: proposal changed; make a new preview")
+        if sp["status"] == "needs_review":
+            raise ApprovalError("cannot approve a needs-review proposal")
         current_snap = store.fingerprint(snap_conn, p["product_id"])
         if current_snap != p["snapshot_hash"]:
             raise StaleStateError("stale snapshot: state changed after preview; make a new preview")
@@ -333,9 +358,10 @@ def approve_proposal(conn, proposal_id, snapshot_hash, actor_id="local-core"):
         led = domain.compute_ledger(conn, p["product_id"])
         if p["credit_qty"] != led["outstanding"] or not led["stock_matches_ledger"]:
             raise StaleStateError("stale state: ledger no longer matches proposal; make a new preview")
+        rust = _rust_gate(conn, p, expected_after=baseline["after_stock"])
         conn.execute("INSERT INTO approvals(id, proposal_id, snapshot_hash, baseline_json, created_at, actor_id) VALUES (?,?,?,?,?,?)", (aid, proposal_id, current, json.dumps(baseline, sort_keys=True), int(time.time()), actor_id))
         conn.execute("UPDATE proposals SET status='approved' WHERE id=?", (proposal_id,))
-        store.audit(conn, "approve", proposal_id, json.dumps({"approval_id": aid, "snapshot": current, "actor_id": actor_id}), actor_id=actor_id)
+        store.audit(conn, "approve", proposal_id, json.dumps({"approval_id": aid, "snapshot": current, "actor_id": actor_id, "rust_verification": {"verifier_version": rust["verifier_version"], "snapshot_hash": rust["snapshot_hash"], "ledger_actual": rust["ledger_actual"], "expected_stock": rust["expected_stock"], "outstanding_credit": rust["outstanding_credit"], "reverse_event_ids": rust["reverse_event_ids"]}}), actor_id=actor_id)
         conn.commit()
     except Exception:
         try:
@@ -343,7 +369,7 @@ def approve_proposal(conn, proposal_id, snapshot_hash, actor_id="local-core"):
         except Exception:
             pass
         raise
-    return {"approval_id": aid, "proposal_id": proposal_id, "snapshot_hash": baseline["snapshot_hash"], "actor_id": actor_id}
+    return {"approval_id": aid, "proposal_id": proposal_id, "snapshot_hash": baseline["snapshot_hash"], "actor_id": actor_id, "rust_verification": rust}
 
 
 def apply_proposal(conn, proposal_id, approval_id, idempotency_key, actor_id="local-core"):
@@ -359,8 +385,6 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key, actor_id="lo
         ap = conn.execute("SELECT * FROM approvals WHERE id=?", (approval_id,)).fetchone()
         if ap is None or ap["proposal_id"] != proposal_id:
             raise ApprovalError("approval does not authorize this proposal")
-        # Actor binding is checked before any cached-success or
-        # already-applied shortcut, and before any mutation.
         try:
             approval_actor = ap["actor_id"]
         except Exception:
@@ -398,14 +422,12 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key, actor_id="lo
         if any(i in already for i in p["reverse_event_ids"]):
             raise StaleStateError("stale state: duplicate already repaired; make a new preview")
         before, after = led["actual"], led["actual"] + p["credit_qty"]
-        conn.execute(
-            "INSERT INTO events(product_id, kind, qty, order_id, ts, note, reversed_ids, repair_proposal_id) VALUES (?,?,?,?,?,?,?,?)",
-            (p["product_id"], "repair_credit", p["credit_qty"], None, int(time.time()), "repair credit", json.dumps(sorted(p["reverse_event_ids"])), proposal_id),
-        )
+        rust = _rust_gate(conn, p, expected_after=after)
+        conn.execute("INSERT INTO events(product_id, kind, qty, order_id, ts, note, reversed_ids, repair_proposal_id) VALUES (?,?,?,?,?,?,?,?)", (p["product_id"], "repair_credit", p["credit_qty"], None, int(time.time()), "repair credit", json.dumps(sorted(p["reverse_event_ids"])), proposal_id))
         conn.execute("UPDATE products SET stock = stock + ? WHERE product_id=?", (p["credit_qty"], p["product_id"]))
         conn.execute("UPDATE proposals SET status='applied' WHERE id=?", (proposal_id,))
-        store.audit(conn, "apply", proposal_id, json.dumps({"approval_id": approval_id, "credit": p["credit_qty"], "before": before, "after": after, "reversed": sorted(p["reverse_event_ids"]), "actor_id": actor_id}), actor_id=actor_id)
-        result = {"status": "applied", "proposal_id": proposal_id, "before_stock": before, "after_stock": after, "credit_qty": p["credit_qty"], "idempotent": False}
+        store.audit(conn, "apply", proposal_id, json.dumps({"approval_id": approval_id, "credit": p["credit_qty"], "before": before, "after": after, "reversed": sorted(p["reverse_event_ids"]), "actor_id": actor_id, "rust_verification": {"verifier_version": rust["verifier_version"], "snapshot_hash": rust["snapshot_hash"], "ledger_actual": rust["ledger_actual"], "expected_stock": rust["expected_stock"], "outstanding_credit": rust["outstanding_credit"], "reverse_event_ids": rust["reverse_event_ids"]}}), actor_id=actor_id)
+        result = {"status": "applied", "proposal_id": proposal_id, "before_stock": before, "after_stock": after, "credit_qty": p["credit_qty"], "idempotent": False, "rust_verification": rust}
         conn.execute("INSERT INTO idempotency_keys(idempotency_key, proposal_id, approval_id, result, created_at) VALUES (?,?,?,?,?)", (idempotency_key, proposal_id, approval_id, json.dumps(result), int(time.time())))
         conn.commit()
         return result
@@ -422,12 +444,7 @@ def verify_product(conn, product_id, proposal_id=None):
         raise NotFoundError("product not found")
     led = domain.compute_ledger(conn, product_id)
     _, repair_errors, repairs = _repair_state(conn, product_id)
-    checks = [
-        {"name": "stock_matches_ledger", "ok": led["stock_matches_ledger"], "detail": f"stock={led['actual']} ledger={led['ledger_actual']}"},
-        {"name": "no_outstanding_duplicate", "ok": led["outstanding"] == 0, "detail": f"outstanding={led['outstanding']}"},
-        {"name": "qty_consistent", "ok": led["qtys_consistent"], "detail": "per-order quantities consistent"},
-        {"name": "repair_history_valid", "ok": not repair_errors, "detail": "; ".join(repair_errors) or "prior repair references valid"},
-    ]
+    checks = [{"name": "stock_matches_ledger", "ok": led["stock_matches_ledger"], "detail": f"stock={led['actual']} ledger={led['ledger_actual']}"}, {"name": "no_outstanding_duplicate", "ok": led["outstanding"] == 0, "detail": f"outstanding={led['outstanding']}"}, {"name": "qty_consistent", "ok": led["qtys_consistent"], "detail": "per-order quantities consistent"}, {"name": "repair_history_valid", "ok": not repair_errors, "detail": "; ".join(repair_errors) or "prior repair references valid"}]
     preservation_verified = False
     if proposal_id:
         preservation_verified = True
@@ -443,7 +460,7 @@ def verify_product(conn, product_id, proposal_id=None):
         link_ok = binding_ok and p["status"] == "applied" and len(linked) == 1
         if link_ok:
             try:
-                vals = sorted(int(x) for x in json.loads(linked[0]["reversed_ids"]))
+                vals = _strict_stored_ids(linked[0]["reversed_ids"])
             except Exception:
                 vals = None
             link_ok = linked[0]["product_id"] == product_id and linked[0]["qty"] == p["credit_qty"] and vals == sorted(p["reverse_event_ids"]) and bool(vals)
@@ -458,7 +475,7 @@ def verify_product(conn, product_id, proposal_id=None):
                     raise ValueError
                 if base.get("snapshot_hash") != ap["snapshot_hash"] or base.get("snapshot_hash") != p["snapshot_hash"]:
                     raise ValueError
-                if base.get("credit_qty") != p["credit_qty"] or sorted(int(x) for x in base["reverse_event_ids"]) != sorted(p["reverse_event_ids"]):
+                if base.get("credit_qty") != p["credit_qty"] or _strict_stored_ids(json.dumps(base["reverse_event_ids"])) != sorted(p["reverse_event_ids"]):
                     raise ValueError
                 if not isinstance(prods, list) or not prods or not isinstance(evs, list):
                     raise ValueError

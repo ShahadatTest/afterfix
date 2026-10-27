@@ -1,6 +1,6 @@
 # Standalone Rust verifier — protocol 1
 
-The `rust-verifier/` crate builds `afterfix-verifier` version0.1.0. It independently checks a supplied synthetic product ledger and an optional repair candidate. It reads stdin and writes stdout; it has no database/network/write/approval tools. This milestone is standalone: Python API approval/apply does not invoke it yet. A passing standalone response is not authorization to apply a repair.
+The `rust-verifier/` crate builds `afterfix-verifier` version0.1.0. It independently checks a supplied synthetic product ledger and an optional repair candidate. It reads stdin and writes stdout; it has no database/network/write/approval tools. Python now invokes the fixed executable for preview and inside approval/apply transactions; see RUST_INTEGRATION.md. A verifier response alone is not authorization to apply a repair.
 
 ## Build and test
 
@@ -54,6 +54,6 @@ Exit0 includes validly parsed domain failures (`ok:false`); consumers must check
 
 The map-shape preflight and typed decoding are complementary: preflight rejects array representations; original bytes are then decoded into strict typed structs so duplicate keys are still rejected. See [Serde's unknown-field behavior](https://serde.rs/container-attrs.html) and [field deserialization attributes](https://serde.rs/field-attrs.html).
 
-## Remaining integration gate
+## API integration
 
-The next task adds a fixed local executable adapter with shell disabled, bounded input/output, timeout and strict response validation. It must compare the bound current snapshot against Python results, and block approval/apply on unavailable verification, mismatch or failure. Apply must invoke checks inside its transaction; cached preview results cannot replace current-state checking. The accepted Python transaction/idempotency/preservation checks stay in force. No configurable arbitrary command, credential forwarding or silent success fallback is permitted.
+The fixed local adapter uses shell disabled, bounded input/output, execution/cleanup deadlines and strict response validation. It compares the current snapshot against independent Python results and blocks approval/apply on unavailable verification, mismatch or failure. Apply invokes it inside its transaction; cached preview results cannot replace current-state checking. Python transaction/idempotency/preservation checks stay in force. No configurable arbitrary command, credential forwarding or silent success fallback exists.327 Python tests and an actual authenticated live-model browser recovery passed on this Windows host; held-out/mobile/release checks remain.
