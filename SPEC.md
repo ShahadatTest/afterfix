@@ -52,6 +52,6 @@ The lead decides advancement between milestones after reviewing evidence. Do not
 
 ## Credit control
 
-The owner has claimed $150 in Meta API credits but has not yet configured the API key locally. Initial run must be a small, bounded connection test; confirm actual credit availability before starting paid generation. Use Standard-mode models by default. Do not enable training/Contributor mode or subscriptions without owner approval. Never assume a spending notification is an enforced hard limit.
+The owner configured the API key locally and confirmed $150 available promotional credit on 2026-10-27. A bounded live connection test succeeded. Refresh credit verification before unattended generation when the local credit gate expires; other account activity is not visible to the local ledger. Use Standard-mode models by default. Do not enable training/Contributor mode or subscriptions without owner approval. Never assume a spending notification is an enforced hard limit.
 
 Target a conservative total of at most $100 estimated project API spend and reserve at least $50 for live product evaluation/demo, subject to verified current available credit and other account usage. Count coding and runtime calls together when visible. Use provider usage/remaining-credit records when available; stop rather than invent a balance. No charges beyond available promotional credits are authorized. The lead must enforce a trustworthy budget before unattended paid loops.

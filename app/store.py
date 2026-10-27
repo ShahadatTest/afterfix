@@ -1,0 +1,117 @@
+"""SQLite persistence, fingerprinting, and synthetic seed workflow."""
+import hashlib
+import json
+import os
+import sqlite3
+import time
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS products(product_id TEXT PRIMARY KEY, name TEXT, stock INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id TEXT NOT NULL, kind TEXT NOT NULL, qty INTEGER NOT NULL, order_id TEXT, ts INTEGER NOT NULL, note TEXT DEFAULT '', reversed_ids TEXT NOT NULL DEFAULT '[]');
+CREATE TABLE IF NOT EXISTS incidents(id TEXT PRIMARY KEY, product_id TEXT NOT NULL, description TEXT NOT NULL, status TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS proposals(id TEXT PRIMARY KEY, incident_id TEXT NOT NULL, product_id TEXT NOT NULL, credit_qty INTEGER NOT NULL DEFAULT 0, reverse_event_ids TEXT NOT NULL DEFAULT '[]', snapshot_hash TEXT NOT NULL DEFAULT '', status TEXT NOT NULL, reason TEXT DEFAULT '', created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS approvals(id TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, snapshot_hash TEXT NOT NULL, baseline_json TEXT NOT NULL DEFAULT '{}', created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS idempotency_keys(idempotency_key TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, approval_id TEXT NOT NULL, result TEXT NOT NULL, created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS audit_log(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, action TEXT NOT NULL, proposal_id TEXT NOT NULL, detail TEXT NOT NULL);
+"""
+
+CANONICAL_INCIDENT = "INC-001"
+CANONICAL_PRODUCT = "WIDGET-1"
+
+
+def get_db_path():
+    return os.environ.get("AFTERFIX_DB", "afterfix.db")
+
+
+def connect(path=None):
+    conn = sqlite3.connect(path or get_db_path(), timeout=10)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys=ON")
+    init_db(conn)
+    return conn
+
+
+def init_db(conn):
+    conn.executescript(SCHEMA)
+    # Lightweight migration for DBs created by older schema.
+    cols = {r[1] for r in conn.execute("PRAGMA table_info(events)").fetchall()}
+    if "reversed_ids" not in cols:
+        conn.execute("ALTER TABLE events ADD COLUMN reversed_ids TEXT NOT NULL DEFAULT '[]'")
+    acols = {r[1] for r in conn.execute("PRAGMA table_info(approvals)").fetchall()}
+    if "baseline_json" not in acols:
+        conn.execute("ALTER TABLE approvals ADD COLUMN baseline_json TEXT NOT NULL DEFAULT '{}'")
+    conn.commit()
+
+
+def get_product(conn, product_id):
+    return conn.execute("SELECT * FROM products WHERE product_id=?", (product_id,)).fetchone()
+
+
+def list_product_events(conn, product_id):
+    return conn.execute("SELECT * FROM events WHERE product_id=? ORDER BY id", (product_id,)).fetchall()
+
+
+def get_incident(conn, incident_id):
+    return conn.execute("SELECT * FROM incidents WHERE id=?", (incident_id,)).fetchone()
+
+
+def fingerprint(conn, product_id):
+    """Unambiguous fingerprint over every field verification relies on."""
+    prod = get_product(conn, product_id)
+    if prod is None:
+        raise ValueError(f"unknown product {product_id}")
+    rows = conn.execute(
+        "SELECT id, kind, qty, COALESCE(order_id,'') AS oid, ts, COALESCE(note,'') AS note, COALESCE(reversed_ids,'[]') AS rev FROM events WHERE product_id=? ORDER BY id",
+        (product_id,),
+    ).fetchall()
+    payload = {
+        "product_id": product_id,
+        "stock": prod["stock"],
+        "events": [
+            {"id": r["id"], "kind": r["kind"], "qty": r["qty"], "order_id": r["oid"], "ts": r["ts"], "note": r["note"], "reversed_ids": r["rev"]}
+            for r in rows
+        ],
+    }
+    blob = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(blob).hexdigest()
+
+
+def audit(conn, action, proposal_id, detail):
+    conn.execute(
+        "INSERT INTO audit_log(ts, action, proposal_id, detail) VALUES (?,?,?,?)",
+        (int(time.time()), action, proposal_id, detail),
+    )
+
+
+def reset_and_seed(conn):
+    """Reproduce the canonical incident through the executable buggy path.
+
+    Canonical quantities live only here; the investigator never sees them
+    as expected outputs. Descriptions and notes stay neutral observations.
+    """
+    from app import domain  # local import to avoid cycle
+
+    init_db(conn)
+    for t in ("idempotency_keys", "audit_log", "approvals", "proposals", "events", "incidents", "products"):
+        conn.execute(f"DELETE FROM {t}")
+    conn.execute(
+        "INSERT INTO incidents(id, product_id, description, status) VALUES (?,?,?,?)",
+        (CANONICAL_INCIDENT, CANONICAL_PRODUCT, "Reported stock discrepancy for WIDGET-1; reconcile ledger against recorded events", "open"),
+    )
+    conn.execute("INSERT INTO products(product_id, name, stock) VALUES (?,?,?)", ("WIDGET-1", "Widget", 100))
+    conn.execute("INSERT INTO products(product_id, name, stock) VALUES (?,?,?)", ("GADGET-9", "Gadget", 50))
+    ts = int(time.time())
+    conn.execute("INSERT INTO events(product_id, kind, qty, order_id, ts, note) VALUES (?,?,?,?,?,?)", ("WIDGET-1", "init", 100, None, ts, "opening record"))
+    conn.execute("INSERT INTO events(product_id, kind, qty, order_id, ts, note) VALUES (?,?,?,?,?,?)", ("GADGET-9", "init", 50, None, ts, "opening record"))
+    conn.commit()
+    # Executable bug: same business order recorded twice without guard.
+    domain.process_order_buggy(conn, "WIDGET-1", "ORD-1001", 10)
+    domain.process_order_buggy(conn, "WIDGET-1", "ORD-1001", 10)
+    # Later valid activity that recovery must preserve.
+    domain.process_restock(conn, "WIDGET-1", 20, note="received shipment")
+    domain.process_order_fixed(conn, "GADGET-9", "ORD-9001", 5)
+    audit(conn, "seed", "-", "seeded via executable order/restock path")
+    conn.commit()
+    w = get_product(conn, "WIDGET-1")
+    g = get_product(conn, "GADGET-9")
+    return {"incident_id": CANONICAL_INCIDENT, "widget_stock": w["stock"], "gadget_stock": g["stock"]}
