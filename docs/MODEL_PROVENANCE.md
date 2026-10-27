@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Durable report contract correction review —2026-10-28
+
+Wonder1.0 c5835d19/job954978d5:19231 input/23417 output,estimate$0.545264; cumulative completed$11.0675235 before next request. All3 sources/diffs plus reused prior main.py hooks reviewed before temporary execution. Actual full suite344passed/2failed/1existingwarning28.53s; initial preview contract mismatch and test snapshot key mismatch. Independent offline probes confirmed omitted real Rust verifier_version/computed fields, nested synthetic audit marker exposure and changed accepted fingerprint when reversed_ids is raw empty text. Restored accepted main/store and removed only copied new module/test. No paid runtime calls; accepted327-test Rust checkpoint unchanged. Marked corrections_requested, queued f8afc6ac using prompt39 for one bounded exact-edit artifact against c5835d19; explicit case materializer profile stages only after lead review, controller syntax passed. No generation waiting/polling/publication/deployment.
+
 ## Durable report initial review —2026-10-28
 
 Wonder1.0 cd124fb1/job0b14477f:17482 input/18174 output,estimate$0.433408; cumulative completed$10.5222595. Source/diffs for module/main/store/tests reviewed before temporary execution. Actual suite337passed/1failed/1existingwarning27.50s; oversized blob silently shrank. Independent probes also confirmed dropped public token counts, truncated raw patch and permissive verification interpretation. Strict read-side/version/binding/bounds needed. Restored accepted main/store and removed only newly copied report module/test; no unaccepted product code committed,327-test Rust milestone preserved. Next correction job954978d5 queued with prompt38, no generation waiting/runtime API/browser/production action this turn.
