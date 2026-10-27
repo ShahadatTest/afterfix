@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Two remaining report fixes —2026-10-28
+
+Wonder1.0 run79e73ada/job314eb971:27857input/11030output,estimate$0.332028,cumulative$11.7574475. Reviewed12 exact edits, materialized against7d3ef7b5 with unique matches/AST/hashes and reviewed full diffs before temporary assembly. Actual focused pytest21passed/2failed/1existingwarning4.26s. Canonical/current binding/prior corruption checks pass; valid multi-product baseline incorrectly checked as one scope, manual rawpatch test missing selectedIDs. New combined mutation test blocked at valid baseline assertion. Restored accepted product main/store, removed new copied module/test; no full suite repeat/paid runtime. Marked corrections_requested; queuedb1ffb957 via prompt42 for <=4 exact edits to only these two defects, max8192. Accepted327-test Rust checkpoint unchanged; no generation waiting/publication/deployment.
+
 ## Durable report binding review —2026-10-28
 
 Wonder1.0 run7d3ef7b5/jobf196d353:26379input/12619output,estimate$0.357896, cumulativecompleted$11.4254195. All17 exact edits reviewed, materializer checked c5835d19 immutable base/unique matches/AST/hashes, full source diffs reviewed before temporary assembly with prior cd124fb1 main hooks. Focused actual pytest21passed/1failed/1existingwarning4.73s: canonical full flow passes; new audit assertion confuses correct pre-write Rust ledger100 with final110. Independent offline probes also reproduced missing valid baseline export and permissive stored Rust/read-citation/proposal-credit/binding integrity. Restored accepted product main/store; removed copied module/test; no unaccepted product code committed or paid runtime used. Marked corrections_requested and queued314eb971/prompt41 for <=12 exact edits against7d3ef7b5. Dry payload$0.928224 within unchanged$1 guard/freshness/reserve; no generation waiting. Accepted327-test Rust checkpoint unchanged; full suite deferred until focused passes.
