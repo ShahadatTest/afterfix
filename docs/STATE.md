@@ -8,15 +8,21 @@ A REAL guarded Muse Spark1.3 investigation succeeded on an isolated synthetic DB
 
 The previous preservation false positive and incident-scope race are fixed with regressions. Historical event alteration/deletion, malformed baseline/references, wrong credit/linkage, stale data/incident metadata, forbidden tools, unknown citations, failed usage and concurrent repairs are tested. Trusted synthetic SQLite/event-identity assumptions apply; no cryptographic guarantee against an attacker rewriting every DB/approval record. No production service or hosting deployed.
 
-## Current UI work — resume here
+## UI milestone accepted — resume here
 
 Sites skill was read for local UI design/preview guidance. Current work is local-only on the existing React/TypeScript + FastAPI checkout; skip Site registration/sync/publication. Keep Meta model as product implementation provider. Sites local preview reference was read; run local preview only when needed, verify successful HTTP then supported browser QA, and stop owned preview servers at teardown. No hosting migration to Workers.
 
-Frontend scaffold is installed under frontend/. It is ONLY a placeholder App right now. Node24.18.0/npm12.0.2 are available; npm install --ignore-scripts --no-audit --no-fund completed (24 packages), lockfile generated. Dependency versions verified from public npm registry: React/DOM19.3.1, Vite8.3.5, plugin-react6.1.2, TypeScript7.0.2, React types19.3.0. Build/check not yet run on real UI.
+Complete local React interface is installed under frontend/: investigate, evidence/patch dialogs, deterministic preview, separate approve/apply, verification and JSON export. Node24.18.0/npm12.0.2; npm install --ignore-scripts --no-audit --no-fund completed (24 packages), lockfile generated. Dependency versions verified from public npm registry: React/DOM19.3.1, Vite8.3.5, plugin-react6.1.2, TypeScript7.0.2, React types19.3.0.
 
-CURRENT Meta UI generation: run91e8376b-12e9-43ad-8897-f872ea0046f2, command session83493; prompt ../afterfix-control/prompts/16-recovery-interface.md. Wonder Standard, medium reasoning, max24576 output; conservative request bound $0.64844. It returns only frontend/src/App.tsx/styles.css and optional types.ts/api.ts. Do not duplicate the request. Inspect saved run/budget ledger; review staged UI before installing it. Then run npm.cmd run build in frontend and browser-test actual workflow. Do not present placeholder as finished UI.
+Meta UI run91e8376b was reviewed/installed, then corrected by cb6940ba (actual integer timestamp / JSON-string reversed IDs / restock-ID-array contracts, citation dialogs, synchronous mutation mutex, stale409 invalidation, correct baseline labels). Build exposed nullable applyResult; minimal revision3293587a fixed the guard and required proposed status before approval. Final npm.cmd run build PASSED (strict TypeScript + Vite,17 modules,184ms). All sources reviewed before execution. No Meta request is active or unresolved.
 
-Next UI verification needs a local backend with the shared credit guard injected through get_investigation_client. Current default web route deliberately requires an explicitly configured loopback budget gateway and dummy credential; no unguarded official-API fallback. A lead-only local preview launcher may run BudgetedMetaTransport as a context, set app.dependency_overrides[get_investigation_client]=lambda:MetaClient(transport=guard), and serve Uvicorn on127.0.0.1:18157. The guard owns runner.lock for its lifetime, caps live calls/cost and validates current credit; stop preview before coding calls that need the same lock. Never use a fake model while labelling browser QA live. The real API key stays in control transport, not frontend/source/output. The preview launcher is not yet written.
+Lead-only launcher ../afterfix-control/preview_local.py now injects BudgetedMetaTransport through get_investigation_client; loopback18157, isolated synthetic DB outside Git, maximum6 calls/$0.25 per session, serialized transport, same credit/runner lock. Product default web route still requires an explicit loopback budget gateway and dummy credential; no unguarded official fallback. Stop preview before coding calls. Start with exec tty=true to retain stdin, then send "stop\n" for graceful shutdown. A no-TTY lifecycle probe found closed stdin; stopped the identified owned process and reconciled zero calls. Repeated with TTY: graceful Uvicorn shutdown/exit0 and automatic ledger finalization passed, zero Meta calls. The actual key stays only in controller memory.
+
+Actual Chrome desktop QA completed 2026-10-27T16:23Z at1266x578: empty state -> explicit Load demo -> Run investigation with REAL Spark1.3 -> actual preview100 to110 -> citation#4 opened raw event; Escape returned focus -> review checkbox gated approval -> separate approve -> separate apply -> verification10/10 checks/pass/preservation true -> JSON download opened/validated. Patch dialog showed actual handler diff and Escape returned focus. DB independently confirmed one approval, one repair_credit row, GADGET-9 stock45 unchanged. Live runbce0a2b7:3 requests,3296 input/931 output tokens,$0.00807675 local estimate. Report docs/evaluations/browser-live-recovery-2026-10-27.json. Screenshot ../afterfix-control/evaluations/afterfix-verified-desktop.png. This is a synthetic live-model flow, not a production validation or held-out benchmark.
+
+Owned frontend/backend preview processes stopped;18173/18157 confirmed closed. Ctrl+C on piped exec terminated without context-manager finalization; controller ledger reconciled under runner.lock only after confirming all3 calls settled, zero active reservations and both ports closed. No request duplicated. Launcher now has explicit graceful stdin stop. Browser tab is routine QA, not retained as a running deliverable.
+
+Remaining UI checks: mobile viewport, browser stale409/failure paths and held-out scenarios. Existing backend tests cover stale-state and other failures; do not imply browser coverage yet. Minor copy limitations: timeline still says "To reverse" after application and incident status remains backend "open" even when verification passes; no auto-close implemented. Export has claims/trace/results but not full raw evidence or hypothesis; improve for standalone replay if needed. No further cosmetic loop before scenario evaluation.
 
 Frontend dev port18173 and preview18174 bind127.0.0.1; /api proxies to backend18157. Avoid wildcard CORS. User must explicitly approve and then apply a specific preview; UI must reuse apply idempotency key across retries, stop on409, and render model/log/patch text safely.
 
@@ -26,7 +32,7 @@ Frontend dev port18173 and preview18174 bind127.0.0.1; /api proxies to backend18
 - Runtime client/investigator: Wonder1cd897ba, then incident-scope recheck52b986de. Earlier87a7546b/c337408d drafts rejected, never installed.
 - Offline client/investigator tests: b03abb3a; scope tests52b986de.
 - Investigation API:9c1364a9, sanitized422 handler/import fix02835ba9. One invalid test expectation was corrected by c996f14e (a valid verify body correctly returns404; changed test body to invalid type). App was not weakened to satisfy bad tests.
-- Frontend scaffold also c996f14e. Source-generation UI context suffixes now support .tsx/.ts/.css/.html; earlier failed controller preflight made NO API call.
+- Frontend scaffold c996f14e; complete interface91e8376b, contract/mutex/stale fixes cb6940ba, minimal type/status correction3293587a. Source-generation context supports .tsx/.ts/.css/.html.
 - Full raw Meta responses, prompts and budget ledger stay outside this repo in ../afterfix-control/. Never send/read .env into tool output or model context. --draft-run supports validated staged source context without execution.
 
 ## Verification actually completed
@@ -37,18 +43,19 @@ Frontend dev port18173 and preview18174 bind127.0.0.1; /api proxies to backend18
 - Independent scope-race probe exposed accidental live abstention row; Meta added under-lock complete incident recheck and six regressions; all now pass.
 - Controller budget/path guard checks and per-model rate settlement checks passed; compile checks passed.
 - Isolated Python dependency check passed previously; no new Python dependencies added.
-- Exact key-value product-source scan passed before final backend/API additions; repeat secret scan before publication. No credentials in prompts or generated source by design.
+- Frontend strict TypeScript/Vite build passed after reviewed correction; live desktop workflow and JSON export verified as above.
+- Exact key-value scan passed for35 tracked/nonignored product files after UI/report additions; no key displayed. Repeat before publication. No credentials in prompts or generated source by design.
 
 ## Credit and automation
 
-Owner reported $150 available promotional credit on2026-10-27; credit-state.json is a24-hour owner_report gate, not a live provider balance. Completed-call local estimate before current UI generation is $2.9004135. Current request retains conservative reservation until API usage settles. Standard Spark and Wonder use per-model official rates; cached discounts are ignored conservatively. Shared local project cap$100 and $50 promotional reserve remain enforced. Other account activity is not visible; reconcile when reported/available. No overage/subscription/Contributor mode authorized.
+Owner reported $150 available promotional credit on2026-10-27; credit-state.json is a24-hour owner_report gate, not a live provider balance. Completed-call local estimate through UI revisions and browser live investigation is $3.69283825. No active request/reservation. Standard Spark and Wonder use per-model official rates; cached discounts are ignored conservatively. Shared local project cap$100 and $50 promotional reserve remain enforced. Other account activity is not visible; reconcile when reported/available. No overage/subscription/Contributor mode authorized.
 
 Heartbeat afterfix-meta-model-lead ACTIVE every30minutes through2026-11-04 20:00UTC. Continue saved state with one model run at a time; quiet on unchanged/non-actionable state. Host/tools must be available; no claim of uninterrupted execution.
 
 ## Remaining delivery
 
-1. Review/build complete UI and real browser flow; show actual preview when ready.
-2. Broader held-out/live scenario evaluation and reproducible bounded runtime launcher/setup.
+1. Broader held-out/live scenario evaluation (varied quantities, legitimate later orders/restocks, incomplete/conflicting evidence); retain actual results without tuning to expected answers.
+2. Mobile/failure/stale browser checks and reproducible bounded runtime launcher/setup usable from public checkout (current guarded launcher/controller stays outside repo).
 3. Deployment preparation, demo/video script and submission package.
 
 No public repository/push, deployment, production change, legal acceptance, billing change or contest submission performed. Those require an authorized concrete task. Submission deadline2026-11-05 08:00 Bangladesh; stop initiating work2026-11-05 02:00 Bangladesh for buffer.

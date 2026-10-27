@@ -1,0 +1,260 @@
+{
+  "report_type": "AfterFix local synthetic recovery report",
+  "labels": {
+    "data": "Synthetic inventory / Local demo",
+    "model_claims": "Labelled as model explanation where shown in the interface",
+    "deterministic_checks": "Preview simulation, invariants and verification results as returned by the API"
+  },
+  "exported_at": "2026-10-27T16:23:11.923Z",
+  "incident": {
+    "id": "INC-001",
+    "product_id": "WIDGET-1",
+    "description": "Reported stock discrepancy for WIDGET-1; reconcile ledger against recorded events",
+    "status": "open"
+  },
+  "product": {
+    "product_id": "WIDGET-1",
+    "name": "Widget",
+    "stock": 110
+  },
+  "snapshot_hash": "ed796a44e82642bbbd558a84d6cfc470e66ebb85a69c82a22ca8d8a488c855ff",
+  "investigation": {
+    "status": "proposed",
+    "proposal_id": "PROP-3bbd5f78",
+    "model": "muse-spark-1.3",
+    "usage": {
+      "model": "muse-spark-1.3",
+      "requests": 3,
+      "input_tokens": 3296,
+      "output_tokens": 931,
+      "total_tokens": 4227,
+      "estimated_cost": 0.00807675,
+      "estimated_cost_usd": 0.00807675,
+      "cost_usd": 0.00807675,
+      "unknown_usage_calls": 0,
+      "unknown_usage": 0,
+      "reserved_output_tokens": 0,
+      "reserved_cost": 0,
+      "blocked": false
+    },
+    "observations": [
+      {
+        "evidence_event_ids": [
+          1
+        ],
+        "text": "Event 1 init WIDGET-1 qty 100 opening record."
+      },
+      {
+        "evidence_event_ids": [
+          3
+        ],
+        "text": "Event 3 order_deduction ORD-1001 qty 10."
+      },
+      {
+        "evidence_event_ids": [
+          4
+        ],
+        "text": "Event 4 order_deduction ORD-1001 qty 10 duplicate of event 3."
+      },
+      {
+        "evidence_event_ids": [
+          5
+        ],
+        "text": "Event 5 restock qty 20 received shipment."
+      }
+    ],
+    "inferences": [
+      {
+        "evidence_event_ids": [
+          3,
+          4
+        ],
+        "text": "Events 3 and 4 are duplicate deductions for same order_id ORD-1001 with same qty 10, indicating retry/double-call without idempotency."
+      },
+      {
+        "evidence_event_ids": [
+          1,
+          3,
+          4,
+          5
+        ],
+        "text": "Reconciled correct stock is 110, while buggy double-apply yields 100, explaining 10-unit discrepancy."
+      },
+      {
+        "evidence_event_ids": [
+          3,
+          4
+        ],
+        "text": "Fixed code would return deduped True on second ORD-1001 and skip second stock update, preventing this discrepancy."
+      }
+    ],
+    "uncertainties": [
+      "Actual current products.stock value not directly observed via read_events alone.",
+      "Missing event id 2 not in available list; unknown if deleted or unrelated.",
+      "Whether duplicate was user retry, network retry, or manual re-execution is unknown."
+    ],
+    "trace": [
+      {
+        "tool": "get_patch",
+        "event_ids": [],
+        "count": 0
+      },
+      {
+        "tool": "read_events",
+        "event_ids": [
+          1,
+          3,
+          4,
+          5
+        ],
+        "count": 4
+      }
+    ]
+  },
+  "preview": {
+    "proposal": {
+      "proposal_id": "PROP-3bbd5f78",
+      "status": "proposed",
+      "incident_id": "INC-001",
+      "product_id": "WIDGET-1",
+      "credit_qty": 10,
+      "reverse_event_ids": [
+        4
+      ],
+      "snapshot_hash": "299319d57b734370073eca303efa3bd9d555704085f5da187d39cb0cf3679809",
+      "reason": ""
+    },
+    "status": "proposed",
+    "before_stock": 100,
+    "after_stock": 110,
+    "credit_qty": 10,
+    "reverse_event_ids": [
+      4
+    ],
+    "preserved_restock_ids": [
+      5
+    ],
+    "unrelated_products": [
+      {
+        "product_id": "GADGET-9",
+        "stock": 45
+      }
+    ],
+    "diff": {
+      "stock_delta": 10,
+      "events_added": 1,
+      "restocks_untouched": [
+        5
+      ]
+    },
+    "simulation_checks": [
+      {
+        "name": "repair_applies_cleanly",
+        "ok": true
+      },
+      {
+        "name": "ledger_matches_stock_after",
+        "ok": true
+      },
+      {
+        "name": "no_outstanding_after",
+        "ok": true
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true
+      }
+    ],
+    "simulation_pass": true,
+    "invariants": [
+      {
+        "name": "ledger_matches_stock",
+        "ok": true
+      },
+      {
+        "name": "credit_equals_outstanding",
+        "ok": true
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true
+      },
+      {
+        "name": "simulation_pass",
+        "ok": true
+      }
+    ],
+    "snapshot_match": true
+  },
+  "approval": {
+    "approval_id": "APPR-92d1309e",
+    "proposal_id": "PROP-3bbd5f78",
+    "snapshot_hash": "299319d57b734370073eca303efa3bd9d555704085f5da187d39cb0cf3679809"
+  },
+  "apply_result": {
+    "status": "applied",
+    "proposal_id": "PROP-3bbd5f78",
+    "before_stock": 100,
+    "after_stock": 110,
+    "credit_qty": 10,
+    "idempotent": false
+  },
+  "verification": {
+    "product_id": "WIDGET-1",
+    "final_stock": 110,
+    "pass": true,
+    "preservation_verified": true,
+    "checks": [
+      {
+        "name": "stock_matches_ledger",
+        "ok": true,
+        "detail": "stock=110 ledger=110"
+      },
+      {
+        "name": "no_outstanding_duplicate",
+        "ok": true,
+        "detail": "outstanding=0"
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true,
+        "detail": "per-order quantities consistent"
+      },
+      {
+        "name": "repair_history_valid",
+        "ok": true,
+        "detail": "prior repair references valid"
+      },
+      {
+        "name": "proposal_binding",
+        "ok": true,
+        "detail": "proposal_product=WIDGET-1"
+      },
+      {
+        "name": "repair_recorded",
+        "ok": true,
+        "detail": "proposal=applied linked_repairs=1"
+      },
+      {
+        "name": "preservation_baseline",
+        "ok": true,
+        "detail": "approved baseline bound to proposal/product"
+      },
+      {
+        "name": "baseline_products_present",
+        "ok": true,
+        "detail": "baseline_products=2"
+      },
+      {
+        "name": "baseline_records_preserved",
+        "ok": true,
+        "detail": "baseline_events=6"
+      },
+      {
+        "name": "baseline_products_ledger_consistent",
+        "ok": true,
+        "detail": "all baseline products reconcile with current events; later events allowed"
+      }
+    ]
+  }
+}

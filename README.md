@@ -1,6 +1,6 @@
-# AfterFix (Milestone 1)
+# AfterFix
 
-Evidence-driven recovery for an inventory double-delivery bug. Meta-generated backend and live investigation have 148 passing tests. A real Spark1.3 investigation read evidence and created a draft without changing stock or approving/applying it. The interface is being implemented; the current frontend is a scaffold. See docs/STATE.md for actual evidence and remaining work.
+Evidence-driven recovery for an inventory double-delivery bug. The local React interface completes investigation, preview, explicit approval, repair and verification through FastAPI. A real Spark1.3 browser investigation identified a duplicate deduction; the approved repair restored stock from100 to110 while preserving the later restock and unrelated product. The exported synthetic report is in docs/evaluations/browser-live-recovery-2026-10-27.json. Backend suite148 passed; frontend strict TypeScript/Vite build passed. See docs/STATE.md for evidence and remaining validation.
 
 ## Quick start (lead to run, isolated env)
 
@@ -11,6 +11,10 @@ pip install -r requirements.txt
 pytest -q
 uvicorn app.main:app --reload
 ```
+
+Frontend: run `npm ci --ignore-scripts` then `npm run dev` in frontend/. Its `/api` proxy expects the backend on127.0.0.1:18157, so use `uvicorn app.main:app --host 127.0.0.1 --port 18157` for that interface. `npm run build` performs strict TypeScript validation and builds assets.
+
+Live investigation additionally needs a bounded Meta transport. This checkout intentionally has no direct-provider fallback: the default dependency accepts an explicitly configured loopback budget gateway. The owner's reviewed preview launcher and shared promotional-credit accounting live outside this repository. A standalone public setup is still pending; do not present the quick start alone as sufficient for live AI. Deterministic routes and tests work without Meta credentials.
 
 Seed and inspect (local synthetic only):
 

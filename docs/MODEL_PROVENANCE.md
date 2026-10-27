@@ -36,3 +36,16 @@ Wonder generated client/investigator1cd897ba, offline testsb03abb3a, scope guard
 Actual live runtime evaluation used Spark1.3:3296 input/1054 output tokens over3requests, estimated$0.0085995; grounded draft+10, stock100 unchanged, approvals/repairs0. Public synthetic result is saved in docs/evaluations/live-investigation-2026-10-27.json; opaque model reasoning was not surfaced or replayed. Coding controller/client usage includes reasoning within output totals.
 
 Completed local estimate before UI request91e8376b is$2.9004135; request bound$0.64844. Exact provider remaining balance is not known. No public hosting or contest submission occurred.
+
+## Interface and browser validation
+
+| Run prefix | Model | Input | Output | Outcome |
+| --- | --- | ---: | ---: | --- |
+| 91e8376b | Wonder1.0 | 7155 | 12610 | Full interface; reviewed before install; API shape problems found |
+| cb6940ba | Wonder1.0 | 12381 | 11045 | Contract/mutation/stale/citation fixes; build found one nullable JSX guard |
+| 3293587a | Wonder1.0 | 11506 | 9354 | Minimal null/status guard; strict TS/Vite build passed |
+| live-bce0a2b7 | Spark1.3 | 3296 | 931 | Real desktop browser investigation,3 calls; separate approval/apply/verify and JSON export succeeded |
+
+Browser synthetic recovery ended at stock110 with10 passing verification checks, one repair row, preserved restock and unrelated GADGET-9 stock45. Actual downloaded report is docs/evaluations/browser-live-recovery-2026-10-27.json. The model's observation/inference/uncertainty wording is preserved as model claims; gaps in global event IDs do not prove missing product evidence. Backend computes and validates the repair independently. No claim of held-out or mobile UI evaluation yet.
+
+Local cumulative completed estimate now$3.69283825; no outstanding reservations. First preview teardown terminated the server without running its finalizer; all3 calls were already settled and ledger completion was reconciled under the shared lock after checking both owned ports closed. The lead-only launcher now supports graceful stdin stop. No credentials or raw opaque model reasoning are included in the public synthetic report.
