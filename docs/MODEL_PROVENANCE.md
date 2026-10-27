@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Durable report binding review —2026-10-28
+
+Wonder1.0 run7d3ef7b5/jobf196d353:26379input/12619output,estimate$0.357896, cumulativecompleted$11.4254195. All17 exact edits reviewed, materializer checked c5835d19 immutable base/unique matches/AST/hashes, full source diffs reviewed before temporary assembly with prior cd124fb1 main hooks. Focused actual pytest21passed/1failed/1existingwarning4.73s: canonical full flow passes; new audit assertion confuses correct pre-write Rust ledger100 with final110. Independent offline probes also reproduced missing valid baseline export and permissive stored Rust/read-citation/proposal-credit/binding integrity. Restored accepted product main/store; removed copied module/test; no unaccepted product code committed or paid runtime used. Marked corrections_requested and queued314eb971/prompt41 for <=12 exact edits against7d3ef7b5. Dry payload$0.928224 within unchanged$1 guard/freshness/reserve; no generation waiting. Accepted327-test Rust checkpoint unchanged; full suite deferred until focused passes.
+
 ## Request preflight reduction —2026-10-28
 
 Job f8afc6ac/prompt39 failed locally at conservative per-request $1 limit BEFORE reserve/API/key load; no run output/provider usage. Shared ledger55 requests all completed/settled, cumulative$11.0675235 unchanged. Requestless run2a3040b7 starting entry has no charge/reservation; ledger not edited. Reviewed/rejected failed job, reduced redundant full-source context to accepted excerpts in prompt40 and max output20480. Exact offline payload reconstruction bound$0.905456 (before STATE update), same $1/$100/$50/freshness gates. Queued ONE replacement f196d353 with c5835d19 draft plus acceptedstore context. No generated code/product tests/runtime calls or generation waiting this turn.
