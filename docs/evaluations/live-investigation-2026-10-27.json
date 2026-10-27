@@ -1,0 +1,119 @@
+{
+  "status": "proposed",
+  "model": "muse-spark-1.3",
+  "hypothesis": "Duplicate order_deduction for ORD-1001 qty 10 was double-counted by non-idempotent process_order_buggy; correct reconciled ledger should count ORD-1001 once: 100 -10 +20 = 110, buggy result 100.",
+  "observations": [
+    {
+      "evidence_event_ids": [
+        1
+      ],
+      "text": "Event 1 init WIDGET-1 qty 100 opening record."
+    },
+    {
+      "evidence_event_ids": [
+        3,
+        4
+      ],
+      "text": "Events 3 and 4 both order_deduction WIDGET-1 ORD-1001 qty 10 with identical note."
+    },
+    {
+      "evidence_event_ids": [
+        5
+      ],
+      "text": "Event 5 restock WIDGET-1 qty 20 received shipment."
+    }
+  ],
+  "inferences": [
+    {
+      "evidence_event_ids": [
+        3,
+        4
+      ],
+      "text": "Events 3 and 4 are same product, order_id ORD-1001, same qty 10, indicating a retry/duplicate rather than two distinct orders."
+    },
+    {
+      "evidence_event_ids": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "text": "Patch shows buggy code deducts on every call without idempotency check, while fixed code would dedupe same order_id and return existing event."
+    },
+    {
+      "evidence_event_ids": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "text": "Reconciled arithmetic: 100 init -10 (first ORD-1001) +20 restock =110 correct; with duplicate -10 again =100 buggy, understated by 10."
+    }
+  ],
+  "uncertainties": [
+    "Current products.stock value not directly observed, inferred from events only.",
+    "Missing event id 2 not available; unknown if relevant void or unrelated.",
+    "Cannot confirm whether duplicate was client retry or system replay."
+  ],
+  "explanations_label": "model-generated claims, not authority",
+  "evidence_event_ids": [
+    1,
+    3,
+    4,
+    5
+  ],
+  "trace": [
+    {
+      "tool": "get_patch",
+      "event_ids": [],
+      "count": 0
+    },
+    {
+      "tool": "read_events",
+      "event_ids": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "count": 4
+    }
+  ],
+  "usage": {
+    "model": "muse-spark-1.3",
+    "requests": 3,
+    "input_tokens": 3296,
+    "output_tokens": 1054,
+    "total_tokens": 4350,
+    "estimated_cost": 0.008599500000000001,
+    "estimated_cost_usd": 0.008599500000000001,
+    "cost_usd": 0.008599500000000001,
+    "unknown_usage_calls": 0,
+    "unknown_usage": 0,
+    "reserved_output_tokens": 0,
+    "reserved_cost": 0.0,
+    "blocked": false
+  },
+  "proposal": {
+    "proposal_id": "PROP-78838587",
+    "status": "proposed",
+    "incident_id": "INC-001",
+    "product_id": "WIDGET-1",
+    "credit_qty": 10,
+    "reverse_event_ids": [
+      4
+    ],
+    "snapshot_hash": "f2af83512706d8a81f5c4f2a15959f4256e3b0a880a9fddab5acd474ca6d9803",
+    "reason": ""
+  },
+  "evaluation": {
+    "live_meta_api": true,
+    "initial_stock": 100,
+    "stock_after_investigation": 100,
+    "approval_count": 0,
+    "repair_count": 0,
+    "guard_call_count": 3,
+    "guard_run_estimate_usd": 0.008599500000000001
+  },
+  "scope": "Isolated synthetic inventory DB; real Meta API; proposal only; no automatic approval or apply."
+}

@@ -2,57 +2,53 @@
 
 ## Status — 2026-10-27 Asia/Dhaka
 
-Meta Muse Spark 1.3 generated the Python/FastAPI/SQLite backend and integrity tests. Codex reviewed/staged source, installed dependencies in the project-local .venv, and executed the actual tests. Initial suite: **18 passed, 1 TestClient/httpx deprecation warning in 2.86s**. Separate full FastAPI smoke flow passed: buggy stock 100 -> preview -> approval -> apply -> verified stock 110, preserving the later restock. Product runtime Meta investigation and frontend are NOT implemented yet.
+Backend, recovery pipeline, bounded live Meta investigator and API integration are implemented and verified locally. Full Python suite: **148 passed, 1 nonblocking TestClient/httpx deprecation warning in 10.88s**. Product implementation and tests generated through Meta API; Codex planned, reviewed, ran tests and wrote controller infrastructure/documentation.
 
-Milestone 1 is not fully accepted: a follow-up lead probe found verification can falsely pass after a preexisting restock is altered and an unrelated product is deleted. The focused revision returned incomplete output and its complete recovery file has an IndentationError; it was rejected and never installed. Fix this before advancing.
+A REAL guarded Muse Spark1.3 investigation succeeded on an isolated synthetic DB: read actual handler patch and events1/3/4/5, created a deterministic +10 draft reversing event4. Three API calls, 3296 input/1054 output tokens, local estimate $0.0085995. Stock stayed100; approvals0, repair events0. See docs/evaluations/live-investigation-2026-10-27.json. Do not call fake test transports live AI. Separate explicit human API workflow preview/approve/apply/verify is tested.
 
-## Current blocker and resume action
+The previous preservation false positive and incident-scope race are fixed with regressions. Historical event alteration/deletion, malformed baseline/references, wrong credit/linkage, stale data/incident metadata, forbidden tools, unknown citations, failed usage and concurrent repairs are tested. Trusted synthetic SQLite/event-identity assumptions apply; no cryptographic guarantee against an attacker rewriting every DB/approval record. No production service or hosting deployed.
 
-The configured key file is now empty (MODEL_API_KEY assignment has no value). Earlier connection/coding calls succeeded. Do not infer why it changed and do not recover credentials from other stores. Owner was informed, requested the control folder be opened, and is restoring the local key. Explorer launch was issued and the .env editor open was queued. Wait for saved confirmation, then check only nonempty key availability without printing it.
+## Current UI work — resume here
 
-No generation request remains active. Last request c06e5a4e-e49a-4468-9558-c054c8eb40e9 completed upstream with status incomplete/max_output_tokens. Usage: 17,373 input, 24,576 output (8,911 reasoning). The response is saved outside the product repo. Its recovery source has IndentationError at line 581 and tests are truncated; nothing from that response was copied into the product. Do not execute or accept it.
+Sites skill was read for local UI design/preview guidance. Current work is local-only on the existing React/TypeScript + FastAPI checkout; skip Site registration/sync/publication. Keep Meta model as product implementation provider. Sites local preview reference was read; run local preview only when needed, verify successful HTTP then supported browser QA, and stop owned preview servers at teardown. No hosting migration to Workers.
 
-After key restoration, issue a smaller focused Meta revision: recovery.py preservation/repair-link validation only, then a separate regression-test request. Use strict JSON schema (now in generate_meta.py), low/medium reasoning and sufficient visible-output room. Avoid asking for complete large recovery and test files together again. Keep the 18 passing tests and rerun them after reviewed changes, then add the verifier-gap regressions. Source generation stays in the control directory with runner.lock and credit gates.
+Frontend scaffold is installed under frontend/. It is ONLY a placeholder App right now. Node24.18.0/npm12.0.2 are available; npm install --ignore-scripts --no-audit --no-fund completed (24 packages), lockfile generated. Dependency versions verified from public npm registry: React/DOM19.3.1, Vite8.3.5, plugin-react6.1.2, TypeScript7.0.2, React types19.3.0. Build/check not yet run on real UI.
 
-Conservative local completed-call total: $0.350792. This is an estimate from API usage, not provider balance. Refresh the account credit gate as needed; never invent remaining balance.
+CURRENT Meta UI generation: run91e8376b-12e9-43ad-8897-f872ea0046f2, command session83493; prompt ../afterfix-control/prompts/16-recovery-interface.md. Wonder Standard, medium reasoning, max24576 output; conservative request bound $0.64844. It returns only frontend/src/App.tsx/styles.css and optional types.ts/api.ts. Do not duplicate the request. Inspect saved run/budget ledger; review staged UI before installing it. Then run npm.cmd run build in frontend and browser-test actual workflow. Do not present placeholder as finished UI.
 
-## Review findings still pending
+Next UI verification needs a local backend with the shared credit guard injected through get_investigation_client. Current default web route deliberately requires an explicitly configured loopback budget gateway and dummy credential; no unguarded official-API fallback. A lead-only local preview launcher may run BudgetedMetaTransport as a context, set app.dependency_overrides[get_investigation_client]=lambda:MetaClient(transport=guard), and serve Uvicorn on127.0.0.1:18157. The guard owns runner.lock for its lifetime, caps live calls/cost and validates current credit; stop preview before coding calls that need the same lock. Never use a fake model while labelling browser QA live. The real API key stays in control transport, not frontend/source/output. The preview launcher is not yet written.
 
-1. Approved preservation baseline must bind complete preexisting event records, not only restock IDs; detect deleted unrelated products/events. Verification must fail closed on missing/malformed baseline and wrong product/proposal linkage.
-2. Later legitimate restock/order activity should still verify when historical records remain intact. Do not claim unrelated stock never changes if later valid events explain it.
-3. Validate prior repair reference integrity; no silently ignored corrupt reversal JSON. Link repair event explicitly to proposal if needed.
-4. Model investigation tools must not include approve/apply/reset; the current manifest still includes draft propose as a write-like tool. The future live adapter must use a separate explicit read-only allowlist and final validated proposal output, never blindly execute manifest entries.
-5. TestClient currently emits an httpx deprecation warning with Starlette 1.10.0. Tests pass; defer compatibility cleanup until justified.
+Frontend dev port18173 and preview18174 bind127.0.0.1; /api proxies to backend18157. Avoid wildcard CORS. User must explicitly approve and then apply a specific preview; UI must reuse apply idempotency key across retries, stop on409, and render model/log/patch text safely.
 
-## Files and provenance
+## Accepted implementation / provenance
 
-- Product: app/{store,domain,recovery,schemas,main}.py, app/__init__.py, tests/test_recovery.py, requirements.txt, README.md.
-- Contract/plans: AGENTS.md, SPEC.md, docs/STATE.md, docs/MODEL_PROVENANCE.md.
-- See docs/MODEL_PROVENANCE.md for actual call usage and source-envelope normalization performed by the lead. Model-generated test claims alone were never accepted.
-- Key configured in ../afterfix-control/.env; outside product repository, ignored in control directory. Never print or transmit it as context.
-- Official Muse Code CLI installed at C:/Users/shaha/AppData/Local/Programs/muse/muse.cmd, version 1.4.13-R6996.1. CLI proxy preflight and privileged Windows sandbox setup are unresolved. Do not disable sandbox or spend time on that route; direct API generation works without model-controlled shell.
+- Recovery/store: Wonder8ef0b921; preservation tests543ab76e + two arithmetic-only test fixesd9f10541.
+- Runtime client/investigator: Wonder1cd897ba, then incident-scope recheck52b986de. Earlier87a7546b/c337408d drafts rejected, never installed.
+- Offline client/investigator tests: b03abb3a; scope tests52b986de.
+- Investigation API:9c1364a9, sanitized422 handler/import fix02835ba9. One invalid test expectation was corrected by c996f14e (a valid verify body correctly returns404; changed test body to invalid type). App was not weakened to satisfy bad tests.
+- Frontend scaffold also c996f14e. Source-generation UI context suffixes now support .tsx/.ts/.css/.html; earlier failed controller preflight made NO API call.
+- Full raw Meta responses, prompts and budget ledger stay outside this repo in ../afterfix-control/. Never send/read .env into tool output or model context. --draft-run supports validated staged source context without execution.
 
-## Verification actually run
+## Verification actually completed
 
-- Four controller guard cases passed: path rejection, output bound, invalid/duplicate bundles, budget reservation/cap/unknown usage.
-- python -m venv .venv; isolated pip install of compatible current FastAPI/Uvicorn/Pydantic/Pytest/httpx.
-- First generated suite: 11 failed, 2 passed, due to invalid sqlite Connection test attributes; Meta fixed fixtures rather than changing app behavior.
-- .venv/Scripts/python.exe -m pytest -q --tb=short: 18 passed, 1 warning in 2.86s (corrected suite).
-- .venv/Scripts/python.exe -m pip check: No broken requirements found.
-- Separate FastAPI TestClient canonical full flow: passed (100 -> 110, simulation_pass=true, verification=true).
-- Follow-up preservation probe: verifier incorrectly returned pass=true after historical restock quantity 20 -> 1, matching stock -19, unrelated product deletion. Expected false; this is the active revision's regression case.
-- git diff --check: no whitespace errors (Windows LF/CRLF informational warnings).
+- Full pytest:148 passed, 1 warning in10.88s after API validation/test corrections.
+- Real Meta investigation:3 calls, grounded draft, stock/approval/repair unchanged as above.
+- Independent preservation probe: valid later activity verifies; altered historical restock + deleted unrelated product is rejected.
+- Independent scope-race probe exposed accidental live abstention row; Meta added under-lock complete incident recheck and six regressions; all now pass.
+- Controller budget/path guard checks and per-model rate settlement checks passed; compile checks passed.
+- Isolated Python dependency check passed previously; no new Python dependencies added.
+- Exact key-value product-source scan passed before final backend/API additions; repeat secret scan before publication. No credentials in prompts or generated source by design.
 
 ## Credit and automation
 
-Owner confirmed **$150 available promotional credit** in this chat on 2026-10-27 after successful authenticated connection test. credit-state.json records source owner_report with 24-hour freshness. generate_meta.py gates requests, enforces conservative $100 local total cap, protects $50 demo/runtime reserve, and uses the shared runner.lock for one active request. Reconcile other account activity when visible/reported. No paid overage, subscription, or Contributor/training mode authorized.
+Owner reported $150 available promotional credit on2026-10-27; credit-state.json is a24-hour owner_report gate, not a live provider balance. Completed-call local estimate before current UI generation is $2.9004135. Current request retains conservative reservation until API usage settles. Standard Spark and Wonder use per-model official rates; cached discounts are ignored conservatively. Shared local project cap$100 and $50 promotional reserve remain enforced. Other account activity is not visible; reconcile when reported/available. No overage/subscription/Contributor mode authorized.
 
-Heartbeat afterfix-meta-model-lead is ACTIVE every 30 minutes through 2026-11-04 20:00 UTC. Continue actual saved state; no overlapping loops. Quiet on unchanged state, notify only meaningful progress/failure/needed action. Host/tools must be available; do not claim uninterrupted execution.
+Heartbeat afterfix-meta-model-lead ACTIVE every30minutes through2026-11-04 20:00UTC. Continue saved state with one model run at a time; quiet on unchanged/non-actionable state. Host/tools must be available; no claim of uninterrupted execution.
 
-## Next milestones after core acceptance
+## Remaining delivery
 
-1. Live Meta tool-calling investigation with bounded read-only tools, schema-validated evidence-linked proposal and adversarial/missing-evidence tests. No fixture expected-answer leakage; deterministic software computes/validates the repair.
-2. Four-stage React/TypeScript interface and evidence timeline/diff/approval/verification.
-3. Held-out scenarios, live integration evaluation, reproducibility/deployment preparation, demo/submission package.
+1. Review/build complete UI and real browser flow; show actual preview when ready.
+2. Broader held-out/live scenario evaluation and reproducible bounded runtime launcher/setup.
+3. Deployment preparation, demo/video script and submission package.
 
-No public repository, push, deployment, production change, legal acceptance, billing change or contest submission has been performed. Those actions need their own authorized concrete task. Deadline 2026-11-05 08:00 Bangladesh; stop initiating work 2026-11-05 02:00 Bangladesh for submission buffer.
+No public repository/push, deployment, production change, legal acceptance, billing change or contest submission performed. Those require an authorized concrete task. Submission deadline2026-11-05 08:00 Bangladesh; stop initiating work2026-11-05 02:00 Bangladesh for buffer.
