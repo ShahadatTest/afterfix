@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Exact-edit validation —2026-10-28
+
+Wonder1.0 run22d6d403/jobe893f601:23660input/7421output,estimate$0.243060,totalcompleted$9.941181. Onecomplete JSONartifact with12Metaauthored exactsource/testedits against764739c7. Leadreviewedallchanges, exactmaterializervalidateduniqueoldmatches/paths/base/AST/hashmetadata andstagedfullsources; resultingdiffsreviewedbeforelocalexecution. Actualfullsuite326passed/1fixturefailure/1existingwarning23.50s withrealRust. Newtestcreatedoneorderwhileexpectingduplicate; productchecks/alloldtests passed. Restoredacceptedworkingcode; candidateuncommitted. Nextjob7e8aecad requestsonlyonecorrectedtestfunction/manifest; context19e5036f is leadcopyof22d6d403testfile, notAPIgeneration. No APIruntimeinvestigation/production/publication.
+
 ## Output-bound correction review —2026-10-28
 
 Wonder1.0 run37142934/job70e7731f:23393input/24576output,estimated$0.585092; providerincomplete/max_output_tokens, knownusage settled. Lead recovered onlytwo complete sourcefileJSONobjects forreview; partialtestfile rejected. Adapter introduced unconditional-check bypass/incorrect priorrepairarithmetic; rejected without execution/install. Source recovery never relabels providerresponsecompleted. Completedestimate$9.698121, accountbalanceunknown. Nextjobe893f601 requests a small Metaauthored exacteditJSONartifact against stable764739c7, withallchangesreviewed/exactmatched before fullstaging/testing; no repeated fullfilegeneration or unreviewedexecution. No product/runtime/publicationchanges.
