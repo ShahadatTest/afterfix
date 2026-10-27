@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+*.sqlite*
+*.db
+coverage/
+.pytest_cache/
+.mypy_cache/
+install-muse.ps1
+.muse/
+
