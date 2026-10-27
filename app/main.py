@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
 
-from app import domain, investigator, recovery, schemas, store
+from app import case_report, domain, investigator, recovery, schemas, store
 from app.auth import Actor, AuthMiddleware, InvestigationGate, reset_allowed
 from app.meta_client import MetaClient
 from app.runtime_budget import RuntimeBudgetError, RuntimeBudgetTransport, RuntimeLockBusy
@@ -152,12 +152,44 @@ def inspect_incident(incident_id: str):
         conn.close()
 
 
+@app.get("/incidents/{incident_id}/cases")
+def list_cases(incident_id: str):
+    conn = _conn()
+    try:
+        if store.get_incident(conn, incident_id) is None:
+            raise HTTPException(404, "incident not found")
+        return {"incident_id": incident_id, "cases": case_report.list_cases(conn, incident_id)}
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(500, "case list unavailable") from None
+    finally:
+        conn.close()
+
+
+@app.get("/cases/{case_id}/report")
+def get_case_report(case_id: str):
+    conn = _conn()
+    try:
+        return case_report.build_report(conn, case_id)
+    except case_report.CaseNotFound:
+        raise HTTPException(404, "case not found") from None
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(500, "case report unavailable") from None
+    finally:
+        conn.close()
+
+
 @app.post("/incidents/{incident_id}/investigate")
 def investigate_incident(
     incident_id: str,
     body: InvestigateRequest,
+    request: Request,
     client: MetaClient = Depends(get_investigation_client),
 ):
+    actor = _actor(request)
     conn = _conn()
     try:
         if store.get_incident(conn, incident_id) is None:
@@ -168,7 +200,23 @@ def investigate_incident(
                 429, "investigation busy", headers={"Retry-After": str(gate.retry_after())}
             )
         try:
-            return investigator.investigate(conn, incident_id, client=client)
+            # Read-only consistent BEFORE capture; its copy is closed inside
+            # capture_before, before the investigator makes any Meta calls.
+            before, _ok = case_report.capture_before(conn, incident_id)
+            result = investigator.investigate(conn, incident_id, client=client)
+            out = dict(result) if isinstance(result, dict) else result
+            try:
+                case_id = case_report.record_case(conn, actor.actor_id, before, result)
+                out["case_id"] = case_id
+                out["case_recording_status"] = "recorded"
+            except Exception:
+                try:
+                    conn.rollback()
+                except Exception:
+                    pass
+                out["case_id"] = None
+                out["case_recording_status"] = "unavailable"
+            return out
         except HTTPException:
             raise
         except Exception:

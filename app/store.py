@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS proposals(id TEXT PRIMARY KEY, incident_id TEXT NOT N
 CREATE TABLE IF NOT EXISTS approvals(id TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, snapshot_hash TEXT NOT NULL, baseline_json TEXT NOT NULL DEFAULT '{}', created_at INTEGER NOT NULL, actor_id TEXT NOT NULL DEFAULT '');
 CREATE TABLE IF NOT EXISTS idempotency_keys(idempotency_key TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, approval_id TEXT NOT NULL, result TEXT NOT NULL, created_at INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS audit_log(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, action TEXT NOT NULL, proposal_id TEXT NOT NULL, detail TEXT NOT NULL, actor_id TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS case_records(case_id TEXT PRIMARY KEY, schema_version INTEGER NOT NULL DEFAULT 1, incident_id TEXT NOT NULL, product_id TEXT NOT NULL, proposal_id TEXT, actor_id TEXT NOT NULL DEFAULT '', created_at INTEGER NOT NULL, before_json TEXT NOT NULL, investigation_json TEXT NOT NULL, initial_preview_json TEXT);
 """
 
 CANONICAL_INCIDENT = "INC-001"
@@ -46,6 +47,10 @@ def init_db(conn):
     ucols = {r[1] for r in conn.execute("PRAGMA table_info(audit_log)").fetchall()}
     if "actor_id" not in ucols:
         conn.execute("ALTER TABLE audit_log ADD COLUMN actor_id TEXT NOT NULL DEFAULT ''")
+    # Migration for a pre-existing draft case_records table without version.
+    ccols = {r[1] for r in conn.execute("PRAGMA table_info(case_records)").fetchall()}
+    if ccols and "schema_version" not in ccols:
+        conn.execute("ALTER TABLE case_records ADD COLUMN schema_version INTEGER NOT NULL DEFAULT 1")
     conn.commit()
 
 
@@ -76,6 +81,28 @@ def fingerprint(conn, product_id):
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def fingerprint_payload(product, events):
+    """Recompute the accepted fingerprint from captured product/events.
+    None-only coalescing exactly matches fingerprint(): empty strings,
+    event order, IDs and metadata are preserved."""
+    def pv(p, key):
+        try:
+            return p[key]
+        except Exception:
+            return p.get(key) if isinstance(p, dict) else None
+    def coal(v, default):
+        return default if v is None else v
+    payload = {
+        "product_id": pv(product, "product_id"), "stock": pv(product, "stock"),
+        "events": [{
+            "id": pv(r, "id"), "kind": pv(r, "kind"), "qty": pv(r, "qty"),
+            "order_id": coal(pv(r, "order_id"), ""), "ts": pv(r, "ts"), "note": coal(pv(r, "note"), ""),
+            "reversed_ids": coal(pv(r, "reversed_ids"), "[]"), "repair_proposal_id": coal(pv(r, "repair_proposal_id"), ""),
+        } for r in events],
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
 def audit(conn, action, proposal_id, detail, actor_id="system"):
     conn.execute("INSERT INTO audit_log(ts, action, proposal_id, detail, actor_id) VALUES (?,?,?,?,?)", (int(time.time()), action, proposal_id, detail, actor_id))
 
@@ -83,7 +110,7 @@ def audit(conn, action, proposal_id, detail, actor_id="system"):
 def reset_and_seed(conn, actor_id="system"):
     from app import domain
     init_db(conn)
-    for t in ("idempotency_keys", "audit_log", "approvals", "proposals", "events", "incidents", "products"):
+    for t in ("case_records", "idempotency_keys", "audit_log", "approvals", "proposals", "events", "incidents", "products"):
         conn.execute(f"DELETE FROM {t}")
     conn.execute("INSERT INTO incidents(id, product_id, description, status) VALUES (?,?,?,?)", (CANONICAL_INCIDENT, CANONICAL_PRODUCT, "Reported stock discrepancy for WIDGET-1; reconcile ledger against recorded events", "open"))
     conn.execute("INSERT INTO products(product_id, name, stock) VALUES (?,?,?)", ("WIDGET-1", "Widget", 100))

@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Durable case backend accepted —2026-10-28
+
+Wonder1.0 run8d4d9fb2/job b1ffb957:29245input/1458output,estimate$0.146140,cumulative$11.9035875. Reviewed2 exact edits/materialized against79e73ada using unique matches/AST/hashes; full diffs reviewed before installation with prior reviewed cd124fb1 main hooks. Focused23passed/1existingwarning5.16s; full350passed/1existingwarning28.49s. Multi-product baseline and strict read/selected fixture corrected, all mutation/marker/corruption/current-verification loops pass with real release Rust and offline FakeMeta. Exact key scan64 files zero hits before adding contract docs. Backend versioned full cases/read-only APIs accepted; frontend history/full download still pending. No paid runtime/browser/held-out evidence claimed this turn; no publication/deployment.
+
 ## Two remaining report fixes —2026-10-28
 
 Wonder1.0 run79e73ada/job314eb971:27857input/11030output,estimate$0.332028,cumulative$11.7574475. Reviewed12 exact edits, materialized against7d3ef7b5 with unique matches/AST/hashes and reviewed full diffs before temporary assembly. Actual focused pytest21passed/2failed/1existingwarning4.26s. Canonical/current binding/prior corruption checks pass; valid multi-product baseline incorrectly checked as one scope, manual rawpatch test missing selectedIDs. New combined mutation test blocked at valid baseline assertion. Restored accepted product main/store, removed new copied module/test; no full suite repeat/paid runtime. Marked corrections_requested; queuedb1ffb957 via prompt42 for <=4 exact edits to only these two defects, max8192. Accepted327-test Rust checkpoint unchanged; no generation waiting/publication/deployment.
