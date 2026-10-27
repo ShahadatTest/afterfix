@@ -2,6 +2,8 @@
 
 Evidence-driven recovery for an inventory double-delivery bug. The local React interface completes investigation, preview, explicit approval, repair and verification through FastAPI. A real Spark1.3 browser investigation identified a duplicate deduction; the approved repair restored stock from100 to110 while preserving the later restock and unrelated product. The exported synthetic report is in docs/evaluations/browser-live-recovery-2026-10-27.json. Backend suite148 passed; frontend strict TypeScript/Vite build passed. See docs/STATE.md for evidence and remaining validation.
 
+Fixed v1 scope and ordered acceptance gates are in SPEC.md and docs/DELIVERY_PLAN.md. Authenticated access, a bounded Rust verification module and more complete case reports are planned additions, not implemented features. Current local database is SQLite; a PostgreSQL migration is outside v1. The current unauthenticated API must not be exposed publicly; see docs/SECURITY_REVIEW.md.
+
 ## Quick start (lead to run, isolated env)
 
 ```bash

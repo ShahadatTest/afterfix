@@ -54,10 +54,16 @@ Heartbeat afterfix-meta-model-lead ACTIVE every30minutes through2026-11-04 20:00
 
 ## Remaining delivery
 
+Owner approved a mixed-language direction and asked to finalize AfterFix features. Lead finalized scope in SPEC.md and docs/DELIVERY_PLAN.md; AGENTS.md records the bounded Rust extension. Approximate allocation Python40/TypeScript35/Rust20/SQL+CSS5 is a planning guide, not measured or required LOC. Rust is NOT implemented yet. Get-Command found cargo.exe/rustc.exe under C:/Users/shaha/.cargo/bin; no toolchain build/test was run in this planning task. SQLite stays for v1; PostgreSQL remains a future shared-use decision. No model call, migration, deployment or product-code change in this task.
+
+Resume order now: A) close unauthenticated route gap with minimal access control/actor binding and reproducible budgeted runtime; B) standalone bounded Rust verifier and tested fail-closed integration; C) complete evidence/audit export and accurate recovery status; D) held-out live matrix/mobile/failure browser checks; E) release/demo package. Existing148 tests/canonical browser evidence remain the prior acceptance baseline; new scope is planned, not delivered. Review SPEC and DELIVERY_PLAN before assigning the next Meta prompt. Do not restart prompt01 or rewrite the working app to hit language percentages.
+
 Owner-requested security/stack review: docs/SECURITY_REVIEW.md. Current Python3.12.10/SQLite3.49.1 verified; npm audit reports0 known vulnerabilities; pip check passes compatibility only. Independent temporary-DB TestClient probe confirmed reset/approve/apply200 WITHOUT authentication. Current approval binding is not user authorization. Before any public exposure, require reviewed access control/demo isolation, restricted reset, incoming rate/concurrency limits and HTTPS; no production-ready claim. Backend/SQLite advisory review remains pending. No live Meta call, code/runtime change or migration during this review. Keep SQLite for current local synthetic flow; evaluate PostgreSQL for a shared production design rather than swapping merely for a security label.
 
-1. Broader held-out/live scenario evaluation (varied quantities, legitimate later orders/restocks, incomplete/conflicting evidence); retain actual results without tuning to expected answers.
-2. Mobile/failure/stale browser checks and reproducible bounded runtime launcher/setup usable from public checkout (current guarded launcher/controller stays outside repo).
-3. Deployment preparation, demo/video script and submission package.
+1. Minimal authenticated access/permissions, actor-bound approvals/audit, restricted reset and reproducible bounded runtime setup.
+2. Standalone Rust verification module, independent/differential tests and fail-closed integration into current approval/apply gates.
+3. Complete evidence/audit JSON report, actual Rust result and accurate applied/verified recovery state.
+4. Frozen held-out live matrix and desktop/mobile/failure/stale browser checks; retain every outcome and real usage.
+5. Clean-checkout/security review, hosting preparation, three-minute demo script/video and submission package; external actions require their own concrete authorization.
 
 No public repository/push, deployment, production change, legal acceptance, billing change or contest submission performed. Those require an authorized concrete task. Submission deadline2026-11-05 08:00 Bangladesh; stop initiating work2026-11-05 02:00 Bangladesh for buffer.

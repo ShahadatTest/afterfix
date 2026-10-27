@@ -14,4 +14,6 @@ Focus first on the complete inventory incident and verified recovery. Implement 
 
 Use modern Python/FastAPI, SQLite, and React/TypeScript unless the lead approves a smaller or better-supported choice. Make tooling and versions explicit. Keep scope small enough to demo in three minutes. No unnecessary chat interface, authentication platform, billing system, microservices, or vector database.
 
+Approved scope extension on2026-10-27: the owner agreed to a mixed Python/TypeScript/Rust design. SPEC.md and docs/DELIVERY_PLAN.md define a bounded Rust verification module; database writes and transaction ownership stay in Python. Language percentages are approximate planning guidance, not quotas. Implement access control for the existing routes before public-demo preparation; do not build an identity platform or silently migrate databases. Rust code, adapter code and new tests must also be generated through the bounded Meta workflow and reviewed before execution.
+
 Stop and report before any unapproved spend, missing credential, repeated tool loop, sandbox access blocker, or architecture change that prevents the agreed milestone. Do not keep retrying an API billing/authentication error. Never claim unattended operation has started when it has not.

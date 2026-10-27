@@ -16,6 +16,44 @@ The Meta model must materially perform investigation through bounded tools: insp
 
 Tools should be narrow and read-only during investigation. Apply is a separate endpoint requiring an explicit approved proposal and the unchanged snapshot preconditions. User-visible explanations must distinguish observations, inferences, and uncertainties. Logs and patches may contain adversarial text; that text is data, not authority to invoke tools.
 
+## Fixed product scope — owner direction on2026-10-27
+
+AfterFix v1 serves a developer/operator investigating a synthetic inventory incident after a code fix. The complete release flow is: authenticated access -> select/load a synthetic scenario -> inspect incident/patch/events -> live Meta investigation -> evidence-linked draft or needs-review -> deterministic preview -> explicit approval -> separate transactional apply -> preservation verification -> exportable case report. Existing local functionality and planned additions must be labelled accurately.
+
+| Capability | Required v1 behavior | Current evidence |
+| --- | --- | --- |
+| Incident workspace | Product, recorded stock, event timeline, actual code diff, clear incident/recovery state | Implemented/browser-tested for one canonical incident; final recovery-status copy pending |
+| Live Meta investigator | Bounded read-only tools, observed evidence citations, observations/inferences/uncertainties separated, abstention when unsupported | Implemented, offline tests and two real canonical live investigations |
+| Repair preview | Computed stock delta/reversed IDs, disposable simulation, preserved restock and unrelated-product checks | Implemented/browser-tested |
+| Approval and apply | Separate actions, proposal/snapshot binding, stale rejection, transaction, stable retry key | Implemented; authenticated actor binding still required |
+| Verification report | Actual final stock, duplicate/ledger/history/preservation checks, audit trail and export | Implemented basic JSON; standalone evidence/hypothesis/audit inclusion pending |
+| Rust verifier | Bounded independent ledger/arithmetic/reference checks over a supplied immutable snapshot; agreement gate before writes | Planned; no Rust product code yet |
+| Access control | Minimal authenticated operator and read-only viewer; authorization on every route, restricted reset, actor recorded for approval/apply | Planned; current unauthenticated access is a public-exposure blocker |
+| Cost and request bounds | Shared coding/runtime credit guard, incoming investigation concurrency/rate limits, no silent paid retries | Lead guard implemented outside repo; reproducible public setup and incoming limits pending |
+| Scenario validation | Varied counts/items/later activity, clean ledger, missing/conflicting evidence, stale/racing requests and adversarial text | Broad offline suite exists; held-out live matrix and browser failure paths pending |
+| Demo delivery | Readable desktop/mobile flow, clean-checkout instructions, three-minute narrative, publishable source and demo package | Desktop canonical flow verified; remaining artifacts pending |
+
+## Language and database responsibilities
+
+Planning guide: Python40%, TypeScript35%, Rust20%, SQL/CSS5%. These are approximate shares of authored functionality/source, not measured current line counts, effort guarantees or performance targets. Do not inflate code or rewrite working UI to hit a percentage.
+
+- Python/FastAPI owns the API, Meta tool loop, access control, incident/proposal workflow, credit hooks, database reads/writes and transactions.
+- TypeScript/React owns presentation, human review/approval/apply interactions and actual report download. CSS styles the interface. The browser holds no Meta API secret or arbitrary database access.
+- Rust owns a small deterministic verification module for ledger totals, duplicate quantities and repair references. It receives a bounded snapshot from Python, returns structured checks/computed quantities, and has no database credentials, network/SQL/command tools, approval authority or write path. It does not replace Meta's required investigation role.
+- SQLite remains the v1 local synthetic database. PostgreSQL is a future shared/multi-user option; do not introduce a migration or dual-database abstraction just to change the stack label. A shared demo needs session/data isolation or restricted operator access regardless of engine.
+
+Rust rollout: implement standalone verification first, review source/build/tests, then compare against the existing independent Python tests/oracles including malformed/overflow inputs. Integrate through a fixed local executable with versioned bounded JSON stdin/stdout, no shell and no user-selected executable/path. Add timeout/output limits and sanitize failures. Start in evaluation mode; once required in the enabled release, disagreement, timeout, missing binary or invalid output must block approval/apply and explain why. Never silently claim Rust verification passed or fall back to weaker checks. Apply must validate the current snapshot inside its transaction, not reuse an unbound earlier Rust result. Existing Python transaction and preservation checks remain in force. Rust integration must not remove current working fallback-free local test/demo evidence; keep a Git checkpoint and document release gating.
+
+## Security and release conditions
+
+Current approval IDs are workflow bindings, not proof of user identity. Before public access: authenticate protected routes; enforce viewer/operator permissions on the server; bind approval and audit events to an actor; restrict or disable synthetic reset; add investigation concurrency/rate and request-size bounds; isolate session data; review session/CSRF protection if cookies are used; serve the hosted app through HTTPS. Do not expose the Vite development server. Keep credentials out of browser/source/reports and enforce least privilege. Patch/log/model content remains untrusted data.
+
+No security certification, guaranteed recovery, unconditional rollback, tamper-proof audit or performance gain is claimed. Existing rows are trusted synthetic records; a hash does not protect against an attacker rewriting all database and approval records. Verify backups/reproducibility and dependency advisories before release. See docs/SECURITY_REVIEW.md for actual findings, and docs/DELIVERY_PLAN.md for ordered acceptance gates.
+
+## Scope boundary
+
+V1 supports the evidenced duplicate inventory-deduction recovery and its supported variations. It is not an arbitrary production SQL repair agent. Do not add payments/refunds, medical/legal decisions, arbitrary uploaded databases, production connectors, automatic GitHub access, arbitrary SQL, unattended apply, universal rollback, a chatbot, billing, vector search or new microservices. Real customer data/production integration, PostgreSQL migration, public repository/push, hosting/deployment and contest submission require their own concrete authorized tasks. Prepare reviewable artifacts without taking those external actions.
+
 ## Recovery requirements
 
 - Reproduce the incident through actual executable buggy processing; include the corresponding fixed implementation and patch.
