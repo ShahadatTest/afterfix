@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Durable report initial review —2026-10-28
+
+Wonder1.0 cd124fb1/job0b14477f:17482 input/18174 output,estimate$0.433408; cumulative completed$10.5222595. Source/diffs for module/main/store/tests reviewed before temporary execution. Actual suite337passed/1failed/1existingwarning27.50s; oversized blob silently shrank. Independent probes also confirmed dropped public token counts, truncated raw patch and permissive verification interpretation. Strict read-side/version/binding/bounds needed. Restored accepted main/store and removed only newly copied report module/test; no unaccepted product code committed,327-test Rust milestone preserved. Next correction job954978d5 queued with prompt38, no generation waiting/runtime API/browser/production action this turn.
+
 ## Rust integration accepted —2026-10-28
 
 Wonder1.0 run4dd6fdde/job7e8aecad:12967input/4395output,estimate$0.139768. One exact test-fixture edit against22d6d403: real repeated orders, exclude already-reversed evidence, preserve unsorted valid historical reference sets. Lead reviewed/materialized exact matches and diff; source adapter/recovery from764739c7+22d6d403 unchanged. Full actual suite327passed/1existingwarning24.63s with required real Rust. No test assertions weakened. README/required Rust build and protocol docs updated; known UI/report gaps remain.
