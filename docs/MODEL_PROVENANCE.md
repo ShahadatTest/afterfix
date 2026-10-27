@@ -1,5 +1,16 @@
 # Implementation provenance
 
+## Standalone Rust milestone —2026-10-27
+
+| Run prefix | Model | Input | Output | Outcome |
+| --- | --- | ---: | ---: | --- |
+| c5a27824 | Wonder1.0 | 17543 | 7491 | Rejected placeholders/narrative, never executed |
+| d1ac8757 | Wonder1.0 | 9127 | 11640 | Full crate supplied; main later accepted, reviewed compile/protocol gaps in other files |
+| fbb82d19 | Wonder1.0 | 14539 | 16448 | Explicit library target, strict kind/status strings, boundary/linkage tests; initial30 Cargo tests passed |
+| a687e877 | Wonder1.0 | 15254 | 11842 | Fixed actual independently detected array-struct acceptance; preserved duplicate-key rejection; final32 Cargo tests passed |
+
+Lead reviewed staged source/diffs before execution and authored independent controller oracles/protocol docs. Final Cargo test/build-release succeeded on Windows.160 frozen varied arithmetic cases matched both independent mathematical expectations and existing Python behavior;24 malformed/adversarial cases failed closed,184/184 final. Initial root-array failure is retained in private evaluation history; no reliability/performance generalization. API integration still pending. Full Python suite257 passed/one existing warning in15.55s; frontend unchanged. Cumulative local completed estimate$8.002177; no unresolved request at standalone milestone, provider/account-wide balance unknown. See docs/RUST_PROTOCOL.md and actual evaluation summary. No production/hosting/publication.
+
 Product implementation and tests are generated through the official Meta Responses API using `muse-spark-1.3` and `muse-wonder-1.0` in Standard mode. Codex authors task prompts, controller scripts, review notes and execution evidence; Codex stages/reviews Meta files and runs tests. No claim is made that the Meta model itself ran commands.
 
 Controller, credentials, raw requests/responses and cost ledger are outside this repository in the adjacent afterfix-control directory. Credentials are never prompt context. API response usage includes reasoning tokens within output tokens.

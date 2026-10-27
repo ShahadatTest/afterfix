@@ -26,6 +26,8 @@ Flow: `POST /proposals` (draft) -> `GET /proposals/{id}/preview` (sandbox simula
 
 ## Integrity notes
 
+Standalone Rust verifier: `cargo test --locked --manifest-path rust-verifier/Cargo.toml`. Its strict bounded JSON protocol, checked arithmetic and historical repair/reference checks are documented in docs/RUST_PROTOCOL.md. It has been built/tested independently; API approval/apply integration is the next gate and is not active yet.
+
 - Apply holds `BEGIN IMMEDIATE` before any reads; same-key retries are validated against the bound proposal/approval; different keys cannot double-repair.
 - Evidence must cite both the original and every duplicate deduction; prior repairs are recorded as explicit reversed IDs.
 - Preview simulates on a disposable backup; live DB stays unchanged; approval/apply revalidate staleness.

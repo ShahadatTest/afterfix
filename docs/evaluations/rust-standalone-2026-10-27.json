@@ -1,0 +1,12 @@
+{
+  "scope": "standalone synthetic independent arithmetic evaluation; not live Meta or API integration",
+  "seed": 27101746,
+  "cases": 160,
+  "passed": 160,
+  "accepted_python_agreements": 160,
+  "adversarial_cases": 24,
+  "total_cases": 184,
+  "total_passed": 184,
+  "failures": [],
+  "elapsed_seconds": 2.5
+}

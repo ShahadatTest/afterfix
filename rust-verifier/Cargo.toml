@@ -1,0 +1,16 @@
+[package]
+name = "rust-verifier"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "afterfix_verifier"
+path = "src/lib.rs"
+
+[[bin]]
+name = "afterfix-verifier"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
