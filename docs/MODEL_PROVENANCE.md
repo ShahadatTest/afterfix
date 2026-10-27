@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Request preflight reduction —2026-10-28
+
+Job f8afc6ac/prompt39 failed locally at conservative per-request $1 limit BEFORE reserve/API/key load; no run output/provider usage. Shared ledger55 requests all completed/settled, cumulative$11.0675235 unchanged. Requestless run2a3040b7 starting entry has no charge/reservation; ledger not edited. Reviewed/rejected failed job, reduced redundant full-source context to accepted excerpts in prompt40 and max output20480. Exact offline payload reconstruction bound$0.905456 (before STATE update), same $1/$100/$50/freshness gates. Queued ONE replacement f196d353 with c5835d19 draft plus acceptedstore context. No generated code/product tests/runtime calls or generation waiting this turn.
+
 ## Durable report contract correction review —2026-10-28
 
 Wonder1.0 c5835d19/job954978d5:19231 input/23417 output,estimate$0.545264; cumulative completed$11.0675235 before next request. All3 sources/diffs plus reused prior main.py hooks reviewed before temporary execution. Actual full suite344passed/2failed/1existingwarning28.53s; initial preview contract mismatch and test snapshot key mismatch. Independent offline probes confirmed omitted real Rust verifier_version/computed fields, nested synthetic audit marker exposure and changed accepted fingerprint when reversed_ids is raw empty text. Restored accepted main/store and removed only copied new module/test. No paid runtime calls; accepted327-test Rust checkpoint unchanged. Marked corrections_requested, queued f8afc6ac using prompt39 for one bounded exact-edit artifact against c5835d19; explicit case materializer profile stages only after lead review, controller syntax passed. No generation waiting/polling/publication/deployment.
