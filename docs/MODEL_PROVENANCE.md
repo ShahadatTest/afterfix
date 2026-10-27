@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Output-bound correction review —2026-10-28
+
+Wonder1.0 run37142934/job70e7731f:23393input/24576output,estimated$0.585092; providerincomplete/max_output_tokens, knownusage settled. Lead recovered onlytwo complete sourcefileJSONobjects forreview; partialtestfile rejected. Adapter introduced unconditional-check bypass/incorrect priorrepairarithmetic; rejected without execution/install. Source recovery never relabels providerresponsecompleted. Completedestimate$9.698121, accountbalanceunknown. Nextjobe893f601 requests a small Metaauthored exacteditJSONartifact against stable764739c7, withallchangesreviewed/exactmatched before fullstaging/testing; no repeated fullfilegeneration or unreviewedexecution. No product/runtime/publicationchanges.
+
 ## Rust adapter actual validation —2026-10-28 Asia/Dhaka
 
 Wonder1.0 run764739c7/jobf88d3fb6:25902 input/24087 output tokens,estimate$0.585348, completedlocaltotal$9.113029. All staged source/diffs reviewed, temporarilyinstalled to runactualfullsuite withrealreleaseRustbinary. Result309passed/2failed/1existingwarning in24.82s. Original257 passed; realcanonical/variedflow, in-transaction recording, rollback/actor/replay passed. Failednewtestfactorytuple and missingi64stored-IDbound; independentmalformedresponseprobe observed rawTypeError for list/dict matchflag. Candidate restored fromHEAD/three newreviewfilesremoved; no unacceptedproductcodecommitted. Jobmarkedcorrections_requested. Focusedcorrection backgroundjob70e7731f queued using prompt34; no synchronousgenerationwaiting. FullpriorSTATE archived verbatim fortraceability/contextsize. APIruntime notcalled, no production/publication.
