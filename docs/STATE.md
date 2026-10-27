@@ -54,6 +54,8 @@ Heartbeat afterfix-meta-model-lead ACTIVE every30minutes through2026-11-04 20:00
 
 ## Remaining delivery
 
+Owner-requested security/stack review: docs/SECURITY_REVIEW.md. Current Python3.12.10/SQLite3.49.1 verified; npm audit reports0 known vulnerabilities; pip check passes compatibility only. Independent temporary-DB TestClient probe confirmed reset/approve/apply200 WITHOUT authentication. Current approval binding is not user authorization. Before any public exposure, require reviewed access control/demo isolation, restricted reset, incoming rate/concurrency limits and HTTPS; no production-ready claim. Backend/SQLite advisory review remains pending. No live Meta call, code/runtime change or migration during this review. Keep SQLite for current local synthetic flow; evaluate PostgreSQL for a shared production design rather than swapping merely for a security label.
+
 1. Broader held-out/live scenario evaluation (varied quantities, legitimate later orders/restocks, incomplete/conflicting evidence); retain actual results without tuning to expected answers.
 2. Mobile/failure/stale browser checks and reproducible bounded runtime launcher/setup usable from public checkout (current guarded launcher/controller stays outside repo).
 3. Deployment preparation, demo/video script and submission package.
