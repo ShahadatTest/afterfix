@@ -2,6 +2,12 @@
 
 ## Status — 2026-10-27 Asia/Dhaka
 
+## Background adapter batch reviewed —2026-10-28 Asia/Dhaka
+
+Job525a6130 / Wonder run92914d15 finished normally,19726 input/22330 output tokens, estimated$0.525504; local completed cumulative$8.527681 before the next request. All four staged files were reviewed (adapter, recovery diff, tests, docs). They are NOT installed. Review found independent false-success handling for an invalid candidate, incomplete independent input invariants, permissive stored-proposal ID coercion, unverified caller-supplied snapshot labels, I/O cleanup/writer failure gaps, a duplicate-keyword test setup error, and missing transaction-timing regressions. Isolated reviewed _validate_response probe actually reproduced acceptance of ok:true plus proposal_matches:false with an invalid candidate. Product code/binary/257-test accepted baseline remains unchanged; no generated tests or full suite executed this turn, no API runtime investigation, no DB mutation.
+
+Marked completed job corrections_requested after review. New background jobf88d3fb6-cabd-4956-8d01-2093a9e94288 uses prompts/33-rust-adapter-review.md, full staged92914d15 source context plus existing domain.py; fixes the above in one coherent bounded batch. Review its current jobs/latest.json status on NEXT heartbeat; no polling/waiting for model completion this turn. The shared generator budget/credit/one-request lock remains authoritative. No automatic acceptance or code execution. Standalone Rust checkpointa222f5d remains the accepted product; backend integration stays pending.
+
 ## Standalone Rust milestone accepted — latest resume point
 
 Implemented rust-verifier/Cargo.toml, Cargo.lock, src/lib.rs, src/main.rs and tests/cli.rs. It accepts strict bounded version1 normalized JSON stdin and emits sanitized structured stdout; no DB/network/approval/write tools. Checked i64 category/ledger/duplicate arithmetic, exact candidate references and historical repair/applied-proposal linkage are validated independently. JSON objects/required nullable fields/strict integer and kind/status string types are enforced. See docs/RUST_PROTOCOL.md. Standalone only: Python API approval/apply has NOT been modified to invoke Rust.
