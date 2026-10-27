@@ -9,25 +9,41 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
 
 from app import domain, investigator, recovery, schemas, store
+from app.auth import Actor, AuthMiddleware, InvestigationGate, reset_allowed
 from app.meta_client import MetaClient
 
 app = FastAPI(title="AfterFix API", version="1.0.0")
+app.add_middleware(AuthMiddleware)
+
+investigation_gate = InvestigationGate()
+_DEFAULT_GATE = investigation_gate
+app.state.investigation_gate = investigation_gate
 
 _UNAVAILABLE = "investigation service unavailable"
+
+
+def _resolve_gate():
+    module_gate = globals().get("investigation_gate")
+    state_gate = getattr(app.state, "investigation_gate", None)
+    if module_gate is not None and module_gate is not _DEFAULT_GATE:
+        return module_gate
+    if state_gate is not None and state_gate is not _DEFAULT_GATE:
+        return state_gate
+    return module_gate or state_gate or _DEFAULT_GATE
+
+
+def _actor(request: Request) -> Actor:
+    actor = getattr(request.state, "actor", None) or request.scope.get("afterfix_actor")
+    if actor is None:
+        raise HTTPException(503, "authentication unavailable")
+    return actor
 
 
 @app.exception_handler(RequestValidationError)
 async def sanitized_validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
-    """Return a generic 422 without echoing submitted data.
-
-    FastAPI's default validation response can include the submitted value
-    under ``detail[].input`` (and error context), which would echo browser-
-    supplied credentials or other synthetic markers back to the caller. Never
-    return the raw body, ``input``, ``ctx``, field locations, or field names
-    here, and do not log them.
-    """
+    """Return a generic 422 without echoing submitted data."""
     return JSONResponse(status_code=422, content={"detail": "Invalid request"})
 
 
@@ -36,19 +52,14 @@ class InvestigateRequest(BaseModel):
 
 
 def get_investigation_client():
-    """Default client: only an explicitly configured loopback budget gateway.
-
-    The gateway (not this route) enforces shared project credit caps. There is
-    deliberately no fallback to the unguarded official API. The credential
-    comes only from the process environment, never from a browser payload.
-    """
+    """Default client: only an explicitly configured loopback budget gateway."""
     base = os.environ.get("AFTERFIX_META_BASE_URL")
     key = os.environ.get("MODEL_API_KEY")
     if not base or not isinstance(key, str) or not key:
         raise HTTPException(503, _UNAVAILABLE)
     try:
         parsed = urllib.parse.urlparse(base)
-        port = parsed.port  # raises ValueError for a malformed port
+        port = parsed.port
         if (
             parsed.scheme != "http"
             or (parsed.hostname or "").lower() != "127.0.0.1"
@@ -61,8 +72,6 @@ def get_investigation_client():
             or parsed.password
         ):
             raise HTTPException(503, _UNAVAILABLE)
-        # MetaClient re-validates the endpoint; loopback is additionally
-        # restricted above to the exact http://127.0.0.1:<port>/v1 form.
         return MetaClient(base_url=base, api_key=key)
     except HTTPException:
         raise
@@ -79,17 +88,28 @@ def health():
     return {"ok": True}
 
 
+@app.get("/auth/me")
+def auth_me(request: Request):
+    actor = _actor(request)
+    return {
+        "actor_id": actor.actor_id,
+        "role": actor.role,
+        "can_reset": bool(actor.role == "operator" and reset_allowed()),
+    }
+
+
 @app.get("/tools/manifest")
 def manifest():
     return {"tools": schemas.TOOL_MANIFEST}
 
 
 @app.post("/admin/reset")
-def reset():
+def reset(request: Request):
     """Local synthetic reset only; never exposed to the model manifest."""
+    actor = _actor(request)
     conn = _conn()
     try:
-        return store.reset_and_seed(conn)
+        return store.reset_and_seed(conn, actor_id=actor.actor_id)
     finally:
         conn.close()
 
@@ -117,14 +137,19 @@ def investigate_incident(
     try:
         if store.get_incident(conn, incident_id) is None:
             raise HTTPException(404, "incident not found")
+        gate = _resolve_gate()
+        if not gate.try_acquire():
+            raise HTTPException(
+                429, "investigation busy", headers={"Retry-After": str(gate.retry_after())}
+            )
         try:
-            # Read-only investigation: this may create a draft proposal only.
-            # It never approves, applies, or resets, and exposes no such tools.
             return investigator.investigate(conn, incident_id, client=client)
         except HTTPException:
             raise
         except Exception:
             raise HTTPException(500, "investigation failed") from None
+        finally:
+            gate.release()
     finally:
         conn.close()
 
@@ -210,11 +235,12 @@ def preview(proposal_id: str):
 
 
 @app.post("/proposals/{proposal_id}/approve")
-def approve(proposal_id: str, body: schemas.ApproveRequest):
+def approve(proposal_id: str, body: schemas.ApproveRequest, request: Request):
+    actor = _actor(request)
     conn = _conn()
     try:
         try:
-            return recovery.approve_proposal(conn, proposal_id, body.snapshot_hash)
+            return recovery.approve_proposal(conn, proposal_id, body.snapshot_hash, actor_id=actor.actor_id)
         except recovery.NotFoundError as e:
             raise HTTPException(404, str(e))
         except recovery.StaleStateError as e:
@@ -226,11 +252,12 @@ def approve(proposal_id: str, body: schemas.ApproveRequest):
 
 
 @app.post("/apply")
-def apply(body: schemas.ApplyRequest):
+def apply(body: schemas.ApplyRequest, request: Request):
+    actor = _actor(request)
     conn = _conn()
     try:
         try:
-            return recovery.apply_proposal(conn, body.proposal_id, body.approval_id, body.idempotency_key)
+            return recovery.apply_proposal(conn, body.proposal_id, body.approval_id, body.idempotency_key, actor_id=actor.actor_id)
         except recovery.NotFoundError as e:
             raise HTTPException(404, str(e))
         except recovery.StaleStateError as e:

@@ -398,8 +398,11 @@ def test_inspect_patch_exposes_current_handler_source():
 def test_api_smoke_flow_isolated_db(tmp_path, monkeypatch):
     dbp = str(tmp_path / "api.db")
     monkeypatch.setenv("AFTERFIX_DB", dbp)
+    monkeypatch.setenv("AFTERFIX_OPERATOR_TOKEN", "operator-token-for-tests-1234567890abc")
+    monkeypatch.setenv("AFTERFIX_VIEWER_TOKEN", "viewer-token-for-tests-1234567890abcd")
+    monkeypatch.setenv("AFTERFIX_ALLOW_RESET", "1")
     from app.main import app as fastapp
-    client = TestClient(fastapp)
+    client = TestClient(fastapp, headers={"Authorization": "Bearer operator-token-for-tests-1234567890abc"})
     r = client.post("/admin/reset")
     assert r.status_code == 200
     inc = client.get("/incidents/INC-001")

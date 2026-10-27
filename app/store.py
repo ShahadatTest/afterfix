@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS products(product_id TEXT PRIMARY KEY, name TEXT, stoc
 CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT, product_id TEXT NOT NULL, kind TEXT NOT NULL, qty INTEGER NOT NULL, order_id TEXT, ts INTEGER NOT NULL, note TEXT DEFAULT '', reversed_ids TEXT NOT NULL DEFAULT '[]', repair_proposal_id TEXT);
 CREATE TABLE IF NOT EXISTS incidents(id TEXT PRIMARY KEY, product_id TEXT NOT NULL, description TEXT NOT NULL, status TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS proposals(id TEXT PRIMARY KEY, incident_id TEXT NOT NULL, product_id TEXT NOT NULL, credit_qty INTEGER NOT NULL DEFAULT 0, reverse_event_ids TEXT NOT NULL DEFAULT '[]', snapshot_hash TEXT NOT NULL DEFAULT '', status TEXT NOT NULL, reason TEXT DEFAULT '', created_at INTEGER NOT NULL);
-CREATE TABLE IF NOT EXISTS approvals(id TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, snapshot_hash TEXT NOT NULL, baseline_json TEXT NOT NULL DEFAULT '{}', created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS approvals(id TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, snapshot_hash TEXT NOT NULL, baseline_json TEXT NOT NULL DEFAULT '{}', created_at INTEGER NOT NULL, actor_id TEXT NOT NULL DEFAULT '');
 CREATE TABLE IF NOT EXISTS idempotency_keys(idempotency_key TEXT PRIMARY KEY, proposal_id TEXT NOT NULL, approval_id TEXT NOT NULL, result TEXT NOT NULL, created_at INTEGER NOT NULL);
-CREATE TABLE IF NOT EXISTS audit_log(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, action TEXT NOT NULL, proposal_id TEXT NOT NULL, detail TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS audit_log(id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER NOT NULL, action TEXT NOT NULL, proposal_id TEXT NOT NULL, detail TEXT NOT NULL, actor_id TEXT NOT NULL DEFAULT '');
 """
 
 CANONICAL_INCIDENT = "INC-001"
@@ -41,6 +41,11 @@ def init_db(conn):
     acols = {r[1] for r in conn.execute("PRAGMA table_info(approvals)").fetchall()}
     if "baseline_json" not in acols:
         conn.execute("ALTER TABLE approvals ADD COLUMN baseline_json TEXT NOT NULL DEFAULT '{}'")
+    if "actor_id" not in acols:
+        conn.execute("ALTER TABLE approvals ADD COLUMN actor_id TEXT NOT NULL DEFAULT ''")
+    ucols = {r[1] for r in conn.execute("PRAGMA table_info(audit_log)").fetchall()}
+    if "actor_id" not in ucols:
+        conn.execute("ALTER TABLE audit_log ADD COLUMN actor_id TEXT NOT NULL DEFAULT ''")
     conn.commit()
 
 
@@ -71,11 +76,11 @@ def fingerprint(conn, product_id):
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
-def audit(conn, action, proposal_id, detail):
-    conn.execute("INSERT INTO audit_log(ts, action, proposal_id, detail) VALUES (?,?,?,?)", (int(time.time()), action, proposal_id, detail))
+def audit(conn, action, proposal_id, detail, actor_id="system"):
+    conn.execute("INSERT INTO audit_log(ts, action, proposal_id, detail, actor_id) VALUES (?,?,?,?,?)", (int(time.time()), action, proposal_id, detail, actor_id))
 
 
-def reset_and_seed(conn):
+def reset_and_seed(conn, actor_id="system"):
     from app import domain
     init_db(conn)
     for t in ("idempotency_keys", "audit_log", "approvals", "proposals", "events", "incidents", "products"):
@@ -91,6 +96,6 @@ def reset_and_seed(conn):
     domain.process_order_buggy(conn, "WIDGET-1", "ORD-1001", 10)
     domain.process_restock(conn, "WIDGET-1", 20, note="received shipment")
     domain.process_order_fixed(conn, "GADGET-9", "ORD-9001", 5)
-    audit(conn, "seed", "-", "seeded via executable order/restock path")
+    audit(conn, "seed", "-", "seeded via executable order/restock path", actor_id=actor_id)
     conn.commit()
     return {"incident_id": CANONICAL_INCIDENT, "widget_stock": get_product(conn, "WIDGET-1")["stock"], "gadget_stock": get_product(conn, "GADGET-9")["stock"]}

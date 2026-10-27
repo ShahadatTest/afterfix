@@ -49,3 +49,18 @@ Completed local estimate before UI request91e8376b is$2.9004135; request bound$0
 Browser synthetic recovery ended at stock110 with10 passing verification checks, one repair row, preserved restock and unrelated GADGET-9 stock45. Actual downloaded report is docs/evaluations/browser-live-recovery-2026-10-27.json. The model's observation/inference/uncertainty wording is preserved as model claims; gaps in global event IDs do not prove missing product evidence. Backend computes and validates the repair independently. No claim of held-out or mobile UI evaluation yet.
 
 Local cumulative completed estimate now$3.69283825; no outstanding reservations. First preview teardown terminated the server without running its finalizer; all3 calls were already settled and ledger completion was reconciled under the shared lock after checking both owned ports closed. The lead-only launcher now supports graceful stdin stop. No credentials or raw opaque model reasoning are included in the public synthetic report.
+
+## Authenticated API and interface
+
+| Run prefix | Model | Input | Output | Outcome |
+| --- | --- | ---: | ---: | --- |
+| e14b943c | Wonder1.0 | 16503 | 24267 | Bearer auth, viewer/operator permissions, reset/body/incoming limits; reviewed candidate163 tests passed |
+| 540f4cfb | Wonder1.0 | 21224 | 23139 | Actor-bound approval/apply/audit and migrations; auth review corrections;187 tests passed |
+| 1a834738 | Wonder1.0 | 15883 | 15464 | Sign-in/context, role-aware UI, memory-only app access tokens; strict build passed |
+| a1ed7410 | Wonder1.0 | 8521 | 6159 | Session ownership/mutex and token-bearing URL/redirect restrictions |
+| c89e2470 | Wonder1.0 | 8915 | 2247 | Exact access-key character validation and sanitized Header construction errors; final strict build and lead mocked-fetch probe passed |
+| live-2f3d2ed9 | Spark1.3 | 3296 | 1089 | Authenticated real browser investigation3 calls; separate actor-bound approval/apply,10 passing verification checks and JSON export |
+
+Every staged source/diff was reviewed before execution. Code review found and corrected Python/JS trailing-newline regex behavior, oversized-chunk copying/GET body coverage, ASGI replay, unused gate ownership context, late sign-in failures clearing newer sessions, and duplicate App remount from effect-based session IDs. Existing recovery assertions were retained; auth setup was added to legitimate API fixtures. Actual server anonymous/read/reset401 and viewer mutation/investigation403 probes and viewer/logout/reload UI checks passed. This is a single configured operator/viewer demo, not a per-person identity platform.
+
+Latest cumulative local completed estimate$5.41129050, no outstanding reservations. Real provider remaining/account-wide balance is not known. Preview finalization succeeded via stdin stop; ephemeral local application access keys deleted, both owned ports closed. The Meta API key was never frontend input. Public reports contain synthetic data/model claims/results only. Rust remains planned; no Rust provenance or performance claim yet.

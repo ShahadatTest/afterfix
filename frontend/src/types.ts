@@ -1,3 +1,9 @@
+export interface AuthMeResponse {
+  actor_id: "operator" | "viewer";
+  role: "operator" | "viewer";
+  can_reset: boolean;
+}
+
 export interface Incident {
   id: string;
   product_id: string;
@@ -122,6 +128,8 @@ export interface ApprovalResponse {
   approval_id: string;
   proposal_id: string;
   snapshot_hash: string;
+  /** Server-returned approving actor; never the access token. */
+  actor_id?: string;
 }
 
 export interface ApplyResponse {

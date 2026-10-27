@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ApiError, apiPost, apiGet } from "./api";
 import type {
-  ApplyResponse, ApprovalResponse, CitedStatement, EvidenceEvent, EvidenceResponse,
+  ApplyResponse, ApprovalResponse, AuthMeResponse, CitedStatement, EvidenceEvent, EvidenceResponse,
   IncidentResponse, InvestigationResult, PatchResponse, PreviewResponse, ResetResponse, VerifyResponse,
 } from "./types";
 
@@ -52,7 +52,9 @@ function CheckList({ checks }: { checks: { name: string; ok: boolean; detail?: s
     </li>))}</ul>);
 }
 
-export default function App() {
+export default function App({ actor }: { actor: AuthMeResponse }) {
+  const isViewer = actor.role === "viewer";
+  const canReset = actor.role === "operator" && actor.can_reset;
   const [incidentId, setIncidentId] = useState(DEFAULT_INCIDENT);
   const [incident, setIncident] = useState<IncidentResponse | null>(null);
   const [evidence, setEvidence] = useState<EvidenceResponse | null>(null);
@@ -156,10 +158,12 @@ export default function App() {
 
   const isValidPreview = !!preview && preview.snapshot_match && preview.simulation_pass && preview.invariants.every((i) => i.ok);
   const applySucceeded = isApplySuccess(applyResult);
-  const canApprove = isValidPreview && !!preview && preview.proposal.status === 'proposed' && reviewed && !approval && !applyResult;
+  const canApprove = !isViewer && isValidPreview && !!preview && preview.proposal.status === 'proposed' && reviewed && !approval && !applyResult;
   const furthest: Stage = applySucceeded ? 3 : isValidPreview ? 2 : preview ? 1 : 0;
 
   async function runReset() {
+    // Permission guard runs before the mutation lock is acquired.
+    if (!canReset) { setError(isViewer ? "Viewers have read-only access and cannot load or reset demo data." : "Reset is not permitted for this account."); return; }
     if (!acquireMutation("reset")) return;
     setError(null); setNotice(null);
     try {
@@ -172,10 +176,9 @@ export default function App() {
   }
 
   async function runInvestigate() {
+    if (isViewer) { setError("Viewers have read-only access and cannot run an investigation."); return; }
     if (!acquireMutation("investigate")) return;
     setError(null); setNotice(null);
-    // Clear any prior investigation and downstream state before the first await,
-    // so a failure cannot leave stale claims on screen.
     setInvestigation(null);
     setPreview(null); setApproval(null); setApplyResult(null); setVerifyResult(null); setReviewed(false); applyKeyRef.current = null; setStage(0);
     try {
@@ -194,10 +197,10 @@ export default function App() {
   }
 
   async function runApprove() {
+    if (isViewer) { setError("Viewers have read-only access and cannot approve a repair."); return; }
     if (!acquireMutation("approve")) return;
     setError(null);
     try {
-      // Recheck prerequisites after acquiring the lock.
       if (!preview || preview.proposal.status !== 'proposed' || approval || applyResult) return;
       if (!reviewed || !preview.snapshot_match || !preview.simulation_pass || !preview.invariants.every((i) => i.ok)) {
         setError("Review a valid preview before approving.");
@@ -222,6 +225,7 @@ export default function App() {
   }
 
   async function runApply() {
+    if (isViewer) { setError("Viewers have read-only access and cannot apply a repair."); return; }
     if (!acquireMutation("apply")) return;
     setError(null);
     try {
@@ -253,6 +257,8 @@ export default function App() {
   }
 
   async function runVerify() {
+    // Verification is read-only, so viewers may use it, but the existing
+    // stage gating below (applied repair + matching proposal) still applies.
     if (!acquireMutation("verify")) return;
     setError(null);
     try {
@@ -274,7 +280,7 @@ export default function App() {
       incident: incident?.incident ?? null, product: incident?.product ?? null,
       snapshot_hash: evidence?.snapshot_hash ?? null,
       investigation: investigation ? { status: investigation.status, proposal_id: investigation.proposal_id, model: investigation.model ?? null, usage: investigation.usage ?? null, observations: investigation.observations, inferences: investigation.inferences, uncertainties: investigation.uncertainties, trace: investigation.trace } : null,
-      preview, approval: approval ? { approval_id: approval.approval_id, proposal_id: approval.proposal_id, snapshot_hash: approval.snapshot_hash } : null,
+      preview, approval: approval ? { approval_id: approval.approval_id, proposal_id: approval.proposal_id, snapshot_hash: approval.snapshot_hash, actor_id: approval.actor_id ?? null } : null,
       apply_result: applyResult, verification: verifyResult,
     };
     const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
@@ -305,20 +311,22 @@ export default function App() {
           <strong className="mono">{incident?.incident.id ?? incidentId}</strong>
           {incident ? (<dl><div><dt>Status</dt><dd>{incident.incident.status}</dd></div><div><dt>Product</dt><dd>{incident.product.name} <span className="mono">({incident.product.product_id})</span></dd></div><div><dt>Recorded stock</dt><dd>{incident.product.stock}</dd></div></dl>) : <p className="muted">No incident loaded.</p>}
         </div>
-        <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>
-        <p className="rail-note">Reset loads synthetic demo data only.</p>
+        <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>
+        <p className="rail-note">{isViewer ? "Read-only viewer: demo data must be loaded by an operator." : canReset ? "Reset loads synthetic demo data only." : "Reset is not permitted for this account."}</p>
         {patch && <button type="button" className="btn btn-ghost" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" /> Code patch</button>}
       </aside>
 
       <main className="workspace">
         <header className="hero"><p className="eyebrow">Evidence-driven data recovery</p><h1>Recover the data left behind.</h1><p className="lede">AfterFix examines the recorded evidence, previews a bounded repair, and only applies it after your explicit approval.</p></header>
 
+        {isViewer && <div className="banner warn" role="status"><strong>Read-only viewer.</strong> You can inspect the incident, evidence and patch. Investigation, reset, approval and apply are disabled.</div>}
+
         <div aria-live="polite">{initialLoading && <div className="banner info" role="status">Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
         <div aria-live="polite">{notice && <div className="banner info" role="status">{notice}</div>}</div>
 
         {notSeeded && !incident ? (
-          <section className="panel empty"><h2>No demo incident is loaded yet</h2><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny}>{busy === "reset" ? "Loading…" : "Load demo"}</button></section>
+          <section className="panel empty"><h2>No demo incident is loaded yet</h2>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : (<><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading…" : "Load demo"}</button></>)}</section>
         ) : incident && evidence ? (<>
           <nav className="stages" aria-label="Recovery stages">{STAGES.map((label, i) => {
             const idx = i as Stage; const done = idx < furthest || (idx === 3 && !!verifyResult?.pass && verifyResult.preservation_verified);
@@ -331,9 +339,10 @@ export default function App() {
           </section>
 
           {stage === 0 && (<section className="panel"><div className="panel-head"><div><span className="eyebrow">Stage 1</span><h2>Investigate the evidence</h2></div>
-            <button type="button" className="btn btn-primary" onClick={runInvestigate} disabled={busyAny}>{busy === "investigate" ? "Investigating…" : investigation ? "Investigate again" : "Run investigation"}</button></div>
+            <button type="button" className="btn btn-primary" onClick={runInvestigate} disabled={busyAny || isViewer}>{busy === "investigate" ? "Investigating…" : investigation ? "Investigate again" : "Run investigation"}</button></div>
             {busy === "investigate" && <p className="muted" role="status">Investigating the patch and recorded events…</p>}
-            {!investigation && busy !== "investigate" && <p className="muted">Nothing is approved or applied automatically.</p>}
+            {isViewer && <p className="muted">Viewers cannot run an investigation.</p>}
+            {!investigation && busy !== "investigate" && !isViewer && <p className="muted">Nothing is approved or applied automatically.</p>}
             {investigation && (<div className="stack">
               {investigation.status === "needs_review" ? <div className="banner warn" role="status"><strong>Needs review — no repair proposed.</strong><br />{investigation.reason || "The available evidence was not sufficient for a supported repair."}</div> : <div className="banner ok" role="status">A draft proposal was returned. Review the preview before any approval.</div>}
               {investigation.hypothesis && <section className="subpanel"><h4>Model hypothesis</h4><p>{investigation.hypothesis}</p><p className="label-note">Model explanation — not a deterministic finding.</p></section>}
@@ -347,7 +356,7 @@ export default function App() {
           </section>)}
 
           {stage === 1 && (<section className="panel"><div className="panel-head"><div><span className="eyebrow">Stage 2</span><h2>Preview the proposed repair</h2></div>{preview && <span className={`pill ${preview.simulation_pass && preview.snapshot_match ? "pill-ok" : "pill-bad"}`}>{preview.simulation_pass && preview.snapshot_match ? "Deterministic checks passed" : "Checks need attention"}</span>}</div>
-            {!preview ? <p className="muted">No proposal exists yet. Run an investigation first.</p> : (<div className="stack">
+            {!preview ? <p className="muted">No proposal exists yet. {isViewer ? "An operator must run an investigation first." : "Run an investigation first."}</p> : (<div className="stack">
               <p className="label-note">{investigation?.explanations_label ?? "Model explanation is labelled separately from deterministic checks."}</p>
               {investigation?.hypothesis && <section className="subpanel"><h4>Model explanation</h4><p>{investigation.hypothesis}</p>{investigation.evidence_event_ids.length > 0 && renderCitations(investigation.evidence_event_ids)}</section>}
               <div className="diff-cards"><div className="diff-card"><span>Before</span><strong>{preview.before_stock}</strong><small>recorded stock</small></div><div className="diff-arrow" aria-hidden="true">→</div><div className="diff-card after"><span>After (simulated)</span><strong>{preview.after_stock}</strong><small>stock delta {preview.diff.stock_delta >= 0 ? "+" : ""}{preview.diff.stock_delta} · credit {preview.credit_qty}</small></div></div>
@@ -361,9 +370,10 @@ export default function App() {
           {stage === 2 && (<section className="panel"><span className="eyebrow">Stage 3</span><h2>Approve & apply</h2>
             {!preview ? <p className="muted">No proposal is available to approve.</p> : (<div className="stack">
               <p>Approval is for proposal <span className="mono">{preview.proposal.proposal_id}</span> and snapshot <span className="mono">{preview.proposal.snapshot_hash.slice(0, 16)}…</span>. Apply is a separate action.</p>
-              <label className="review-check"><input type="checkbox" checked={reviewed} onChange={(e) => setReviewed(e.target.checked)} disabled={busyAny || !!approval} /> I reviewed the preview, the events to reverse, and the preserved later activity.</label>
+              {isViewer && <p className="warn-text">Viewers cannot approve or apply a repair.</p>}
+              <label className="review-check"><input type="checkbox" checked={reviewed} onChange={(e) => setReviewed(e.target.checked)} disabled={busyAny || !!approval || isViewer} /> I reviewed the preview, the events to reverse, and the preserved later activity.</label>
               <div className="actions"><button type="button" className="btn btn-primary" onClick={runApprove} disabled={busyAny || !canApprove}>{busy === "approve" ? "Approving…" : approval ? "Approved" : "Approve this repair"}</button>
-              <button type="button" className="btn btn-danger" onClick={runApply} disabled={busyAny || !approval || !!applyResult}>{busy === "apply" ? "Applying…" : "Apply approved repair"}</button></div>
+              <button type="button" className="btn btn-danger" onClick={runApply} disabled={busyAny || isViewer || !approval || !!applyResult}>{busy === "apply" ? "Applying…" : "Apply approved repair"}</button></div>
               {!preview.snapshot_match && <p className="warn-text">Approval disabled: the snapshot is stale.</p>}
               {!preview.simulation_pass && <p className="warn-text">Approval disabled: simulation did not pass.</p>}
               {preview.snapshot_match && preview.simulation_pass && !preview.invariants.every((i) => i.ok) && <p className="warn-text">Approval disabled: an invariant did not pass.</p>}
@@ -394,7 +404,7 @@ export default function App() {
             })}</ol>
             {!sortedEvents.length && <p className="muted">No events were returned for this product.</p>}
           </section>
-        </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>Incident unavailable</h2><p>{error ?? "The incident could not be loaded."}</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny}>Load demo</button></section>) : null}
+        </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>Incident unavailable</h2><p>{error ?? "The incident could not be loaded."}</p>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : <button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>Load demo</button>}</section>) : null}
       </main>
 
       <dialog ref={dialogRef} className="dialog" aria-labelledby="dialog-title" onClose={handleDialogClose} onCancel={handleDialogClose}>

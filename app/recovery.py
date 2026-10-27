@@ -18,6 +18,19 @@ class ApprovalError(Exception):
     pass
 
 
+_MAX_ACTOR_ID_LEN = 128
+
+
+def _validate_actor_id(actor_id):
+    if not isinstance(actor_id, str):
+        raise ApprovalError("invalid actor_id")
+    if actor_id != actor_id.strip() or not (1 <= len(actor_id) <= _MAX_ACTOR_ID_LEN):
+        raise ApprovalError("invalid actor_id")
+    if any(ord(c) < 32 or ord(c) == 127 for c in actor_id):
+        raise ApprovalError("invalid actor_id")
+    return actor_id
+
+
 def _new_id(prefix):
     return f"{prefix}-{uuid.uuid4().hex[:8]}"
 
@@ -89,7 +102,6 @@ def _repair_state(conn, product_id):
                     pids = None
                 if prow["product_id"] != product_id or prow["credit_qty"] != ev["qty"] or pids != sorted(vals) or prow["status"] != "applied":
                     errors.append(f"repair {ev['id']}: proposal linkage/amount mismatch")
-    # Exactly one repair event per proposal.
     rps = [x["repair_proposal_id"] for x in repairs if x["repair_proposal_id"]]
     if len(rps) != len(set(rps)):
         errors.append("multiple repair events for one proposal")
@@ -199,7 +211,6 @@ def _copy_conn(src):
     dst = sqlite3.connect(":memory:")
     dst.row_factory = sqlite3.Row
     if getattr(src, "in_transaction", False):
-        # backup() can hang on a source with an active write transaction; dump instead.
         dst.executescript("\n".join(src.iterdump()))
     else:
         src.backup(dst)
@@ -274,7 +285,8 @@ def preview_proposal(conn, proposal_id):
     }
 
 
-def approve_proposal(conn, proposal_id, snapshot_hash):
+def approve_proposal(conn, proposal_id, snapshot_hash, actor_id="local-core"):
+    actor_id = _validate_actor_id(actor_id)
     p = _get_proposal(conn, proposal_id)
     if p["status"] == "needs_review":
         raise ApprovalError("cannot approve a needs-review proposal")
@@ -284,7 +296,6 @@ def approve_proposal(conn, proposal_id, snapshot_hash):
         raise ApprovalError("proposal already approved")
     if snapshot_hash != p["snapshot_hash"]:
         raise StaleStateError("stale snapshot: state changed after preview; make a new preview")
-    # Disposable snapshot taken before any write transaction on conn.
     snap_conn = _copy_conn(conn)
     try:
         sp = _get_proposal(snap_conn, proposal_id)
@@ -310,7 +321,6 @@ def approve_proposal(conn, proposal_id, snapshot_hash):
     try:
         if own_txn:
             conn.execute("BEGIN IMMEDIATE")
-        # Recheck the complete baseline coherently under the write lock.
         p2 = _get_proposal(conn, proposal_id)
         if p2 != p or p2["status"] in ("needs_review", "applied", "approved"):
             raise StaleStateError("stale snapshot: proposal changed; make a new preview")
@@ -323,9 +333,9 @@ def approve_proposal(conn, proposal_id, snapshot_hash):
         led = domain.compute_ledger(conn, p["product_id"])
         if p["credit_qty"] != led["outstanding"] or not led["stock_matches_ledger"]:
             raise StaleStateError("stale state: ledger no longer matches proposal; make a new preview")
-        conn.execute("INSERT INTO approvals(id, proposal_id, snapshot_hash, baseline_json, created_at) VALUES (?,?,?,?,?)", (aid, proposal_id, current, json.dumps(baseline, sort_keys=True), int(time.time())))
+        conn.execute("INSERT INTO approvals(id, proposal_id, snapshot_hash, baseline_json, created_at, actor_id) VALUES (?,?,?,?,?,?)", (aid, proposal_id, current, json.dumps(baseline, sort_keys=True), int(time.time()), actor_id))
         conn.execute("UPDATE proposals SET status='approved' WHERE id=?", (proposal_id,))
-        store.audit(conn, "approve", proposal_id, json.dumps({"approval_id": aid, "snapshot": current}))
+        store.audit(conn, "approve", proposal_id, json.dumps({"approval_id": aid, "snapshot": current, "actor_id": actor_id}), actor_id=actor_id)
         conn.commit()
     except Exception:
         try:
@@ -333,10 +343,11 @@ def approve_proposal(conn, proposal_id, snapshot_hash):
         except Exception:
             pass
         raise
-    return {"approval_id": aid, "proposal_id": proposal_id, "snapshot_hash": baseline["snapshot_hash"]}
+    return {"approval_id": aid, "proposal_id": proposal_id, "snapshot_hash": baseline["snapshot_hash"], "actor_id": actor_id}
 
 
-def apply_proposal(conn, proposal_id, approval_id, idempotency_key):
+def apply_proposal(conn, proposal_id, approval_id, idempotency_key, actor_id="local-core"):
+    actor_id = _validate_actor_id(actor_id)
     if not idempotency_key or len(str(idempotency_key)) < 4:
         raise ApprovalError("idempotency_key is required")
     conn.execute("BEGIN IMMEDIATE")
@@ -348,6 +359,14 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key):
         ap = conn.execute("SELECT * FROM approvals WHERE id=?", (approval_id,)).fetchone()
         if ap is None or ap["proposal_id"] != proposal_id:
             raise ApprovalError("approval does not authorize this proposal")
+        # Actor binding is checked before any cached-success or
+        # already-applied shortcut, and before any mutation.
+        try:
+            approval_actor = ap["actor_id"]
+        except Exception:
+            approval_actor = None
+        if not approval_actor or approval_actor != actor_id:
+            raise ApprovalError("approval actor does not match apply actor")
         prior = conn.execute("SELECT * FROM idempotency_keys WHERE idempotency_key=?", (idempotency_key,)).fetchone()
         if prior:
             if prior["proposal_id"] != proposal_id or prior["approval_id"] != approval_id:
@@ -361,7 +380,6 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key):
             return result
         if p["status"] != "approved":
             raise ApprovalError("proposal is not approved")
-        # Approved baseline must exist and bind this proposal/product.
         try:
             base = json.loads(ap["baseline_json"] or "")
             if not isinstance(base, dict) or base.get("proposal_id") != proposal_id or base.get("product_id") != p["product_id"] or base.get("snapshot_hash") != ap["snapshot_hash"]:
@@ -386,7 +404,7 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key):
         )
         conn.execute("UPDATE products SET stock = stock + ? WHERE product_id=?", (p["credit_qty"], p["product_id"]))
         conn.execute("UPDATE proposals SET status='applied' WHERE id=?", (proposal_id,))
-        store.audit(conn, "apply", proposal_id, json.dumps({"approval_id": approval_id, "credit": p["credit_qty"], "before": before, "after": after, "reversed": sorted(p["reverse_event_ids"])}))
+        store.audit(conn, "apply", proposal_id, json.dumps({"approval_id": approval_id, "credit": p["credit_qty"], "before": before, "after": after, "reversed": sorted(p["reverse_event_ids"]), "actor_id": actor_id}), actor_id=actor_id)
         result = {"status": "applied", "proposal_id": proposal_id, "before_stock": before, "after_stock": after, "credit_qty": p["credit_qty"], "idempotent": False}
         conn.execute("INSERT INTO idempotency_keys(idempotency_key, proposal_id, approval_id, result, created_at) VALUES (?,?,?,?,?)", (idempotency_key, proposal_id, approval_id, json.dumps(result), int(time.time())))
         conn.commit()

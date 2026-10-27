@@ -13,19 +13,23 @@ Codex inspected current source and ran bounded checks at the owner's request. Th
 
 Queries bind user values using SQLite parameters; dynamic table names in reset are from a fixed internal list and event-ID queries generate placeholders. Investigation allows get_patch/read_events only. Model claims pass schema/citation/scope checks and deterministic repair validation. Preview uses a disposable database, approval binds proposal/snapshot, apply checks staleness under BEGIN IMMEDIATE and records idempotency/audit data. React renders records/model text as text; no dangerouslySetInnerHTML found. Local preview binds127.0.0.1. These controls reduce specific risks; none establishes user identity.
 
-## Public deployment blocker
+## Original access-control finding (before remediation)
 
-app/main.py has no user authentication/authorization middleware or route dependencies. Synthetic reset, proposal, approval, apply and evidence routes are accessible to any client that can reach the service. An approval ID represents repair consent/state binding, not an authenticated approver or role.
+The initial inspected app/main.py had no user authentication/authorization middleware or route dependencies. Synthetic reset, proposal, approval, apply and evidence routes were accessible to any client that could reach the service. An approval ID represented repair consent/state binding, not an authenticated approver or role.
 
 Independent TestClient probe used a temporary synthetic database, no authentication and no Meta calls. POST /admin/reset returned200; POST /proposals created a grounded draft; POST /proposals/{id}/approve returned200; POST /apply returned200. This confirms the gap without touching the saved demo DB.
 
-Before exposing a shared demo, implement reviewed authentication/authorization or equivalent gateway isolation, scope access to the intended demo/session, remove or tightly restrict reset, bound incoming request rate/concurrent investigations, and serve behind HTTPS. No such implementation is claimed here. If cookie sessions are chosen, review CSRF/session protections as part of that design. Public deployment remains unauthorized and has not happened.
+## Access-control remediation verified
+
+Meta-generated auth middleware, operator/viewer permissions, restricted reset, incoming body/concurrency/rate bounds and actor-bound approval/apply/audit were reviewed and installed. Full suite187 passed; UI build passed. Actual server anonymous incident/reset probes now401; viewer investigate/reset/approve/apply now403. Authenticated real browser investigation/approval/apply/verification succeeded, with actor=operator in DB/audit/report. Viewer read-only UI, logout and reload-to-sign-in were observed. See AUTH.md and docs/evaluations/auth-route-probe-2026-10-27.json/browser-auth-recovery-2026-10-27.json.
+
+This closes the original unauthenticated-route gap for the evaluated single-demo-instance design. It does not provide individual user accounts, multi-tenant/session dataset isolation, hosted HTTPS, distributed request limits or a public portable shared-credit runtime. Those conditions and dependency advisory review remain before public exposure. Static application tokens require protected provisioning/revocation. The browser keeps its token only in memory; no cookie session was introduced. Public deployment remains unauthorized and has not happened.
 
 ## Dependency checks actually run
 
 - npm.cmd audit --json:0 reported known vulnerabilities across all reported severities at check time. This does not detect application logic vulnerabilities or guarantee future advisory coverage.
 - .venv/Scripts/python.exe -m pip check:No broken requirements found. This checks compatibility, NOT Python vulnerability advisories; a backend/SQLite version advisory review is still needed before public deployment.
-- Source inspection and isolated unauthenticated route probe as above; no exhaustive exploit testing or new product test suite authored.
+- Initial source inspection/isolated unauthenticated probe and later auth/actor regression suite plus actual-server/browser probes as above; no exhaustive exploit testing or certification.
 
 ## Database choice
 

@@ -1,0 +1,12 @@
+{
+  "scope": "actual loopback server with ephemeral configured application tokens; no Meta call initiated by this permission probe",
+  "results": {
+    "anonymous_incident": 401,
+    "anonymous_reset": 401,
+    "viewer_incident": 200,
+    "viewer_investigate": 403,
+    "viewer_reset": 403,
+    "viewer_approve": 403,
+    "viewer_apply": 403
+  }
+}

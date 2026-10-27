@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 from app import main as main_module
 from app import store
+from app.auth import InvestigationGate
 from app.main import app, get_investigation_client
 from app.meta_client import MODEL, MetaClient
 from tests.test_investigator import FakeTransport, completed, fc, ids, make_final, message, tool_then_final
@@ -13,12 +14,17 @@ from tests.test_investigator import FakeTransport, completed, fc, ids, make_fina
 DUMMY_KEY = "DUMMY_BROWSER_KEY_MARKER"
 DUMMY_ENV_KEY = "DUMMY_ENV_KEY_MARKER"
 WIDGET = "WIDGET-1"
+OPERATOR_TOKEN = "operator-token-for-tests-1234567890abc"
+VIEWER_TOKEN = "viewer-token-for-tests-1234567890abcd"
 
 
 @pytest.fixture()
 def api(tmp_path, monkeypatch):
     path = tmp_path / "afterfix.db"
     monkeypatch.setenv("AFTERFIX_DB", str(path))
+    monkeypatch.setenv("AFTERFIX_OPERATOR_TOKEN", OPERATOR_TOKEN)
+    monkeypatch.setenv("AFTERFIX_VIEWER_TOKEN", VIEWER_TOKEN)
+    monkeypatch.setenv("AFTERFIX_ALLOW_RESET", "1")
     conn = store.connect(str(path))
     try:
         store.reset_and_seed(conn)
@@ -26,13 +32,19 @@ def api(tmp_path, monkeypatch):
     finally:
         conn.close()
     saved_overrides = dict(app.dependency_overrides)
-    client = TestClient(app)
+    saved_gate = main_module.investigation_gate
+    gate = InvestigationGate()
+    main_module.investigation_gate = gate
+    app.state.investigation_gate = gate
+    client = TestClient(app, headers={"Authorization": f"Bearer {OPERATOR_TOKEN}"})
     try:
         yield {"client": client, "path": str(path), "ids": event_ids}
     finally:
         client.close()
         app.dependency_overrides.clear()
         app.dependency_overrides.update(saved_overrides)
+        main_module.investigation_gate = saved_gate
+        app.state.investigation_gate = saved_gate
         # monkeypatch restores AFTERFIX_DB / MODEL_API_KEY / gateway env.
 
 
