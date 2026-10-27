@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict
 from app import domain, investigator, recovery, schemas, store
 from app.auth import Actor, AuthMiddleware, InvestigationGate, reset_allowed
 from app.meta_client import MetaClient
+from app.runtime_budget import RuntimeBudgetError, RuntimeBudgetTransport, RuntimeLockBusy
 
 app = FastAPI(title="AfterFix API", version="1.0.0")
 app.add_middleware(AuthMiddleware)
@@ -52,7 +53,31 @@ class InvestigateRequest(BaseModel):
 
 
 def get_investigation_client():
-    """Default client: only an explicitly configured loopback budget gateway."""
+    """Yield a guarded client; fail closed on absent/malformed/ambiguous config.
+
+    AFTERFIX_RUNTIME_DIR selects the portable shared-ledger transport and is
+    mutually exclusive with the explicitly configured loopback gateway.
+    """
+    runtime_present = "AFTERFIX_RUNTIME_DIR" in os.environ
+    gateway_present = "AFTERFIX_META_BASE_URL" in os.environ
+    if runtime_present and gateway_present:
+        raise HTTPException(503, _UNAVAILABLE)
+    if runtime_present:
+        runtime_dir = os.environ.get("AFTERFIX_RUNTIME_DIR")
+        key = os.environ.get("MODEL_API_KEY")
+        if not isinstance(runtime_dir, str) or not runtime_dir or not os.path.isabs(runtime_dir):
+            raise HTTPException(503, _UNAVAILABLE)
+        if not isinstance(key, str) or not key:
+            raise HTTPException(503, _UNAVAILABLE)
+        transport = RuntimeBudgetTransport(runtime_dir)
+        try:
+            with transport:
+                yield MetaClient(transport=transport)
+        except RuntimeLockBusy:
+            raise HTTPException(429, "investigation busy", headers={"Retry-After": "1"}) from None
+        except RuntimeBudgetError:
+            raise HTTPException(503, _UNAVAILABLE) from None
+        return
     base = os.environ.get("AFTERFIX_META_BASE_URL")
     key = os.environ.get("MODEL_API_KEY")
     if not base or not isinstance(key, str) or not key:
@@ -72,7 +97,7 @@ def get_investigation_client():
             or parsed.password
         ):
             raise HTTPException(503, _UNAVAILABLE)
-        return MetaClient(base_url=base, api_key=key)
+        yield MetaClient(base_url=base, api_key=key)
     except HTTPException:
         raise
     except Exception:

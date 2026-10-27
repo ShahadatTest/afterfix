@@ -1,0 +1,321 @@
+{
+  "case_id": "portable-runtime-varied-smoke-v1",
+  "scope": "one real Meta plumbing smoke case; not held-out benchmark or production validation",
+  "fixture_sha256": "6bcc643e62645fb839d177aa57ba56b4713cc3c120cc1c58134b5b8e1d0bc8b1",
+  "oracle": {
+    "case_id": "portable-runtime-varied-smoke-v1",
+    "purpose": "Frozen synthetic plumbing/invariant smoke case for default portable runtime, not the later held-out benchmark",
+    "product_id": "PURPLE-47",
+    "opening_stock": 311,
+    "repeated_order_id": "ORDER-X9",
+    "order_quantity": 23,
+    "deliveries": 2,
+    "later_restock": 37,
+    "later_valid_order_id": "ORDER-LATER",
+    "later_valid_order_quantity": 7,
+    "unrelated_product_id": "OTHER-3",
+    "unrelated_opening_stock": 150,
+    "unrelated_valid_order_quantity": 13,
+    "expected_before_stock": 295,
+    "expected_credit": 23,
+    "expected_after_stock": 318,
+    "expected_unrelated_stock": 137,
+    "acceptance": "Live Meta reads actual patch/events; proposes a grounded draft; deterministic preview computes the expected correction and preserves legitimate later activity. No approval/apply during this smoke test. Retain any abstention/failure, no blind retry."
+  },
+  "http_status": 200,
+  "actual_investigation": {
+    "status": "proposed",
+    "reason": "proposal_created",
+    "stop_category": "proposal_created",
+    "incident_id": "INC-PORTABLE-V1",
+    "product_id": "PURPLE-47",
+    "proposal": {
+      "proposal_id": "PROP-5ed223ce",
+      "status": "proposed",
+      "incident_id": "INC-PORTABLE-V1",
+      "product_id": "PURPLE-47",
+      "credit_qty": 23,
+      "reverse_event_ids": [
+        4
+      ],
+      "snapshot_hash": "e05a5e2148c9e9dc307470c7a58c99601cd6bf93a2e76896006dcf5f511ad3e8",
+      "reason": ""
+    },
+    "proposal_id": "PROP-5ed223ce",
+    "hypothesis": "Inventory shortage of 23 units for PURPLE-47 was caused by non-idempotent order processing: order ORDER-X9 qty 23 was deducted twice (events 3 and 4), consistent with the buggy process_order that deducts on every call without a repeated order_id guard.",
+    "observations": [
+      {
+        "evidence_event_ids": [
+          1
+        ],
+        "text": "Event 1 init opening record qty 311 for PURPLE-47."
+      },
+      {
+        "evidence_event_ids": [
+          3
+        ],
+        "text": "Event 3 order_deduction ORDER-X9 qty 23."
+      },
+      {
+        "evidence_event_ids": [
+          4
+        ],
+        "text": "Event 4 repeat order_deduction ORDER-X9 qty 23 with same note."
+      },
+      {
+        "evidence_event_ids": [
+          5
+        ],
+        "text": "Event 5 restock qty 37, order_id null."
+      },
+      {
+        "evidence_event_ids": [
+          6
+        ],
+        "text": "Event 6 order_deduction ORDER-LATER qty 7, distinct order."
+      }
+    ],
+    "inferences": [
+      {
+        "evidence_event_ids": [
+          3,
+          4
+        ],
+        "text": "Events 3 and 4 share identical product_id, order_id ORDER-X9, kind, and qty 23, indicating a retry/duplicate submission applied twice."
+      },
+      {
+        "evidence_event_ids": [
+          3,
+          4
+        ],
+        "text": "Patch comparison shows buggy code has no idempotency check while fixed code queries for existing order_deduction and skips repeat, explaining the double deduction."
+      },
+      {
+        "evidence_event_ids": [
+          1,
+          3,
+          4,
+          5,
+          6
+        ],
+        "text": "Ledger math: 311 -23 -23 +37 -7 = 295 vs correct 311 -23 +37 -7 = 318, so duplicate accounts for 23-unit discrepancy; restock and ORDER-LATER appear normal."
+      }
+    ],
+    "uncertainties": [
+      "Event id 2 is missing from available ids; unknown if deleted or unrelated.",
+      "Current products.stock value was not directly observed, only inferred from events.",
+      "Retry source (client, network, operator) for duplicate ORDER-X9 not in events."
+    ],
+    "explanations": {
+      "hypothesis": "Inventory shortage of 23 units for PURPLE-47 was caused by non-idempotent order processing: order ORDER-X9 qty 23 was deducted twice (events 3 and 4), consistent with the buggy process_order that deducts on every call without a repeated order_id guard.",
+      "observations": [
+        {
+          "evidence_event_ids": [
+            1
+          ],
+          "text": "Event 1 init opening record qty 311 for PURPLE-47."
+        },
+        {
+          "evidence_event_ids": [
+            3
+          ],
+          "text": "Event 3 order_deduction ORDER-X9 qty 23."
+        },
+        {
+          "evidence_event_ids": [
+            4
+          ],
+          "text": "Event 4 repeat order_deduction ORDER-X9 qty 23 with same note."
+        },
+        {
+          "evidence_event_ids": [
+            5
+          ],
+          "text": "Event 5 restock qty 37, order_id null."
+        },
+        {
+          "evidence_event_ids": [
+            6
+          ],
+          "text": "Event 6 order_deduction ORDER-LATER qty 7, distinct order."
+        }
+      ],
+      "inferences": [
+        {
+          "evidence_event_ids": [
+            3,
+            4
+          ],
+          "text": "Events 3 and 4 share identical product_id, order_id ORDER-X9, kind, and qty 23, indicating a retry/duplicate submission applied twice."
+        },
+        {
+          "evidence_event_ids": [
+            3,
+            4
+          ],
+          "text": "Patch comparison shows buggy code has no idempotency check while fixed code queries for existing order_deduction and skips repeat, explaining the double deduction."
+        },
+        {
+          "evidence_event_ids": [
+            1,
+            3,
+            4,
+            5,
+            6
+          ],
+          "text": "Ledger math: 311 -23 -23 +37 -7 = 295 vs correct 311 -23 +37 -7 = 318, so duplicate accounts for 23-unit discrepancy; restock and ORDER-LATER appear normal."
+        }
+      ],
+      "uncertainties": [
+        "Event id 2 is missing from available ids; unknown if deleted or unrelated.",
+        "Current products.stock value was not directly observed, only inferred from events.",
+        "Retry source (client, network, operator) for duplicate ORDER-X9 not in events."
+      ]
+    },
+    "explanations_label": "model-generated claims, not authority",
+    "evidence_event_ids": [
+      1,
+      3,
+      4,
+      5,
+      6
+    ],
+    "read_event_ids": [
+      1,
+      3,
+      4,
+      5,
+      6
+    ],
+    "selected_event_ids": [
+      1,
+      3,
+      4,
+      5,
+      6
+    ],
+    "trace": [
+      {
+        "tool": "get_patch",
+        "event_ids": [],
+        "count": 0
+      },
+      {
+        "tool": "read_events",
+        "event_ids": [
+          1,
+          3,
+          4,
+          5,
+          6
+        ],
+        "count": 5
+      }
+    ],
+    "counts": {
+      "requests": 3,
+      "read_events": 5
+    },
+    "model": "muse-spark-1.3",
+    "usage": {
+      "model": "muse-spark-1.3",
+      "requests": 3,
+      "input_tokens": 3358,
+      "output_tokens": 1108,
+      "total_tokens": 4466,
+      "estimated_cost": 0.008906500000000001,
+      "estimated_cost_usd": 0.008906500000000001,
+      "cost_usd": 0.008906500000000001,
+      "unknown_usage_calls": 0,
+      "unknown_usage": 0,
+      "reserved_output_tokens": 0,
+      "reserved_cost": 0.0,
+      "blocked": false
+    }
+  },
+  "actual_preview": {
+    "proposal": {
+      "proposal_id": "PROP-5ed223ce",
+      "status": "proposed",
+      "incident_id": "INC-PORTABLE-V1",
+      "product_id": "PURPLE-47",
+      "credit_qty": 23,
+      "reverse_event_ids": [
+        4
+      ],
+      "snapshot_hash": "e05a5e2148c9e9dc307470c7a58c99601cd6bf93a2e76896006dcf5f511ad3e8",
+      "reason": ""
+    },
+    "status": "proposed",
+    "before_stock": 295,
+    "after_stock": 318,
+    "credit_qty": 23,
+    "reverse_event_ids": [
+      4
+    ],
+    "preserved_restock_ids": [
+      5
+    ],
+    "unrelated_products": [
+      {
+        "product_id": "OTHER-3",
+        "stock": 137
+      }
+    ],
+    "diff": {
+      "stock_delta": 23,
+      "events_added": 1,
+      "restocks_untouched": [
+        5
+      ]
+    },
+    "simulation_checks": [
+      {
+        "name": "repair_applies_cleanly",
+        "ok": true
+      },
+      {
+        "name": "ledger_matches_stock_after",
+        "ok": true
+      },
+      {
+        "name": "no_outstanding_after",
+        "ok": true
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true
+      }
+    ],
+    "simulation_pass": true,
+    "invariants": [
+      {
+        "name": "ledger_matches_stock",
+        "ok": true
+      },
+      {
+        "name": "credit_equals_outstanding",
+        "ok": true
+      },
+      {
+        "name": "qty_consistent",
+        "ok": true
+      },
+      {
+        "name": "simulation_pass",
+        "ok": true
+      }
+    ],
+    "snapshot_match": true
+  },
+  "checks": {
+    "default_runtime_returned_proposal": true,
+    "computed_preview_matches_independent_oracle": true,
+    "preview_invariants_pass": true,
+    "live_stock_unchanged": true,
+    "recorded_events_unchanged": true,
+    "unrelated_product_unchanged": true,
+    "no_approval_or_repair": true
+  },
+  "pass": true
+}
