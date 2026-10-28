@@ -1,0 +1,25 @@
+{
+  "job_id": "a9f67cf3-fa23-4aff-a721-91cf7b832870",
+  "run_id": "00534a24-adb2-477f-b865-f16e4ded9fbc",
+  "decision": "corrections_requested_before_product_install",
+  "model": "muse-wonder-1.0",
+  "usage": {"input_tokens": 27613, "output_tokens": 4628, "reasoning_tokens_in_output": 1751},
+  "estimated_usd": 0.203012,
+  "cumulative_local_estimated_usd": 16.845092,
+  "review": "All staged helper/tests/manifest and eight materialized exact-edit diffs reviewed; existing-source Python AST passed. No product files copied or executed.",
+  "offline_probe": {
+    "target": "staged trusted_tls_context with synthetic certifi.where RuntimeError",
+    "expected_fixed_message": "TLS trust configuration unavailable",
+    "fixed_message": false,
+    "synthetic_sentinel_exposed": true,
+    "context_suppressed": false,
+    "network_calls": 0,
+    "credential_access": false
+  },
+  "findings": [
+    "except RuntimeError: raise leaks unexpected dependency/configuration errors instead of sanitizing at the public helper boundary",
+    "cafile ASCII-only restriction unnecessarily rejects legitimate Unicode installation directories"
+  ],
+  "next": "Meta bounded correction, regression tests for raw RuntimeError sanitation and valid Unicode bundle paths; original staging and probe retained",
+  "not_run": "Product install, focused/full pytest, live provider call, runtime upgrades"
+}
