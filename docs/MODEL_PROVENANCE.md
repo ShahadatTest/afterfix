@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Durable report UI initial review —2026-10-28
+
+Wonder1.0 run7cab0adb/jobfc8e7676:20731input/20513output,estimate$0.493184,cumulative$12.3967715. Reviewed all4 frontend sources/full diffs before temporary installation; strict build failed TS2339 nested preview proposal type. Native Node strip-types actual exact helper probe reproduced false Verified for malformed check/missing record status/failed verification status. Source review confirms StrictMode first-run-ref cancellation pattern and read/download/reset/error gaps; browser not run. Restored accepted App/types, removed new copied component/css; backend0eda9d9/350-test source unchanged. Marked corrections_requested; prompt44 requests focused frontend fixes plus pure native Node state regressions, no dependencies/paid runtime/generation waiting.
+
 ## Durable case backend accepted —2026-10-28
 
 Wonder1.0 run8d4d9fb2/job b1ffb957:29245input/1458output,estimate$0.146140,cumulative$11.9035875. Reviewed2 exact edits/materialized against79e73ada using unique matches/AST/hashes; full diffs reviewed before installation with prior reviewed cd124fb1 main hooks. Focused23passed/1existingwarning5.16s; full350passed/1existingwarning28.49s. Multi-product baseline and strict read/selected fixture corrected, all mutation/marker/corruption/current-verification loops pass with real release Rust and offline FakeMeta. Exact key scan64 files zero hits before adding contract docs. Backend versioned full cases/read-only APIs accepted; frontend history/full download still pending. No paid runtime/browser/held-out evidence claimed this turn; no publication/deployment. Accepted source checkpoint0eda9d9; next UI jobfc8e7676 queued via prompt43, four frontend sources only, no generation waiting.
