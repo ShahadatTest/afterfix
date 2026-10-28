@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Hash-pinned installer preparation accepted —2026-10-28
+
+Wonder1.0 run90c41f02/job21baf87c:9394input/2646output(383reasoning),estimate$0.090496,cumulative local$16.375588. Full2stagedfiles/README diff reviewed; exact installer pin/hash/flags/relative links checked before copying README and requirements-bootstrap.txt. PublicPyPI26.2.2 wheelhash previously verified. Staticpreparation only; no app/runtime/lockfile changes or new testneeded. Backend403/Rust32/live5/7 unchanged/notrerun. Evidence bootstrap-prepared-90c41f02.json. Lead fixed backgroundQA controller reviewed/ASTparsed; nextprojectvenv-only bootstrap/packagecomparison/pipcheck/newpublicinventory+OSV, noMeta credentials/APIcalls. Remediation still unexecuted at acceptance.
+
 ## Public dependency snapshot reviewed; installer correction queued —2026-10-28
 
 Lead QA job92c23061 completed one public OSV query of103triples, rc1/findings (not failure),12distinctIDs allfresh-clone installer pip25.0.1. Independent mappings/counts/hashes checked; original3artifacts bytepreserved in evaluations/osv-dependencies-v1/. OfficialOSV aliases establish six underlyingissues; other102triples noindexedmatches, no clean/certification claim. NoMeta/runtimecalls or installs, localcompletedestimate unchanged$16.285092. Lead reviewed public fixedranges/PyPI26.2.2/wheelhash, documented DEPENDENCY_RESULTS.md and accepted snapshot with installer remediation open. Meta job21baf87c queued prompt64 for separatehash-pinnedbootstraprequirement+READMEonly; no upgrade/resultclaimed. No app/runtime changes, livebenchmark5/7 preserved.

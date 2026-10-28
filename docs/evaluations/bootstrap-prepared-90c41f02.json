@@ -1,0 +1,27 @@
+{
+  "reviewed_at": "2026-10-28T08:51:54.076987+00:00",
+  "run_id": "90c41f02-7689-4da5-8dd4-c13919717d6e",
+  "job_id": "21baf87c-9536-4030-8712-673bf6f3ef7c",
+  "model": "muse-wonder-1.0",
+  "decision": "accepted_static_preparation_pending_execution",
+  "usage": {
+    "input_tokens": 9394,
+    "output_tokens": 2646,
+    "reasoning_tokens": 383,
+    "estimated_usd": 0.090496,
+    "local_completed_cumulative_usd": 16.375588
+  },
+  "files_sha256": {
+    "README.md": "251dd73da2c2cb67e1dc3d03360eb622d14a363ceadbeed1c30493599b9dcce4",
+    "requirements-bootstrap.txt": "620780f2bd7c67bbdbf9e1a757da859956deb2f11962b34f7e938a998152125a"
+  },
+  "checks": [
+    "All2staged complete files and README diff reviewed before copying; only boundedsetup/snapshot text and installer pin changed.",
+    "Exact single pip26.2.2 wheelhash matches previously verified publicPyPI; CLI flags/explicitvenv checked; allrelativeREADME links exist.",
+    "Reviewed fixed background controller AST parsed. No extra tests for staticpin/docs; no app/backend/runtime change."
+  ],
+  "execution": "No installer update, compatibility check or new advisory result yet. BackgroundQA next.",
+  "limits": [
+    "Old103package/12ID/sixissue snapshot retained. Frozenlive5/7 unchanged. Backend403/Rust32 unchanged/notrerun."
+  ]
+}

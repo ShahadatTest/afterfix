@@ -37,16 +37,32 @@ The first immutable seven-case live benchmark remains **5/7 passed, 2/7 failed**
 
 Offline fixtures are test evidence only; they are not live model evidence. Mobile layout, delayed React behaviour, model-budget browser behaviour, and a complete keyboard cycle remain pending.
 
+A dependency snapshot returned 12 advisory IDs forming six GHSA/PYSEC alias pairs for the fresh-clone installer pip 25.0.1; the other 102 triples had no indexed matches in that snapshot. Installer remediation and verification are pending; see [dependency snapshot results](docs/DEPENDENCY_RESULTS.md).
+
 ## Windows PowerShell setup
 
 The lead validated pinned revision dd660c5 on Windows in separate fresh local clones: Python/Rust installation and tests, native checks and seven offline cases, plus fresh frontend install/build under npm12.0.2. This was split validation, not a single all-in-one run. Earlier failed attempts are retained; see [fresh frontend evidence](docs/evaluations/frontend-repro-accepted-2026-10-28.json). Keep at least1GiB disk headroom before dependency installation; a full drive caused a recorded install failure.
 
-From the repository root, create an isolated Python environment and install dependencies:
+From the repository root, create an isolated Python environment. Do not recreate an existing `.venv` automatically; create it only if it does not already exist:
 
 ```powershell
 py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+```
+
+The following bootstrap commands are proposed and not yet validated by the lead; the historical fresh-clone tests above precede this bootstrap change. Before installing the application requirements, use the explicit `.venv` Python (not an activation-dependent `python`) to upgrade the installer from the separate hash-pinned bootstrap file:
+
+```powershell
+.\.venv\Scripts\python.exe -I -m pip --isolated --disable-pip-version-check --no-input install --index-url https://pypi.org/simple --keyring-provider disabled --only-binary=:all: --no-deps --no-cache-dir --require-hashes --upgrade -r requirements-bootstrap.txt
+.\.venv\Scripts\python.exe -I -m pip --version
+```
+
+The version output must require pip 26.2.2. Stop on bootstrap failure or version mismatch rather than continuing or installing an unreviewed alternative. The bootstrap hash pins this installer wheel only; the application requirements are existing version pins, not a comprehensive hash lock.
+
+Then install the application requirements as a separate step and check the environment:
+
+```powershell
+.\.venv\Scripts\python.exe -I -m pip --isolated --disable-pip-version-check --no-input install --index-url https://pypi.org/simple --keyring-provider disabled --only-binary=:all: --no-cache-dir -r requirements.txt
+.\.venv\Scripts\python.exe -I -m pip check
 ```
 
 Build and test the Rust verifier **before** running the Python suite, because the API integration requires the release binary:

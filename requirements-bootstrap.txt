@@ -1,0 +1,2 @@
+# Installer-only bootstrap: hash-pinned pip wheel, kept separate from runtime requirements.txt. Install with --require-hashes and --only-binary=:all: so sdists are rejected.
+pip==26.2.2 --hash=sha256:fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70
