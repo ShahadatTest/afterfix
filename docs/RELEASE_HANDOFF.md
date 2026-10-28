@@ -27,7 +27,7 @@ The installer validation used zero Meta/runtime calls. Including this later docu
 
 ## Boundaries
 
-AfterFix is a local configured-operator/viewer demo, not a multi-tenant or hosted product. Meta materially investigates through bounded read-only tools; Python/SQLite owns transactions and writes; the required independent Rust gate validates without database access or write authority. It supports evidenced duplicate inventory deductions only — not arbitrary SQL, production databases, unattended apply, or universal rollback. No final ZIP, video, live host, or public repository exists.
+AfterFix is a local configured-operator/viewer demo, not a multi-tenant or hosted product. Meta materially investigates through bounded read-only tools; Python/SQLite owns transactions and writes; the required independent Rust gate validates without database access or write authority. It supports evidenced duplicate inventory deductions only — not arbitrary SQL, production databases, unattended apply, or universal rollback. A local source-review ZIP pinned to f0144f6 now exists with140files, verified manifest and scoped secret scan: [package evidence](evaluations/source-package-f0144f6-review.json). This is a source snapshot for review, without installed dependencies or compiled binaries. Video, live host and public repository remain absent; patched Python/Rust checks await disk headroom.
 
 ## Next acceptance items
 

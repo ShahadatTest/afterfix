@@ -1,0 +1,20 @@
+{
+  "job_id": "524b6590-f4b1-448f-b757-3c7de0e2a9b6",
+  "revision": "f0144f6626cc02a73fec92a4f6f7530e1671a431",
+  "decision": "accepted_local_source_review_artifact",
+  "archive": "afterfix-source-f0144f6626cc.zip",
+  "archive_bytes": 380592,
+  "archive_sha256": "b4fa476f7de772a98b4ce080b23c45c1c1fbdbeb3bb524c0d05352d5c7d0b39c",
+  "files": 140,
+  "reachable_blobs_scanned": 344,
+  "history_bytes_scanned": 4993190,
+  "scan_matches": 0,
+  "independent_review": "all ZIP members matched exactly to manifest sizes/SHA256 and pinned Git blob IDs; controller and archive hash verified",
+  "paid_api_calls": 0,
+  "published": false,
+  "scope_limits": [
+    "Not a runnable binary/dependency bundle or release approval.",
+    "Unknown/rotated secrets, arbitrary secret patterns and screenshot OCR remain outside this scan.",
+    "Python/OpenSSL/SQLite/Rust patched runtime validation, recording, hosting and external submission remain open."
+  ]
+}
