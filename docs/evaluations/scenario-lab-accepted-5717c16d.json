@@ -1,0 +1,30 @@
+{
+  "run_id": "5717c16d-1d32-411e-8c1f-c4fd606bb29c",
+  "source_sha256": {
+    "app/main.py": "3d5fe8fb208d944eb9c9f94301ea6374ad4f32e537f9626035a03d3c11e3c0e3",
+    "app/scenario_lab.py": "557acfca20320b532ff4d11d36a25c37b623fdde9accc571d63e08842ffeed2b",
+    "tests/test_scenario_lab.py": "0acf250ab9d6333f0548ef3ab34ec9f25778697626190dc1129d9c0124c11c60"
+  },
+  "sources_byte_identical_to_Meta": true,
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "tests",
+    "-q"
+  ],
+  "returncode": 0,
+  "paid_runtime_calls": 0,
+  "credential_access": false,
+  "job_id": "2233395a-00d5-4bf2-b647-ccbeeb03a25d",
+  "decision": "accepted_backend_after_source_review_and_real_checks",
+  "model": "muse-wonder-1.0",
+  "input_tokens": 25359,
+  "output_tokens": 12120,
+  "reasoning_tokens_in_output": 1924,
+  "estimated_usd": 0.343836,
+  "cumulative_local_estimated_usd": 17.788868,
+  "focused_result": "43 passed, one existing warning5.84s",
+  "independent_result": "Failed load creates no lab table; scratch error sanitized",
+  "limits": "Offline synthetic backend; UI pending; existing old runtime/Rust binary, no patched-toolchain/live-provider/new-benchmark claim"
+}

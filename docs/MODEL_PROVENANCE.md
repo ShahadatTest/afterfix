@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Scenario Lab backend accepted —2026-10-28
+
+Wonder1.0 run5717c16d/job2233395a:25359input/12120output(1924reasoning),estimate$0.343836/cumulative$17.788868. Fullmodule/tests/manifest andsame3main.py exactedits reviewed beforecopy/execution;3installedhashes matchMeta. Actualisolated43focusedpassed/oneexistingwarning5.84s; independentfirstfailedload leavesno labtable/scratcherror sanitized. Fullproject573passed/1existingTestClient-httpxwarning48.43s. Evidence evaluations/scenario-lab-accepted-5717c16d.json. Atomicfixedscenarios/snapshot-boundonce-onlyrestock/auth/resetflags/defaultdisabled/strictconfirmation/fullrollback testsaccepted; actualexistingrequiredRust used. No liveprovider/browser/updatedtoolchain/newbenchmarkclaim. Firstflaweddraft29passingtests+independentfailure preserved. STATEcompactedwithentirepriorfileverbatim archivedinSTATE_SCENARIO_HISTORY_2026-10-28.md toreducefuturecontext/spend; no evidence discarded. NextoneMetaUIbatch; recurringautomationstillPAUSED.
+
 ## Correction preflight rejected; owner usage refreshed —2026-10-28
 
 Jobbf08eaac exited1atcreditfreshnesscheck, beforeAPIkeyload/reservation/requestfile/provider call; nooutput/newcharge. Localrunfef5eed0 retainedandannotated failed_preflight_credit_stale_no_api; completedestimate17.445032 unchanged. Actualexpiry11:34:13UTC, correctingprior12:54estimate. Evidence evaluations/scenario-credit-gate-bf08eaac.json. Ownerthenreported22USDused; prior150USDgrantminus22=>derived128remaining, notdirectbalanceverification. Privateguarduses127with1USDroundingbuffer/newowner-reporttimestamp/currenttrackedbaseline; othercaps/reserve/freshness unchanged. Onepreparedcorrectionresubmission authorized, no new featureacceptance/benchmarkclaim or schedulerresume.

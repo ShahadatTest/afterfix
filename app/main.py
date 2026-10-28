@@ -8,13 +8,14 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
 
-from app import case_report, domain, investigator, recovery, schemas, store
+from app import case_report, domain, investigator, recovery, scenario_lab, schemas, store
 from app.auth import Actor, AuthMiddleware, InvestigationGate, reset_allowed
 from app.meta_client import MetaClient
 from app.runtime_budget import RuntimeBudgetError, RuntimeBudgetTransport, RuntimeLockBusy
 
 app = FastAPI(title="AfterFix API", version="1.0.0")
 app.add_middleware(AuthMiddleware)
+app.include_router(scenario_lab.router)
 
 investigation_gate = InvestigationGate()
 _DEFAULT_GATE = investigation_gate
@@ -134,7 +135,9 @@ def reset(request: Request):
     actor = _actor(request)
     conn = _conn()
     try:
-        return store.reset_and_seed(conn, actor_id=actor.actor_id)
+        result = store.reset_and_seed(conn, actor_id=actor.actor_id)
+        scenario_lab.invalidate_session(conn)
+        return result
     finally:
         conn.close()
 

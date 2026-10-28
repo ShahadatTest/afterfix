@@ -1,0 +1,15 @@
+# Scenario Lab backend contract
+
+Owner requested this extension on2026-10-28. Backend is accepted at Meta run5717c16d; UI is pending. These are synthetic demonstrations, separate from the frozen live benchmark. Loading/advancing makes no model call.
+
+Enable only in the local synthetic instance: `AFTERFIX_ENABLE_SCENARIO_LAB=1`. Mutations additionally require the configured operator and existing `AFTERFIX_ALLOW_RESET=1`; viewer remains read-only. All paths use existing authentication and body bounds; browser paths prepend `/api`. Never enable for production data.
+
+- `GET /lab/scenarios`: authenticated fixed catalogue with `enabled`, `data_label`, `can_load`, `scenarios` (`id`, `title`, `description`, `can_advance`). Disabled returns404; catalogue has no DB mutation. IDs: `duplicate_order`, `missing_opening`, `stale_snapshot`.
+- `POST /lab/scenarios/{id}/load`: exact JSON `{"confirmation":"RESET_SYNTHETIC_SCENARIO"}`. Explicitly replaces all synthetic demo data and clears saved cases/approvals; UI must confirm this. Returns `scenario_id`, `load_id` (UUID), `incident_id` (`INC-001`), `product_id` (`WIDGET-1`), `snapshot_hash`, `data_label` (`Synthetic Scenario Lab`), `widget_stock`, `gadget_stock`.
+- `POST /lab/scenarios/stale_snapshot/advance`: exact JSON keys `confirmation` (`ADD_SYNTHETIC_RESTOCK`), `load_id`, `proposal_id`, `expected_snapshot_hash`. Requires current matching lab session, real proposed/approved proposal and unchanged snapshot. Adds exactly one synthetic1-unit restock, once per load; returns `scenario_id`, `load_id`, new `snapshot_hash`, `incident_id`, `product_id`, `data_label`, `stock`, `event_id`. Old/missing/repeated bindings return409 without writes.
+
+Load creates the canonical fixture using executable buggy/fixed domain processing in a separate in-memory DB, then atomically copies it under one target transaction; target event IDs are fresh. Missing-opening removes that one opening record only in the scratch fixture. No expected answers are injected into model incident/evidence. Failed operations roll back all prior data/session/sequence and lab-table creation; setup errors return fixed sanitized500 messages. Ordinary demo reset invalidates the lab session.
+
+UI must hold only the current load's session in memory, never restore approval or auto-investigate. Confirm load explicitly, clear active workflow/history/downloads before reset settles, and invalidate old preview/approval/key immediately on an advance attempt. After successful advance, refresh actual incident/evidence and explain that a fresh investigation is needed; a success here means a synthetic restock, not a repair or verification. The actual repair keeps existing Meta/credit/Rust/approval/separate-apply gates.
+
+Actual acceptance:43 focused offline tests plus independent failure probes; full Python suite573passed/one existing TestClient/httpx warning48.43s. Real existing required Rust executable used. No live model/browser result or new held-out score is inferred. Original failed staging and frozen5/7 live result remain preserved.
