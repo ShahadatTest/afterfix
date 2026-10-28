@@ -6,7 +6,7 @@ This checklist separates recorded evidence from work still pending. Checked item
 
 - [x] Backend suite: **403 passed**, one existing warning.
 - [x] Rust: **17 unit + 15 CLI tests** and **184 independent cases** passed.
-- [x] Strict TypeScript/Vite build passed: **22 modules in 194 ms**.
+- [x] Strict TypeScript/Vite build passed: **22 modules in 228 ms**.
 - [x] Native Node API-session and case-state checks passed.
 - [x] Actual authenticated Spark 1.3 canonical recovery completed **100 → 110**, with one approval/repair and 10 preservation checks. Evidence: [browser recovery](evaluations/browser-rust-recovery-2026-10-28.json).
 - [x] Durable version 1 reports/history, read-only reload, and exact JSON download implemented and checked in desktop offline browser QA.

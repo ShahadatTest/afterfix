@@ -668,13 +668,3 @@ First actual frozen live matrix reviewed5/7; reliability regression correction a
 FIRST ONLY adjacent `python dispatch_meta.py status`. Queued/running => END quietly, no context reads/polls/waits/duplicates. Finished => review bounded metadata/all source, focused tests, actual provenance/usage/state, mark reviewed, launch ONE coherent background batch and END WITHOUT POLLING. No claim of uninterrupted24/7 execution; host/app/network/tools must be available. Automation5min check is scheduling bound, not generation ETA.
 
 Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 reserve,24h credit freshness and unknown-usage gates unchanged. Owner reported$150 promotional credit2026-10-27; account-wide balance/other usage unknown. Cumulative local completed estimate $15.7307360 after friendly-investigation batch, NOT provider balance. No subscription/Contributor/training/overage, no unresolved run_meta.py CLI/sandbox route or muse.ai. Stop initiating work by2026-11-04 20:00UTC (Nov5 02:00Bangladesh); submission08:00Bangladesh.
-
-
-
-
-
-
-
-
-
-

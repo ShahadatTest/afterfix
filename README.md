@@ -24,7 +24,7 @@ Latest recorded checks:
 
 - Backend: **403 passed**, with one existing warning.
 - Rust: **17 unit tests + 15 CLI tests**, plus **184 independent cases**.
-- Frontend: strict TypeScript/Vite build passed, **22 modules in 194 ms**.
+- Frontend: strict TypeScript/Vite build passed, **22 modules in 228 ms**.
 - Native Node API-session and case-state checks passed.
 - An actual authenticated Chrome recovery using real Spark 1.3 completed **100 → 110** with one actor-bound approval/repair and **10 preservation checks passed**.
 - Durable version 1 reports, saved case history, read-only reload, and exact JSON download are implemented.
