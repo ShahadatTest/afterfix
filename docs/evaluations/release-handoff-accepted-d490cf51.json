@@ -1,0 +1,28 @@
+{
+  "reviewed_at": "2026-10-28T09:02:30.022566+00:00",
+  "run_id": "d490cf51-d657-4d63-aa5f-525be8cee78c",
+  "job_id": "1d88dc26-af0a-420d-8eb9-873ca726ba33",
+  "model": "muse-wonder-1.0",
+  "decision": "accepted",
+  "usage": {
+    "input_tokens": 13713,
+    "output_tokens": 4125,
+    "reasoning_tokens": 384,
+    "estimated_usd": 0.137352,
+    "local_completed_cumulative_usd": 16.51294
+  },
+  "checks": [
+    "Bothcompletefiles/READMEfull diff reviewed; handoff612words before lead corrections; allrelative linksresolve.",
+    "Sourcechecked factualbootstrap/browsersession/immutablelive5of7 evidence; explicitmobile/finalsecret/advisory/rehearsal/externalaction limits.",
+    "Lead clarified Rust has no databasewriteauthority, current usage checkpoint includes this docs batch, separatelyrecordedtest wording. Staticdocs require no new tests; no productcode/runtime/dependencychange.",
+    "Lead offline exactkey/prefix Git scan controller fullyreviewed and ASTparsed; no keyloaded/executed in this acceptance."
+  ],
+  "files_sha256": {
+    "README.md": "988cd677a228c4a9d418e136b4b34801524ccce99f1f88590e952fdedd01d959",
+    "docs/RELEASE_HANDOFF.md": "d9e38a2515fd9049250011f093cc3bc291a5efce549dadb933833feb21f8b184"
+  },
+  "next": "Commit accepted docs, accept completed Metajob, launchoneboundedoffline Git secret QA and endwithoutpolling.",
+  "limits": [
+    "Mobile/screenshots/exactkeyscan not yetperformed; no finalpublicationapproval or securitycertification."
+  ]
+}

@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Release handoff accepted —2026-10-28
+
+Wonder1.0 rund490cf51/job1d88dc26:13713input/4125output(384reasoning),estimate$0.137352,cumulative local$16.512940. FullREADME/handoff+diff reviewed and relative linkschecked; handoff612words before lead factualclarifications. README nowlabelsactualbootstrap/desktopofflinefailure checks, mobilepending/frozenlive5/7 retained. Leadclarified Rust validation-only/noDBwrites, usagecheckpoint includesdocumentation, separatelyrecordedtest wording. No productcode/tests/locks/runtime change, no testsrerun forstaticdocs. Evidence release-handoff-accepted-d490cf51.json. Next onelead-onlyoffline exactconfiguredMeta-key+highconfidenceprefixscan ofacceptedGit tree/reachablehistory; keyinternalonly/no matchedcontentlogged; private/untracked/screenshotsOCR remain separate. No newMeta implementationpendingduringQA.
+
 ## Installer update and second advisory snapshot accepted —2026-10-28
 
 Lead QA job5cc3ba1c completed6steps/exit0: reviewed Meta-generated bootstraprequirements/README command installed onlyprojectvenv pip25.0.1->26.2.2,23otherPython distributions unchanged, actualpipversion/pipcheck passed. New103publictriples OSV query completed0indexedmatches/no partialcounts; independentdelta/mappings/flags/hashes/counts checked. Original12IDs/sixissues snapshot preserved; version2 raw evidence+lead-review in evaluations/bootstrap-verified-v2/. ZeroMeta/runtimecalls or newcost, localcompleted$16.375588. No apprequirements reinstall/backend/Rust/UI/browser rerun, no globalPython change or securitycertification. HistoricalQAclones retainoldpip. Next concise releasehandoff/READMEactualstatus correction; mobile/secretreview/OSSQLitetoolchain pending.

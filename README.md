@@ -35,13 +35,15 @@ Latest recorded checks:
 
 The first immutable seven-case live benchmark remains **5/7 passed, 2/7 failed**, using 21 calls and an estimated **$0.0683165**. Cases H02 and H04 returned invalid/incomplete responses and are retained as failures. There has been no v1 rerun. The later 2048 output-cap correction passed offline regressions, but its live effect has not been measured.
 
-Offline fixtures are test evidence only; they are not live model evidence. Mobile layout, delayed React behaviour, model-budget browser behaviour, and a complete keyboard cycle remain pending.
+Offline fixtures are test evidence only; they are not live model evidence. Actual desktop offline Chrome checks now cover delayed old-report discard, simulated budget/dependency failures, and dialog keyboard/focus behaviour; see [browser session/failure evidence](docs/evaluations/browser-session-failure-2026-10-28.json). In that evidence, a delayed old operator report was released after 7.66 seconds following sign-out/viewer sign-in and was discarded; the new viewer session remained read-only. A simulated pre-provider budget denial and a model-dependency `503` were handled without automatic retry or downstream mutation. Patch/evidence dialogs were checked with Enter, Tab through `BODY -> DIALOG -> Close`, and Escape returning focus to the opener; no underlying page action was focused. This is not an accessibility certification. Actual mobile **390 × 844** and **360 × 800**, and target desktop **1280 × 800**, remain pending; only actual desktop **1280 × 585** is recorded.
 
-A dependency snapshot returned 12 advisory IDs forming six GHSA/PYSEC alias pairs for the fresh-clone installer pip 25.0.1; the other 102 triples had no indexed matches in that snapshot. Installer remediation and verification are pending; see [dependency snapshot results](docs/DEPENDENCY_RESULTS.md).
+The backend 403-test result is historical evidence. Another99 focused dependency-audit offline tests passed separately.
+
+Dependency evidence now has two snapshots. The original snapshot returned 12 advisory IDs forming six GHSA/PYSEC alias pairs for the fresh-clone installer pip 25.0.1; the other 102 triples had no indexed matches in that snapshot. After the hash-pinned bootstrap upgrade to pip 26.2.2, a new actual 103-package public OSV query completed with 0 indexed matches and no partial counts, independently checked for mappings, order, hashes, and delta. The original 12-ID/six-issue snapshot remains unchanged. This is not a security certification and does not assess unknown issues, OS/SQLite/toolchain advisories, or pip vendored libraries. See [dependency results](docs/DEPENDENCY_RESULTS.md) and the [verified bootstrap evidence](docs/evaluations/bootstrap-verified-v2/lead-review.json).
 
 ## Windows PowerShell setup
 
-The lead validated pinned revision dd660c5 on Windows in separate fresh local clones: Python/Rust installation and tests, native checks and seven offline cases, plus fresh frontend install/build under npm12.0.2. This was split validation, not a single all-in-one run. Earlier failed attempts are retained; see [fresh frontend evidence](docs/evaluations/frontend-repro-accepted-2026-10-28.json). Keep at least1GiB disk headroom before dependency installation; a full drive caused a recorded install failure.
+The lead validated pinned revision dd660c5 on Windows in separate fresh local clones: Python/Rust installation and tests, native checks and seven offline cases, plus fresh frontend install/build under npm12.0.2. This was split validation, not a single all-in-one run. Earlier failed attempts are retained; see [fresh frontend evidence](docs/evaluations/frontend-repro-accepted-2026-10-28.json). Keep at least 1 GiB disk headroom before dependency installation; a full drive caused a recorded install failure.
 
 From the repository root, create an isolated Python environment. Do not recreate an existing `.venv` automatically; create it only if it does not already exist:
 
@@ -49,12 +51,14 @@ From the repository root, create an isolated Python environment. Do not recreate
 py -m venv .venv
 ```
 
-The following bootstrap commands are proposed and not yet validated by the lead; the historical fresh-clone tests above precede this bootstrap change. Before installing the application requirements, use the explicit `.venv` Python (not an activation-dependent `python`) to upgrade the installer from the separate hash-pinned bootstrap file:
+Before installing the application requirements, use the explicit `.venv` Python (not an activation-dependent `python`) to upgrade the installer from the separate hash-pinned bootstrap file:
 
 ```powershell
 .\.venv\Scripts\python.exe -I -m pip --isolated --disable-pip-version-check --no-input install --index-url https://pypi.org/simple --keyring-provider disabled --only-binary=:all: --no-deps --no-cache-dir --require-hashes --upgrade -r requirements-bootstrap.txt
 .\.venv\Scripts\python.exe -I -m pip --version
 ```
+
+The lead has now actually validated this exact hash-pinned bootstrap command on the project `.venv`: pip changed from 25.0.1 to 26.2.2, the other 23 PyPI distributions were unchanged, the explicit project pip reported 26.2.2, and `pip check` reported “No broken requirements found.” All six QA steps exited 0. See the [verified bootstrap evidence](docs/evaluations/bootstrap-verified-v2/lead-review.json).
 
 The version output must require pip 26.2.2. Stop on bootstrap failure or version mismatch rather than continuing or installing an unreviewed alternative. The bootstrap hash pins this installer wheel only; the application requirements are existing version pins, not a comprehensive hash lock.
 
@@ -64,6 +68,8 @@ Then install the application requirements as a separate step and check the envir
 .\.venv\Scripts\python.exe -I -m pip --isolated --disable-pip-version-check --no-input install --index-url https://pypi.org/simple --keyring-provider disabled --only-binary=:all: --no-cache-dir -r requirements.txt
 .\.venv\Scripts\python.exe -I -m pip check
 ```
+
+The application-requirements install command above was **not rerun** as part of the bootstrap validation. The historical fresh-clone evidence predates the bootstrap change, so it does not by itself validate a complete fresh checkout using the new bootstrap.
 
 Build and test the Rust verifier **before** running the Python suite, because the API integration requires the release binary:
 
@@ -122,14 +128,18 @@ After an investigation, the durable version 1 case report can be reloaded read-o
 
 ## Further documentation
 
+- [Release handoff](docs/RELEASE_HANDOFF.md)
 - [Runtime and budget guard](docs/RUNTIME.md)
 - [Authentication and roles](docs/AUTH.md)
 - [Rust protocol](docs/RUST_PROTOCOL.md)
 - [Rust integration](docs/RUST_INTEGRATION.md)
 - [Evaluation results](docs/EVALUATION_RESULTS.md)
+- [Dependency results](docs/DEPENDENCY_RESULTS.md)
+- [Verified bootstrap evidence](docs/evaluations/bootstrap-verified-v2/lead-review.json)
 - [Delivery plan](docs/DELIVERY_PLAN.md)
 - [Current state](docs/STATE.md)
 - [Actual canonical browser recovery evidence](docs/evaluations/browser-rust-recovery-2026-10-28.json)
+- [Browser session/failure evidence](docs/evaluations/browser-session-failure-2026-10-28.json)
 - [Stale-refresh browser evidence](docs/evaluations/browser-stale-refresh-2026-10-28.json)
 
 ## Scope limits
