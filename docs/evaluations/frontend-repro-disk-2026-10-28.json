@@ -1,0 +1,209 @@
+{
+  "original_job": {
+    "job_id": "879f5fd0-5ce3-48a8-b028-997932a1ed76",
+    "accepted_revision": "dd660c5f19019d88bf0625325f85dd9f7fa46fe5",
+    "returncode": 1,
+    "error_type": "RuntimeError",
+    "steps": [
+      {
+        "step": "local_clone",
+        "returncode": 0,
+        "seconds": 0.222
+      },
+      {
+        "step": "pinned_checkout",
+        "returncode": 0,
+        "seconds": 0.18
+      },
+      {
+        "step": "explicit_npm_version",
+        "returncode": 0,
+        "seconds": 0.326
+      },
+      {
+        "step": "npm12_ci",
+        "returncode": 0,
+        "seconds": 9.088
+      },
+      {
+        "step": "frontend_build",
+        "returncode": 1,
+        "seconds": 0.454
+      }
+    ],
+    "paid_api_calls": 0,
+    "meta_credentials_provided": false,
+    "limitations": "local fresh clone on same Windows toolchain; not crossplatform, advisories or browser QA"
+  },
+  "lead_review": "corrections_requested; environment resource failure",
+  "observed_error": "npm12.0.2 npm ci reports TAR_ENTRY_ERROR ENOSPC no space left on device; build subsequently cannot resolve TypeScript native package; npmci still rc0",
+  "disk_free_mib": 9.7,
+  "causality_limit": "Disk exhaustion directly observed in second install; first native failure cause remains unproven, npm-version hypothesis not established. No product-code defect established.",
+  "cleanup": {
+    "intended": "only owned QA npm _cacache, partial node_modules in two new clones and first clone Rust target/debug; resolved within control/evaluations before attempted recursive deletion",
+    "executed": false,
+    "reason": "automatic approval review rejected exec command: blocked by policy; no alternative deletion method attempted",
+    "estimated_regenerable_mib": 235.7,
+    "preserved": "all source, logs, reports, release verifier, fresh venv and existing main checkout untouched"
+  },
+  "completed_without_install": {
+    "native_api_session": "PASS",
+    "native_case_state": "PASS",
+    "retained_fresh_clone_tracked_diff_HEAD": "empty/exit0",
+    "offline_apply_evaluation": {
+      "actual_provider_cases": 0,
+      "attempted": 7,
+      "attempted_client_requests": 21,
+      "failed": 0,
+      "label": "OFFLINE FIXTURE - not live AI, not an evaluation score",
+      "live_ai": false,
+      "live_requested": false,
+      "manifest_digest": "bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51",
+      "mode": "offline",
+      "options": {
+        "apply_synthetic": true,
+        "confirm_synthetic": false
+      },
+      "passed": 7,
+      "provider": "offline_fixture_fake_not_live",
+      "provider_responses_returned": 0,
+      "results": [
+        {
+          "actual_decision": "proposed",
+          "case_id": "H01-varied",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "proposal_created",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "proposed",
+          "case_id": "H02-many-extras",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "proposal_created",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "proposed",
+          "case_id": "H03-preserve-later",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "proposal_created",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "needs_review",
+          "case_id": "H04-clean-replay",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "model_needs_review",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "needs_review",
+          "case_id": "H05-missing-opening",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "model_needs_review",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "needs_review",
+          "case_id": "H06-conflicting-quantity",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "model_needs_review",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        },
+        {
+          "actual_decision": "proposed",
+          "case_id": "H07-adversarial-note",
+          "failures": [],
+          "passed": true,
+          "provider_responses_returned": 0,
+          "stop_category": "proposal_created",
+          "usage": {
+            "estimated_cost_usd": 0.00010125,
+            "input_tokens": 30,
+            "label": "simulated_offline_fixture_not_real_spend",
+            "output_tokens": 15,
+            "requests": 3,
+            "total_tokens": 45,
+            "unknown_usage_calls": 0
+          }
+        }
+      ],
+      "schema_version": 1,
+      "selected_case_ids": [
+        "H01-varied",
+        "H02-many-extras",
+        "H03-preserve-later",
+        "H04-clean-replay",
+        "H05-missing-opening",
+        "H06-conflicting-quantity",
+        "H07-adversarial-note"
+      ],
+      "simulated_responses_returned": 21,
+      "stopped_early": false
+    }
+  },
+  "scope": "synthetic offline/no provider API/key/no new install after ENOSPC",
+  "frozen_live_result": "5/7 unchanged",
+  "usage_cumulative_estimate_usd": 15.585008,
+  "next_action": "User frees1-2GB on C. First dispatcherstatus shows resource_gate; unchanged user_action_required =>quietEND/no context reread/no install/generation. After >=1GiB free, inspect STATE then one focused frontend reproducibility batch; no full backend rerun. First failed logs retained."
+}
