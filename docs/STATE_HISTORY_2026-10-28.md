@@ -339,3 +339,45 @@ Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 
 
 
 
+
+
+## State snapshot before04:12UTC accepted label-isolated harness
+
+# AfterFix current state
+
+Updated2026-10-28 after03:46UTC heartbeat. Read AGENTS.md and SPEC.md first. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Full prior state is archived in STATE_HISTORY_2026-10-28.md; actual model usage in MODEL_PROVENANCE.md. Never expose credentials or execute unreviewed generated code.
+
+## Accepted checkpoints and evidence
+
+Latest product/docs checkpoint cf45730. Backend0eda9d9: durable case reports/read-only listing/retrieval accepted,350 Python tests passed1existingwarning28.49s. Fixed Rust executable required for preview/approval/current-transaction apply; missing/disagreeing/malformed/timeout fails closed, no fallback. Actor/snapshot/SQLite/transaction/idempotency preserved. Rust17unit+15CLItests and184 independent cases passed. UI d91991c history/full exact JSON download/read-only reload accepted; latest two literal copy edits accepted in cf45730, strict tsc/Vite build22modules198ms passed. No runtime/auth/guard changes after those checkpoints.
+
+Actual authenticated Chrome REAL Spark1.3/Rust canonical recovery previously passed: stock100->110, restock preserved, unrelated45, one actor-bound approval/repair,10 actual verification checks. Evidence evaluations/browser-rust-recovery-2026-10-28.json and rust-browser-independent-2026-10-28.json.3livecalls3296input890output,$0.0079025; not held-out benchmark. Portable guarded default-runtime varied live smoke separately passed; all usage shares control ledger.
+
+Durable UI actual Chrome desktop OFFLINE FakeMeta + real FastAPI/SQLite/Rust QA passed: initial StrictMode history restore, exact27447byte server JSON download, reload signin, viewer disabled mutations, needs-review history, reset clears cases, explicit investigation/preview/checkbox/approve/separateapply/verify110 and Reversed timeline. Exactly1repair, restock/unrelated preserved. Public evaluations/offline-ui-browser-summary-2026-10-28.json and offline-ui-downloaded-case-2026-10-28.json. Fake fixture is NOT live model evidence/spend. Signed out/created tab closed, owned servers stopped, ports18157/18173 last verified0. Mobile/delayed-error/stale browser checks pending. No servers started this heartbeat.
+
+Frozen evaluation matrix evaluations/heldout-inventory-v1.json +.sha256 finalized01:28:06UTC before live runs, canonical JSON digest bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51.7predeclared varied/multiple-extra/later/clean/missing/conflicting/adversarial cases; expectations unchanged. NO live held-out calls yet. Never send oracle/marker/expected fields to runtime Spark. Preserve every actual failure, no score retuning/retries. Require>=6 DISTINCT actual provider cases; preflight/zero-response cases do not count. Freeze additional valid scenarios before any live run if needed, not after seeing outcomes.
+
+## Evaluation tooling: one final pre-live label-isolation correction
+
+Complete draft57ae3d6b/job71dc1ab3 was fully reviewed and temporarily installed:31focused tests0.98s, FULL381tests1existingwarning31.18s, CLI all7offline preview and all7explicit synthetic apply passed with real release Rust. Lead original injected transport-failure probe now attempted1/failed1/stopped earlytrue, absolute str guard argument, no network. Report evaluations/harness-offline-review-57ae3d6b.json; private eval-57ae3d6b-{focused,full,offline-preview,offline-apply}.log/probe-eval-57ae3d6b.log. These are offline fixture checks, NOT model quality. Source generation usage21803input/16144output,$0.410092. Earlier failed/truncated/malformed artifacts and exact details archived in STATE_HISTORY/MODEL_PROVENANCE; never repaired model source or inferred missing text.
+
+Only final integrity blocker before live: build_case exposes descriptive fixture case IDs via incident_id='INC-'+case['id']. SPEC forbids hidden fixture labels. Use opaque neutral incident ID derived ONLY from neutral product_id (not hash of descriptive case_id), leave all frozen manifest/digest/quantities/expectations unchanged, and assert all7 serialized runtime payloads lack ALL case IDs/oracle marker/expected keys. Local score/report filenames may keep labels. Also remove misleading no_env_reads test fixture that copied os.environ; replace with bounded purity test preventing MODEL_API_KEY/default-network/real-guard reads/calls without copying actual host env. All accepted engine/guard/auth/Rust unchanged. Temporary tool/test/protocol removed pending final correction, no live held-out calls yet.
+
+Latest job67efc1ad/run e6aed235 provider incomplete/max_output_tokens,returncode1. Wonder1.0 input18104/output4096 (reasoning3472),estimate$0.154336,cumulative$14.7123475. Only624 output tokens remained for artifact; no complete file object. Rejected whole response, no partial recovery/manual source repair/materialization/copy/execution; unchanged product not retested. Known requests all completed/settled; no usage ambiguity. Reasoning counts toward max output, so4096 was insufficient. Keep a practical allowance rather than repeatedly truncating.
+
+CURRENT background job **ac9e7a5d-12eb-44c0-bd5c-b4aefc731e04** queued successfully, completion51: prompts/51-complete-neutral-identifiers.md, max12288, explicit --draft-run57ae3d6b-666b-45f6-b379-dfa8492fe202. Same <=5 exact edits only tools/evaluate_inventory.py and tests/test_inventory_evaluation.py in review/eval-edits.json, base57ae3d6b. Allowance includes reasoning; unchanged$1 per-call/$100 project/$50 reserve/freshness gates. No new scope/benchmark rerun. END after dispatch; do not poll or wait for generation. Completed artifact must pass strict JSON/base/allowlist/unique-match/AST through explicit eval materializer; inspect full sources/diffs then focused tests. Keep original accepted engines unmodified. No need rerun381 full tests for an isolated fixture-ID/test-only correction if focused tests and affected offline matrix pass. Then actually run frozen live matrix through reviewed existing guard in bounded background, preserve failures, no duplicate jobs/no polling.
+
+## Next milestones and release limits
+
+Accept corrected harness after real focused tests; then reviewed actual frozen live matrix, mobile/failure/stale browser QA, reproducibility/dependency/secret/clean-checkout checks and3minute demo package. Keep scope synthetic inventory; no new domains or architecture churn. No public repo/push/hosting/deployment/submission/production/legal/billing changes authorized/performed. Configured shared operator/viewer identities are not per-person or multi-tenant accounts; HTTPS/isolation/distributed limits remain hosted release conditions. No universal recovery/security certification/score guarantee.
+
+## Async workflow and credit
+
+FIRST ONLY adjacent `python dispatch_meta.py status`. Queued/running => END quietly, no context reads/polls/waits/duplicates. Finished => review bounded metadata/all source, focused tests, actual provenance/usage/state, mark reviewed, launch ONE coherent background batch and END WITHOUT POLLING. No claim of uninterrupted24/7 execution; host/app/network/tools must be available. Automation30min check is scheduling bound, not generation ETA.
+
+Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 reserve,24h credit freshness and unknown-usage gates unchanged. Owner reported$150 promotional credit2026-10-27; account-wide balance/other usage unknown. Cumulative local completed estimate $14.7123475 before next completion request, NOT provider balance. No subscription/Contributor/training/overage, no unresolved run_meta.py CLI/sandbox route or muse.ai. Stop initiating work by2026-11-04 20:00UTC (Nov5 02:00Bangladesh); submission08:00Bangladesh.
+
+
+
+
+

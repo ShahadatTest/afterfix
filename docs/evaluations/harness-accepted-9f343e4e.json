@@ -1,0 +1,32 @@
+{
+  "kind": "accepted_harness_offline_validation",
+  "source_run": "9f343e4e-d275-4086-be6a-9ab46c48bc23",
+  "base_run": "57ae3d6b-666b-45f6-b379-dfa8492fe202",
+  "reviewed_exact_edits": 4,
+  "model": "muse-wonder-1.0",
+  "usage": {
+    "input_tokens": 17991,
+    "output_tokens": 3633,
+    "estimated_cost_usd": 0.144624
+  },
+  "focused_tests": {
+    "passed": 39,
+    "seconds": 1.29
+  },
+  "affected_offline_apply_matrix": {
+    "attempted": 7,
+    "passed": 7,
+    "failed": 0,
+    "provider_cases": 0
+  },
+  "last_full_suite_before_fixture_only_correction": {
+    "passed": 381,
+    "warnings": 1,
+    "seconds": 31.18
+  },
+  "all7_payload_label_and_oracle_isolation_test": "passed",
+  "live_heldout_calls_at_acceptance": 0,
+  "frozen_manifest_digest": "bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51",
+  "decision": "accepted",
+  "limitations": "Offline results are not model-quality evidence. Live, mobile and failure browser QA remain pending."
+}
