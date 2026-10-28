@@ -1,5 +1,11 @@
 # Implementation provenance
 
+## Scoped secret scan accepted; responsive layout issue observed —2026-10-28
+
+LeadQA4a59f6c3 accepted: pinned0c4b1a6/129trackedfiles/303reachableblobs/4401177bytes,0matches for internallyloadedcurrentMeta-key/encodedvariants plus specificcredentialpatterns. No key/matchingtext logged; excludesunknownrotatedkeys/reflog/unreachable/private/untracked/screenshotsOCR. Public redactedreport evaluations/secret-scan-0c4b1a6.json. ZeroAPIcalls.
+
+ActualChrome3 documentedviewportcapability nowavailable:390x844 and360x800 historypage scroll403/client375or345, visiblyrightclipped;1280x800 scroll/client1265/nooverflow.390patchdialogitselffits;pageoverflowremains. Read-onlyHTTPallGET; independentintentionalstartupseed DB110/unrelated45/restock20/onefixture repair, no UI mutation/providercall. Viewportreset/signedout/tabclosed; ownedbackend/Vitestopped/ports0. Evidence mobile-layout-finding-2026-10-28.json; screenshotsprivate. NextoneMeta CSS-onlycorrection, thenrealpostfixQA. No speculativeTSX/backend/auth/state changes or newdocsloop; localestimateunchanged$16.512940/frozenlive5/7.
+
 ## Release handoff accepted —2026-10-28
 
 Wonder1.0 rund490cf51/job1d88dc26:13713input/4125output(384reasoning),estimate$0.137352,cumulative local$16.512940. FullREADME/handoff+diff reviewed and relative linkschecked; handoff612words before lead factualclarifications. README nowlabelsactualbootstrap/desktopofflinefailure checks, mobilepending/frozenlive5/7 retained. Leadclarified Rust validation-only/noDBwrites, usagecheckpoint includesdocumentation, separatelyrecordedtest wording. No productcode/tests/locks/runtime change, no testsrerun forstaticdocs. Evidence release-handoff-accepted-d490cf51.json. Next onelead-onlyoffline exactconfiguredMeta-key+highconfidenceprefixscan ofacceptedGit tree/reachablehistory; keyinternalonly/no matchedcontentlogged; private/untracked/screenshotsOCR remain separate. No newMeta implementationpendingduringQA.

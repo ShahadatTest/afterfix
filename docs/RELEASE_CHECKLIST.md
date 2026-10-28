@@ -23,8 +23,9 @@ This checklist separates recorded evidence from work still pending. Checked item
 - [x] Public OSV snapshot reviewed for103 Python/npm/Cargo triples:12IDs/six alias-grouped issues in pip25.0.1 installer; other102 no indexed matches. See [dependency results](DEPENDENCY_RESULTS.md).
 - [x] Projectvenv hash-pinned pip26.2.2 bootstrap passed; onlypipchanged, compatibilitycheckpassed, new103-triple OSV snapshot completed0indexedmatches. Originalfindings retained; [version2 evidence](evaluations/bootstrap-verified-v2/lead-review.json).
 - [ ] Separate OS/SQLite/toolchain and pipvendored-library advisory applicability; historicalQAclones stillcontainoldpip.
-- [ ] Final secret review of source, reports, screenshots, and exported artifacts.
-- [ ] Actual mobile layout checks; the recorded browser viewport was desktop **1280 × 585**.
+- [x] Pinned0c4b1a6 committedsource/history exactcurrentMeta-key/encoded variants plus specificcredentialpatterns:129trackedfiles/303reachableblobs/4401177bytes,0matches. [Scoped evidence](evaluations/secret-scan-0c4b1a6.json).
+- [ ] Remaining finalsecret/artifact review: lateredits, unknown/rotatedkeys, untracked/ignoredfiles, screenshots/OCR and eventualexportpackage; scopedscan is notall-artifactclearance.
+- [ ] Actualresponsive390x844/360x800 foundhorizontaloverflow403px vsclient375/345;1280x800 nooverflow. CSScorrection/postfixfullchecks pending. [Observed finding](evaluations/mobile-layout-finding-2026-10-28.json). Earlierdesktop1280x585 retained.
 - [x] Actual delayed old-session report discarded after signout/viewer signin; viewer remained readonly. See [browser session evidence](evaluations/browser-session-failure-2026-10-28.json).
 - [x] Actual UI/endpoint handling under simulated pre-provider budget denial and model-unavailable503; no new writes/retries or raw private sentinel. This does not claim live provider/ledger-budget rejection testing.
 - [x] Actual patch/evidence Enter/Tab/Escape cycles and opener-focus restoration recorded in Chrome; native BODY/DIALOG intermediate focus observed, no underlying page action focused. Accessibility certification is not claimed.

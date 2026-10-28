@@ -1,0 +1,135 @@
+{
+  "mode": "Actual Chrome3 responsive viewport override via documented browser viewport capability; synthetic offline FakeMeta+realFastAPI/SQLite/Rust. Not physical devices/liveprovider.",
+  "source_revision": "6cf7ee7 plus no product code edits",
+  "measurements": [
+    {
+      "client": 375,
+      "height": 844,
+      "label": "390-history",
+      "overflow": [
+        {
+          "className": "rail",
+          "right": 403.1354370117187,
+          "tag": "ASIDE"
+        },
+        {
+          "className": "workspace",
+          "right": 403.1354370117187,
+          "tag": "MAIN"
+        }
+      ],
+      "scroll": 403,
+      "width": 390
+    },
+    {
+      "client": 375,
+      "dialog": {
+        "client": 342,
+        "height": 725.8333740234375,
+        "right": 366.7291870117187,
+        "scroll": 342,
+        "width": 358.79168701171875,
+        "x": 7.9375
+      },
+      "height": 844,
+      "label": "390-patch",
+      "scroll": 403,
+      "width": 390
+    },
+    {
+      "client": 345,
+      "height": 800,
+      "label": "360-history",
+      "overflow": [
+        {
+          "className": "",
+          "right": 336.66668701171875,
+          "tag": "DIV"
+        },
+        {
+          "className": "auth-bar",
+          "right": 336.66668701171875,
+          "tag": "DIV"
+        },
+        {
+          "className": "shell",
+          "right": 336.66668701171875,
+          "tag": "DIV"
+        },
+        {
+          "className": "rail",
+          "right": 395.1354370117187,
+          "tag": "ASIDE"
+        },
+        {
+          "className": "brand",
+          "right": 374.46875,
+          "tag": "DIV"
+        },
+        {
+          "className": "rail-card",
+          "right": 374.46875,
+          "tag": "DIV"
+        },
+        {
+          "className": "btn btn-ghost",
+          "right": 374.46875,
+          "tag": "BUTTON"
+        },
+        {
+          "className": "rail-note",
+          "right": 374.46875,
+          "tag": "P"
+        }
+      ],
+      "scroll": 403,
+      "width": 360
+    },
+    {
+      "client": 1265,
+      "height": 800,
+      "label": "1280-history",
+      "railWidth": 290,
+      "scroll": 1265,
+      "scrollX": 0,
+      "width": 1280,
+      "workspaceWidth": 974.6666870117188
+    }
+  ],
+  "finding": "Mobile390/360 document scrollWidth403 exceeds available client375/345; rail/workspace expand and screenshot shows right clipping/horizontal scrollbar. Desktop1280x800 document1265 equalsclient1265. Patch dialog itselffits390 viewport; underlyingpage stilloverflows.",
+  "observations": [
+    "Signedin using public synthetic operator fixture; auto-loaded verified savedhistory; selectedcase/hypothesis explicitlyOFFLINE.",
+    "Opened/closed Codepatch at390; no reset/investigate/approve/apply HTTP actions.",
+    "Saved390history/390patch/360history screenshots inprivatecontrol; viewportreset; signedout; createdtab889211380closed.",
+    "Backend16576/Vite21152 identitychecked and stopped, bothports0; plainexecstdinclosed so graceful stopunavailable, processesexit1fromownedcleanup."
+  ],
+  "independent_facts": {
+    "stocks": {
+      "WIDGET-1": 110,
+      "GADGET-9": 45
+    },
+    "restock_total": 20,
+    "repair_rows": 1,
+    "note": "Exactlystartup seeded verifiedrepair, no HTTP mutation thisQA; requestcountsallGET.",
+    "http_request_counts": {
+      "GET /auth/me": 1,
+      "GET /incidents/INC-001": 2,
+      "GET /incidents/INC-001/evidence": 2,
+      "GET /incidents/INC-001/patch": 2,
+      "GET /incidents/INC-001/cases": 2,
+      "GET /cases/CASE-45ddb70396ae5ce6/report": 1
+    }
+  },
+  "source_sha256": {
+    "frontend/src/styles.css": "15b4da3e0c17b19b873a189b7761ecb4eb4622ead2ec1d2106ddb6005b708584",
+    "frontend/src/cases.css": "988aa1e756aa3187147f9f215e755eae5bb251e77391f60f468f5db57c979f20",
+    "frontend/src/auth.css": "c05b54034228f53a06de2203fc042f3a0b048c89ce98c94cc6b527c3fae0348d",
+    "frontend/src/App.tsx": "a09734b066c7e2abca9f465037017146dd8f74f53cfaf1dcffe69156dca33fc8",
+    "frontend/src/CaseReports.tsx": "731f2ce3d46a6d3725dd7421d99e0f71107d356a8c27075159b3d00718df8db0"
+  },
+  "paid_api_calls": 0,
+  "next": "OneboundedMetaCSS-only correction; no overflow-x hidden/clipping or auth/workflow/state changes. Actualpostfix390/360/1280 anddialog/history/previewchecksrequired.",
+  "limits": [
+    "Mobilefullflow/physicaldevice checks notcomplete; pre-fix failuresretained; nocomprehensivesecret/screenshotsclearance."
+  ]
+}
