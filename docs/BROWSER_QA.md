@@ -2,6 +2,12 @@
 
 Internal QA only. Synthetic data and synthetic public test tokens only. No real Meta key in a browser, no arbitrary public debug endpoint, no deploy/publish/account changes.
 
+## Actual updates2026-10-28
+
+Native API-session and case-state scripts passed, including corrected pending-body200/401 regression. Actual stale approval/apply409 invalidation plus GET refresh/failure warnings passed; see [stale-refresh evidence](evaluations/browser-stale-refresh-2026-10-28.json). Actual old operator report was delayed across signout/viewer signin and released afterward; no old marker appeared and viewer stayed readonly. Actual simulated pre-provider budget-denial transport and model-unavailable503 UI paths stopped without additional repairs or automatic retry. These are offline UI/endpoint simulations, not live provider or real shared-ledger rejection evidence. Main model_client_error display copy correction remains pending.
+
+Actual Chrome patch/evidence keyboard sequences: Enter opens/Close initially focused; Tab BODY→DIALOG→Close, Escape closes and restores respective opener; ShiftTab from patch Close focuses dialog. No underlying page action focused in observed sequence; native browser-chrome intermediate focus is recorded without claiming certification. Independent DB unchanged from intentional seed: target110/unrelated45/restock20/oneapproval+repair. See [session/failure/keyboard evidence](evaluations/browser-session-failure-2026-10-28.json). Actual viewport1280x585/nooverflow. Mobile390x844/360x800 and1280x800 remain untested; original checklist below is the plan, these linked results update completed items only.
+
 ## Evidence categories (never conflate)
 
 | Category | What it proves | Status |

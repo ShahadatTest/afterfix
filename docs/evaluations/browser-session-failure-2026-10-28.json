@@ -1,0 +1,71 @@
+{
+  "mode": "actual Chrome OFFLINE FakeMeta/FastAPI/SQLite/real Rust; NOT live AI",
+  "paid_api_calls": 0,
+  "viewport": [
+    1280,
+    585
+  ],
+  "client_scroll_width": [
+    1265,
+    1265
+  ],
+  "session_delay": {
+    "steps": "operator Refresh cases => Loading full report => signout => viewer signin => release old operator response => inspect actual viewer DOM",
+    "server_record": {
+      "started_at": 1793166308.2579486,
+      "released": true,
+      "response_marker": "OLD_SESSION_DELAYED_QA_REPORT_60",
+      "released_at": 1793166315.915776
+    },
+    "late_marker_visible_in_viewer": false,
+    "viewer_stayed_signed_in": true,
+    "viewer_mutation_buttons_disabled": true,
+    "new_session_report_loaded": true
+  },
+  "failures": {
+    "budget": "lead-only MetaClient transport raises a synthetic budget-denial error before provider work; actual investigator needs_review/model_client_error; no new repair",
+    "unavailable": "lead-only model-client dependency HTTP503; actual UI sanitized service-unavailable message; no private upstream sentinel rendered",
+    "limitation": "simulation exercises actual UI/endpoint paths, not a live provider outage or real shared-credit ledger rejection",
+    "presentation_issue": "main investigator panel directly shows model_client_error category; small friendly-copy correction requested"
+  },
+  "keyboard": {
+    "patch": "Enter opens/Close initially focused; Tab BODY=>DIALOG=>Close, ShiftTab DIALOG, Escape closes/returns Code patch opener",
+    "evidence": "Enter opens Event64/Close initially focused; Tab BODY=>DIALOG=>Close, Escape closes/returns Details opener",
+    "limit": "Chrome native dialog/browser-chrome focus cycle; no underlying page action focused in observed sequence; not exhaustive accessibility certification"
+  },
+  "requests": {
+    "GET /auth/me": 2,
+    "GET /incidents/INC-001/patch": 4,
+    "GET /incidents/INC-001": 4,
+    "GET /incidents/INC-001/evidence": 4,
+    "GET /incidents/INC-001/cases": 6,
+    "GET /cases/CASE-1099b0c9b0c41cfe/report": 1,
+    "POST /incidents/INC-001/investigate": 2,
+    "GET /cases/CASE-39cff05ea70abd42/report": 3
+  },
+  "independent_database": {
+    "products": [
+      {
+        "product_id": "GADGET-9",
+        "stock": 45
+      },
+      {
+        "product_id": "WIDGET-1",
+        "stock": 110
+      }
+    ],
+    "approvals": 1,
+    "repairs": 1,
+    "restock_total": 20
+  },
+  "database_baseline": "startup seed intentionally created exactly1approval/1repair before HTTP request counting; failures/session tests added0writes",
+  "cleanup": "created tab889211374 signedout/closed; owned backend session69194/PID17628 stdin stop exit0; Vite22195 q exit0; ports later independently checked",
+  "screenshot": "private adjacent control/evaluations/browser-session-failure60-2026-10-28.png",
+  "still_pending": [
+    "actual mobile390x844/360x800 and desktop1280x800",
+    "dependency advisory/final secret review",
+    "rehearsal/recording/hosted release work"
+  ],
+  "frozen_live_result": "original5/7 unchanged; no live repeat",
+  "cumulative_local_api_estimate_usd": 15.585008
+}

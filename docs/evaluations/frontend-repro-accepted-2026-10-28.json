@@ -1,0 +1,54 @@
+{
+  "job_id": "1880ec36-5d93-4fed-bc7f-2d5ceb1f6fa2",
+  "accepted_revision": "dd660c5f19019d88bf0625325f85dd9f7fa46fe5",
+  "returncode": 0,
+  "error_type": null,
+  "steps": [
+    {
+      "step": "local_clone",
+      "returncode": 0,
+      "seconds": 0.268
+    },
+    {
+      "step": "pinned_checkout",
+      "returncode": 0,
+      "seconds": 0.196
+    },
+    {
+      "step": "explicit_npm_version",
+      "returncode": 0,
+      "seconds": 0.335
+    },
+    {
+      "step": "npm12_ci",
+      "returncode": 0,
+      "seconds": 12.878
+    },
+    {
+      "step": "frontend_build",
+      "returncode": 0,
+      "seconds": 2.396
+    },
+    {
+      "step": "new_tracked_sources_unchanged",
+      "returncode": 0,
+      "seconds": 0.075
+    }
+  ],
+  "paid_api_calls": 0,
+  "meta_credentials_provided": false,
+  "disk_free_mib_at_finish": 1520.0,
+  "limitations": "local fresh clone on same Windows toolchain; not crossplatform, advisories or browser QA",
+  "lead_review": {
+    "decision": "accepted",
+    "frontend": "fresh npm12.0.2 ci24packages13s; strict tsc/Vite22modules222ms JS280.61kB/gzip82.48 passed; no ENOSPC/native-binding warning in actual log",
+    "artifact_sha256": "d1cc8c7c433b61622c993dc2a330815ffbed85a87241a345a2828b89889329cc",
+    "matches_prior_working_build": true,
+    "source_unchanged": "git diff HEAD --exit-code empty/exit0",
+    "previous_failures": "original missing-native and actual disk-exhaustion attempts permanently retained; exact first failure cause unresolved, no npm-version causal claim",
+    "scope": "split fresh Windows checks: prior firstclone Python403/Rust32 tests and native+7offline cases, plus new frontendclone on same pinned dd660c5; not one successful all-in-one worker or crossplatform",
+    "no_product_fix": true,
+    "meta_calls": 0,
+    "cumulative_local_meta_estimate_usd": 15.585008
+  }
+}

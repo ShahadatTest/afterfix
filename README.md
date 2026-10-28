@@ -39,7 +39,7 @@ Offline fixtures are test evidence only; they are not live model evidence. Mobil
 
 ## Windows PowerShell setup
 
-These commands are proposals for a clean checkout. They have not been validated as a complete clean-checkout run in this documentation update.
+The lead validated pinned revision dd660c5 on Windows in separate fresh local clones: Python/Rust installation and tests, native checks and seven offline cases, plus fresh frontend install/build under npm12.0.2. This was split validation, not a single all-in-one run. Earlier failed attempts are retained; see [fresh frontend evidence](docs/evaluations/frontend-repro-accepted-2026-10-28.json). Keep at least1GiB disk headroom before dependency installation; a full drive caused a recorded install failure.
 
 From the repository root, create an isolated Python environment and install dependencies:
 

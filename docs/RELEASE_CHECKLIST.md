@@ -18,14 +18,14 @@ This checklist separates recorded evidence from work still pending. Checked item
 
 ## Pending validation — do not mark complete without new evidence
 
-- [ ] Complete focused frontend reproduction after disk recovery: fresh install reported `ENOSPC` on2026-10-28 with about10MiB free onC:. At05:35UTC free space recovered to1620.8MiB and a new bounded frontend batch was queued; its outcome is pending. Fresh Python403tests/Rust32tests passed; remaining native checks and7offline apply cases also passed. Full frontend clean-install/build remains unverified. See [retained disk failure](evaluations/frontend-repro-disk-2026-10-28.json). No product-code defect or npm-version cause is established from these failures.
-- [ ] Clean-checkout setup and reproducibility using the documented Windows PowerShell commands.
+- [x] Fresh Windows frontend npm12.0.2 install/build passed after disk recovery; native dependencies installed,22modules222ms, emitted JS matches prior build SHA256. Earlier failures retained, no product fix needed. See [fresh frontend evidence](evaluations/frontend-repro-accepted-2026-10-28.json).
+- [x] Pinned dd660c5 Windows reproducibility checked in separate fresh local clones: Python403/Rust32 tests and native checks/7offline apply cases, plus freshfrontend install/build. This was split validation, not a single all-in-one successful run; crossplatform remains pending.
 - [ ] Python, JavaScript, and Rust dependency advisory review.
 - [ ] Final secret review of source, reports, screenshots, and exported artifacts.
 - [ ] Actual mobile layout checks; the recorded browser viewport was desktop **1280 × 585**.
-- [ ] Delayed React/session/report failure checks.
-- [ ] Model-budget browser failure checks.
-- [ ] Complete keyboard cycle, including native dialog focus behaviour.
+- [x] Actual delayed old-session report discarded after signout/viewer signin; viewer remained readonly. See [browser session evidence](evaluations/browser-session-failure-2026-10-28.json).
+- [x] Actual UI/endpoint handling under simulated pre-provider budget denial and model-unavailable503; no new writes/retries or raw private sentinel. This does not claim live provider/ledger-budget rejection testing.
+- [x] Actual patch/evidence Enter/Tab/Escape cycles and opener-focus restoration recorded in Chrome; native BODY/DIALOG intermediate focus observed, no underlying page action focused. Accessibility certification is not claimed.
 - [ ] Cross-platform testing; current Windows versions recorded2026-10-28 are Python3.12.10, Node24.18.0, npm12.0.2, rustc/cargo1.98.0.
 - [ ] Demo rehearsal and then recording; neither is claimed yet.
 - [ ] Any live retest of the output-cap correction under a separately approved budget and plan.
