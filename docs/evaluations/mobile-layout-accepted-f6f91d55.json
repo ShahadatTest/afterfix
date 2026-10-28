@@ -1,0 +1,535 @@
+{
+  "model": "muse-wonder-1.0",
+  "run_id": "f6f91d55-66c9-4c3d-bcab-876b75a98fee",
+  "job_id": "6cbaa9c2-bc13-4c93-8e1e-746ab39feb84",
+  "decision": "accepted",
+  "usage": {
+    "input_tokens": 11760,
+    "output_tokens": 4105,
+    "reasoning_tokens": 717,
+    "estimated_usd": 0.12914,
+    "local_completed_cumulative_usd": 16.64208
+  },
+  "review": "All2CSSfiles/full source/diffs reviewed beforecopy. Shrinkablegridtracks/items/wrapping; no hide/crop/TSX/auth/workflow changes.",
+  "source_sha256": {
+    "frontend/src/styles.css": "01120a40af4958b172ae97bfa826e09c1ce97b47a8bff31862143f4f2fb3c05b",
+    "frontend/src/cases.css": "967b1dcf3067a83f0ad38834d8e2bbbd677da8e7ff325ae6be1c879b915bf868"
+  },
+  "unchanged_sources": {
+    "frontend/src/App.tsx": "a09734b066c7e2abca9f465037017146dd8f74f53cfaf1dcffe69156dca33fc8",
+    "frontend/src/CaseReports.tsx": "731f2ce3d46a6d3725dd7421d99e0f71107d356a8c27075159b3d00718df8db0",
+    "frontend/src/auth.css": "c05b54034228f53a06de2203fc042f3a0b048c89ce98c94cc6b527c3fae0348d"
+  },
+  "build": {
+    "command": "npm12.0.2 run build (tsc --noEmit && vite build)",
+    "result": "exit0,22modules308ms,JS282.02kB/gzip82.82 unchanged emitted JS name"
+  },
+  "actual_CUA_measurements": [
+    {
+      "bodyOverflow": "visible",
+      "client": 390,
+      "controls": [
+        {
+          "disabled": false,
+          "height": 43.45833587646485,
+          "label": "password",
+          "left": 36.66666793823242,
+          "right": 353.3333549499512,
+          "width": 316.66668701171875
+        },
+        {
+          "disabled": false,
+          "height": 41.20833587646485,
+          "label": "Sign in",
+          "left": 36.66666793823242,
+          "right": 353.3333549499512,
+          "width": 316.66668701171875
+        }
+      ],
+      "height": 844,
+      "label": "390-signin",
+      "rootOverflow": "visible",
+      "scroll": 390,
+      "scrollX": 0,
+      "width": 390
+    },
+    {
+      "bodyOverflow": "visible",
+      "client": 375,
+      "controls": [
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Sign out",
+          "left": 232.8541717529297,
+          "right": 307.1041717529297,
+          "width": 74.25
+        },
+        {
+          "disabled": false,
+          "height": 41.20833587646485,
+          "label": "Reset demo",
+          "left": 20,
+          "right": 354,
+          "width": 334
+        },
+        {
+          "disabled": false,
+          "height": 41.20833587646485,
+          "label": "Code patch",
+          "left": 20,
+          "right": 354,
+          "width": 334
+        },
+        {
+          "disabled": false,
+          "height": 39.33333587646485,
+          "label": "1Investigate",
+          "left": 17.59375,
+          "right": 159.1875,
+          "width": 141.59375
+        },
+        {
+          "disabled": true,
+          "height": 39.33333587646485,
+          "label": "2Preview",
+          "left": 167.1875,
+          "right": 285.1354217529297,
+          "width": 117.94792175292967
+        },
+        {
+          "disabled": true,
+          "height": 39.33333587646485,
+          "label": "3Approve & apply",
+          "left": 17.59375,
+          "right": 204.5,
+          "width": 186.90625
+        },
+        {
+          "disabled": true,
+          "height": 39.33333587646485,
+          "label": "4Verify",
+          "left": 212.5,
+          "right": 315.3541717529297,
+          "width": 102.85417175292967
+        },
+        {
+          "disabled": false,
+          "height": 62.54166793823242,
+          "label": "Run investigation (uses model requests)",
+          "left": 38.26041793823242,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "disabled": false,
+          "height": 44,
+          "label": "CASE-836ea54036eb2a31 \u00c2\u00b7 10/28/2026, 3:15:32 PM \u00c2\u00b7 original status: prop",
+          "left": 38.26041793823242,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "disabled": false,
+          "height": 44,
+          "label": "Refresh cases",
+          "left": 38.26041793823242,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "disabled": false,
+          "height": 44,
+          "label": "Download full server report (JSON)",
+          "left": 38.26041793823242,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Details",
+          "left": 55.05208587646485,
+          "right": 119.29167175292967,
+          "width": 64.23958587646484
+        },
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Details",
+          "left": 55.05208587646485,
+          "right": 119.29167175292967,
+          "width": 64.23958587646484
+        },
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Details",
+          "left": 55.05208587646485,
+          "right": 119.29167175292967,
+          "width": 64.23958587646484
+        },
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Details",
+          "left": 55.05208587646485,
+          "right": 119.29167175292967,
+          "width": 64.23958587646484
+        },
+        {
+          "disabled": false,
+          "height": 29.5625,
+          "label": "Details",
+          "left": 55.05208587646485,
+          "right": 119.29167175292967,
+          "width": 64.23958587646484
+        }
+      ],
+      "height": 844,
+      "label": "390-verified-history",
+      "rootOverflow": "visible",
+      "scroll": 375,
+      "scrollX": 0,
+      "width": 390
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        }
+      ],
+      "client": 375,
+      "dialog": {
+        "closeRight": 330.72918701171875,
+        "height": 725.8333740234375,
+        "left": 7.9375,
+        "right": 366.7291870117187
+      },
+      "height": 844,
+      "label": "390-patch",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": null,
+      "height": 800,
+      "label": "360-verified-history",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": {
+        "closeRight": 301.9270935058594,
+        "height": 688,
+        "left": 6.7291669845581055,
+        "right": 337.92710399627686
+      },
+      "height": 800,
+      "label": "360-evidence-dialog",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": null,
+      "height": 800,
+      "label": "360-needs-review-history",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 763.5416870117188,
+          "width": 328.6145935058594
+        },
+        {
+          "height": 44,
+          "right": 904.7708740234376,
+          "width": 130.03125
+        },
+        {
+          "height": 44,
+          "right": 1212,
+          "width": 296.03125
+        }
+      ],
+      "client": 1265,
+      "dialog": null,
+      "height": 800,
+      "label": "1280-verified-history",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 1265,
+      "width": 1280
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": null,
+      "height": 800,
+      "label": "360-preview",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 336.4062614440918,
+          "width": 298.1458435058594
+        }
+      ],
+      "client": 375,
+      "dialog": null,
+      "height": 844,
+      "label": "390-preview",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 763.5416870117188,
+          "width": 328.6145935058594
+        },
+        {
+          "height": 44,
+          "right": 904.7708740234376,
+          "width": 130.03125
+        },
+        {
+          "height": 44,
+          "right": 1212,
+          "width": 296.03125
+        }
+      ],
+      "client": 1265,
+      "dialog": null,
+      "height": 800,
+      "label": "1280-preview",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 1265,
+      "width": 1280
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": null,
+      "height": 800,
+      "label": "360-approval-checkbox",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [],
+      "client": 360,
+      "dialog": null,
+      "height": 800,
+      "label": "360-signin",
+      "mainHeading": "Sign in",
+      "rootOverflow": "visible",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "bodyOverflow": "visible",
+      "caseTargets": [
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 44,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        },
+        {
+          "height": 62.54166793823242,
+          "right": 306.4062614440918,
+          "width": 268.1458435058594
+        }
+      ],
+      "client": 345,
+      "dialog": null,
+      "height": 800,
+      "label": "360-viewer-history",
+      "mainHeading": "Recover the data left behind.",
+      "rootOverflow": "visible",
+      "scroll": 345,
+      "width": 360
+    }
+  ],
+  "mode": "Chrome3 documented viewport override, offline FakeMeta+realFastAPI/SQLite/Rust; not physicaldevices or liveprovider",
+  "observations": [
+    "390/360/1280 history andpreview no documentoverflow; 390/360 signin fit. Root/bodyoverflowvisible, no clipping suppression.",
+    "390patch and360evidencedialog fit; Closeremainedreachable. History verified/needs-review selections worked, caseselect/buttons >=44pxheight.",
+    "360normalofflineinvestigation produced100to110preview withrealrequiredRust. Explicitreviewcheckbox enabledApprove; Applyremaineddisabled; no approval/applysent.",
+    "360viewersignin loadedsavedreport readonly; investigation/resetdisabled, oldoperatorcheckbox/approvalUI notrestored.",
+    "Firstwait used2Preview label aftercompletion changedto checkmarkPreview, selector timeout only; actualDOM showed validpreview, no appfailure.",
+    "Viewportreset/signout/tab889211382closed; own backend8048/Vite identitychecked/stopped; ports0, execsessions exit1forownedcleanup."
+  ],
+  "independent_db": {
+    "stocks": {
+      "WIDGET-1": 100,
+      "GADGET-9": 45
+    },
+    "restock_total": 20,
+    "approvals": 0,
+    "repair_rows": 0,
+    "http_request_counts": {
+      "GET /auth/me": 2,
+      "GET /incidents/INC-001": 5,
+      "GET /incidents/INC-001/patch": 5,
+      "GET /incidents/INC-001/evidence": 5,
+      "GET /incidents/INC-001/cases": 7,
+      "GET /cases/CASE-836ea54036eb2a31/report": 2,
+      "GET /cases/CASE-8b4e5db9347cd048/report": 1,
+      "POST /admin/reset": 1,
+      "POST /incidents/INC-001/investigate": 1,
+      "GET /proposals/PROP-ee3ac13c/preview": 1,
+      "GET /cases/CASE-1d6640c5b2262940/report": 2
+    }
+  },
+  "paid_api_calls": 0,
+  "limits": [
+    "No physicaldevice/live-mobile approvalapply or all-state matrix claimed; desktoplivecanonical evidence remainsseparate.",
+    "Backend403/Rust32 suites notrerunforCSS, firstlive5of7unchanged. Older scopedsecret scan excludeslaterchanges/screenshots."
+  ]
+}

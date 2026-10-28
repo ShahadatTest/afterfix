@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Responsive overflow correction accepted —2026-10-28
+
+Wonder1.0 runf6f91d55/job6cbaa9c2:11760input/4105output(717reasoning),estimate$0.129140,cumulative local$16.642080. All2CSSfiles/fullsource/diffs reviewed beforecopy; sourcebyteidentical toMeta staging; App/CaseReports/authCSS unchanged. Actualstrictbuild22modules308ms/JS282.02kB gzip82.82passed. RealCUA viewport390/360/1280 history+preview pagewidth equalsclient375/345/1265; root/bodyoverflowvisible/no clipping. Signin390/360,390patch/360evidencedialog,needs-review/verifiedhistory,44pxcasecontrols and360approvalcheckboxseparation/viewerreadonlychecked. NormalofflineFakeMeta+realRustpreview100to110; no approve/applyHTTPsent. IndependentDB100/unrelated45/restock20/0approvals0repairs;1explicitreset1investigation. Zeroactualprovider calls/frozenlive5of7unchanged. Ownedtabs/processes cleanedup/ports0. Evidence mobile-layout-accepted-f6f91d55.json/screenshotsprivate. Backend/Rust notrerunforCSS; notphysicaldevice/live-mobileE2E. Nextread-only installedruntime inventory forprimaryOSSQLitetoolchainadvisoryreview, no speculativeimplementation.
+
 ## Scoped secret scan accepted; responsive layout issue observed —2026-10-28
 
 LeadQA4a59f6c3 accepted: pinned0c4b1a6/129trackedfiles/303reachableblobs/4401177bytes,0matches for internallyloadedcurrentMeta-key/encodedvariants plus specificcredentialpatterns. No key/matchingtext logged; excludesunknownrotatedkeys/reflog/unreachable/private/untracked/screenshotsOCR. Public redactedreport evaluations/secret-scan-0c4b1a6.json. ZeroAPIcalls.

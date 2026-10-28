@@ -31,7 +31,7 @@ AfterFix is a local configured-operator/viewer demo, not a multi-tenant or hoste
 
 ## Next acceptance items
 
-- Actual mobile 390 × 844 and 360 × 800, plus target desktop 1280 × 800 checks.
+- Responsive Chrome390x844/360x800/1280x800 layout correction is now checked in history/preview/dialog and approval/viewer states: [evidence](evaluations/mobile-layout-accepted-f6f91d55.json). Physical-device/live-mobile end-to-end behaviour was not measured.
 - Final exact-value/no-leak review of source, history, reports, and screenshots — still pending; do not claim it is done.
 - Separate OS/SQLite/toolchain and pip vendored-library advisory applicability review.
 - Actual demo rehearsal, then recording.
