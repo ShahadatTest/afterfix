@@ -49,6 +49,30 @@ function CheckList({ checks }: { checks: { name: string; ok: boolean; detail?: s
 function numText(value: number | null | undefined): string {
   return typeof value === "number" && Number.isFinite(value) ? String(value) : "unknown / not reported";
 }
+function investigationReasonText(reason: string | null | undefined): string {
+  switch (reason) {
+    case "model_client_error":
+    case "client_unavailable":
+      return "The model service could not complete this investigation, so no repair was proposed. Nothing was retried automatically; review the evidence or explicitly run a fresh investigation.";
+    case "model_output_limit":
+      return "The model response reached its length limit, so that result was not used and no partial repair was proposed. Review the evidence or explicitly run a fresh investigation.";
+    case "model_needs_review":
+      return "The available evidence was not sufficient to support a repair, so manual review is required and no repair was proposed.";
+    case "proposal_created":
+      return "A draft proposal was created for review. This does not claim final verification; review the preview before any approval or apply.";
+    case "model_refusal":
+      return "The model did not complete this investigation, so no repair was proposed and manual review is required.";
+    case "stale_state":
+      return "The recorded data changed during the investigation, so no repair was proposed. Run a fresh investigation against the current data.";
+    case "deterministic_validation_abstained":
+    case "snapshot_validation_error":
+    case "live_proposal_validation_failed":
+    case "live_proposal_error":
+      return "Validation did not support a repair, so no applicable repair was proposed and manual review is required.";
+    default:
+      return "This investigation requires review, so no applicable repair was proposed. Review the recorded evidence; nothing was retried automatically.";
+  }
+}
 
 export default function App({ actor }: { actor: AuthMeResponse }) {
   const isViewer = actor.role === "viewer";
@@ -307,9 +331,9 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
             {investigation && (<div className="stack">
               {investigation.case_recording_status === "recorded" && investigation.case_id && <p className="muted">Durable case recorded: <span className="mono">{investigation.case_id}</span> (see Saved cases — read-only history).</p>}
               {investigation.case_recording_status === "unavailable" && <div className="banner warn" role="status"><strong>Case recording unavailable.</strong> No durable case ID, version or report exists for this live investigation; it may continue, but authoritative durable export is disabled for it.</div>}
-              {investigation.status === "needs_review" ? <div className="banner warn" role="status"><strong>Needs review — no repair proposed.</strong><br />{investigation.reason || "The available evidence was not sufficient for a supported repair."}</div> : <div className="banner ok" role="status">A draft proposal was returned. Review the preview before any approval.</div>}
+              {investigation.status === "needs_review" ? <div className="banner warn" role="status"><strong>Needs review — no repair proposed.</strong><br />{investigationReasonText(investigation.reason)}</div> : <div className="banner ok" role="status">A draft proposal was returned. Review the preview before any approval.</div>}
               {investigation.hypothesis && <section className="subpanel"><h4>Model hypothesis</h4><p>{investigation.hypothesis}</p><p className="label-note">Model explanation — not a deterministic finding.</p></section>}
-              {investigation.reason && investigation.status !== "needs_review" && <p>{investigation.reason}</p>}
+              {investigation.status !== "needs_review" && <p>{investigationReasonText(investigation.reason)}</p>}
               <div className="grid2">{statementBlock("Observations", investigation.observations, "Directly tied to cited event records.")}{statementBlock("Model inferences", investigation.inferences, "Model claims — check them against the cited evidence.")}</div>
               <section className="subpanel amber"><h4>Uncertainties</h4>{investigation.uncertainties.length ? <ul>{investigation.uncertainties.map((u, i) => <li key={i}>{u}</li>)}</ul> : <p className="muted">None returned.</p>}</section>
               <div className="grid2"><section className="subpanel"><h4>Investigation trace</h4>{investigation.trace.length ? <ul className="trace">{investigation.trace.map((t, i) => <li key={i}><span className="mono">{t.tool}</span><span>{t.count} record{t.count === 1 ? "" : "s"}{t.event_ids.length ? ` · IDs ${t.event_ids.join(", ")}` : ""}</span></li>)}</ul> : <p className="muted">No trace returned.</p>}</section>

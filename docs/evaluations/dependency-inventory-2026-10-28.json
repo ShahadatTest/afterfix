@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-28T05:58:33.330867+00:00",
+  "coverage": "fresh Windows PyPI environment including installer; all npm locked platforms/dev/optional entries; crates.io registry entries; excludes toolchain/OS/SQLite advisories and private/local crate",
+  "source_hashes": {
+    "requirements.txt": "94a7b63609b83fee209ba81380b9c715b3d882d5586056858c60001b903ec5a8",
+    "frontend/package-lock.json": "0914839618c581d8467583d2ab24150c36c1a3cbf1689c1a366894fd7ebc664a",
+    "rust-verifier/Cargo.lock": "072e24b6e48bac7eefdad49d9dca69678af97e3625b61e784f81fb1cf98a2409"
+  },
+  "packages": [
+    {
+      "ecosystem": "PyPI",
+      "name": "Pygments",
+      "version": "2.21.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "annotated-doc",
+      "version": "0.0.5"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "annotated-types",
+      "version": "0.8.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "anyio",
+      "version": "4.15.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "certifi",
+      "version": "2026.10.23"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "click",
+      "version": "8.5.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "colorama",
+      "version": "0.4.6"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "fastapi",
+      "version": "0.162.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "httpcore",
+      "version": "1.0.9"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "httpx",
+      "version": "0.28.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "idna",
+      "version": "3.20"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "opentelemetry-api",
+      "version": "1.45.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pip",
+      "version": "25.0.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pluggy",
+      "version": "1.7.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pydantic",
+      "version": "2.14.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pydantic_core",
+      "version": "2.50.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pytest",
+      "version": "9.1.1"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "starlette",
+      "version": "1.10.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "typing-inspection",
+      "version": "0.4.4"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "uvicorn",
+      "version": "0.54.0"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "itoa",
+      "version": "1.0.18"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "memchr",
+      "version": "2.8.3"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "proc-macro2",
+      "version": "1.0.107"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "quote",
+      "version": "1.0.47"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde",
+      "version": "1.0.229"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_core",
+      "version": "1.0.229"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_derive",
+      "version": "1.0.229"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_json",
+      "version": "1.0.154"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "syn",
+      "version": "3.0.9"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "unicode-ident",
+      "version": "1.0.27"
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "zmij",
+      "version": "1.0.23"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@oxc-project/types",
+      "version": "0.155.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm-eabi",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm64",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-arm64",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-x64",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-freebsd-x64",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm-gnueabihf",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-gnu",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-musl",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-ppc64-gnu",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-s390x-gnu",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-musl",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-openharmony-arm64",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-arm64-msvc",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/pluginutils",
+      "version": "1.0.1"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react",
+      "version": "19.3.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react-dom",
+      "version": "19.3.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-aix-ppc64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-darwin-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-darwin-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-freebsd-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-freebsd-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-arm",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-loong64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-mips64el",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-ppc64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-riscv64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-s390x",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-netbsd-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-netbsd-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-openbsd-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-openbsd-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-sunos-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-win32-arm64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-win32-x64",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vitejs/plugin-react",
+      "version": "6.1.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "csstype",
+      "version": "3.2.3"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "detect-libc",
+      "version": "2.1.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fdir",
+      "version": "6.5.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fsevents",
+      "version": "2.3.3"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-android-arm64",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-arm64",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-x64",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-freebsd-x64",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm-gnueabihf",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-gnu",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-musl",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-gnu",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-musl",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-arm64-msvc",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-x64-msvc",
+      "version": "1.33.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "nanoid",
+      "version": "3.3.20"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picocolors",
+      "version": "1.1.1"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picomatch",
+      "version": "4.0.7"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "postcss",
+      "version": "8.5.32"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "version": "19.3.1"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "version": "19.3.1"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "rolldown",
+      "version": "1.2.15"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "scheduler",
+      "version": "0.28.0"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "source-map-js",
+      "version": "1.2.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "tinyglobby",
+      "version": "0.2.17"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "typescript",
+      "version": "7.0.2"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vite",
+      "version": "8.3.5"
+    }
+  ]
+}

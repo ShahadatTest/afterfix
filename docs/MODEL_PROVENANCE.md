@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Friendly investigation reasons accepted —2026-10-28
+
+Wonder1.0 runda284cfa/job2f44e2ea:26847input/1917output(1222reasoning),estimate$0.145728,cumulative local$15.730736. Three exact App-only edits materialized against b68f8241/app_ui and full diff reviewed before execution. Strict build22modules228ms passed; actual offline Chrome model-client failure now friendly without rawmaincode/private sentinel; explicitnormalRustpreview100to110 and draftcopy passed. DB100/unrelated45/restock20/zeroapprovalrepair afterexplicitreset. No backend/report/guard/state changes, paidruntime or livebenchmark repeat. Evidence friendly-investigation-accepted-da284cfa.json; screenshotprivate; owned browser/servers cleaned up.
+
 ## Release documentation accepted —2026-10-28
 
 Wonder1.0 runc1e13885/jobdb130f59:14178input/4524output(319reasoning),estimate$0.147192,cumulative local$15.585008. Full README/AUTH/DEMO_SCRIPT/RELEASE_CHECKLIST reviewed before installation, all relative links resolve; actual180sec demo intervals checked. Lead prose additions record observed Python3.12.10/Node24.18.0/npm12.0.2/Rust1.98.0 and preserve signout/inflight-work caveat. No implementation change/test rerun/API call; clean-checkout and remaining browser/release checks pending. Recorded live5/7 immutable. Evidence release-docs-accepted-c1e13885.json.

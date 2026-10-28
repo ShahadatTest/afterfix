@@ -1,0 +1,46 @@
+{
+  "run_id": "da284cfa-aa3b-41c6-a6e8-fdfba9568624",
+  "job_id": "2f44e2ea-9aa3-47b8-a8eb-92bc4e4d4ccb",
+  "model": "muse-wonder-1.0",
+  "tokens": {
+    "input": 26847,
+    "output": 1917,
+    "reasoning": 1222
+  },
+  "estimate_usd": 0.145728,
+  "cumulative_local_estimate_usd": 15.730736,
+  "review": "three exact edits against explicit immutable b68f8241/app_ui; full diff reviewed before copy/build; App-only known-reason text and generic unknown fallback, no backend/report/API state changes",
+  "validation": {
+    "build": "strict tsc/Vite22modules228ms JS282.02kB/gzip82.82",
+    "actual_browser": "Chrome OFFLINE FakeMeta/FastAPI/SQLite/Rust, synthetic transport-denial => friendly main modelservice error/no raw main code/no private sentinel/downstreamdisabled; explicit reset+normalinvestigate=>Rust preview100to110; main draft message/no raw proposal_created; no approval/apply",
+    "independent_readonly_db": {
+      "target_stock": 100,
+      "unrelated_stock": 45,
+      "restock_total": 20,
+      "approvals": 0,
+      "repairs": 0
+    },
+    "http_counts": {
+      "GET /auth/me": 1,
+      "GET /incidents/INC-001": 3,
+      "GET /incidents/INC-001/evidence": 3,
+      "GET /incidents/INC-001/patch": 3,
+      "GET /incidents/INC-001/cases": 6,
+      "GET /cases/CASE-1d0ec64aeb73a560/report": 1,
+      "POST /incidents/INC-001/investigate": 2,
+      "GET /cases/CASE-91a7dbf474cba9b5/report": 1,
+      "POST /admin/reset": 1,
+      "GET /proposals/PROP-5352034f/preview": 1,
+      "GET /cases/CASE-341c188d7b63a3d7/report": 1
+    },
+    "backend": "unchanged; no rerun of prior403tests/Rust/native7offline"
+  },
+  "cleanup": "created tab889211376 signedout/closed; owned backend22107/PID3160 stdin stop exit0; Vite32986 q exit0",
+  "paid_runtime_calls": 0,
+  "fixture": "OFFLINE; not live provider or ledger rejection; no benchmark repeat",
+  "screenshot": "private adjacent control/evaluations/browser-friendly-failure61-2026-10-28.png",
+  "remaining": [
+    "actual mobile/1280x800",
+    "dependency advisories/finalsecret/rehearsal/releaseexternalactions"
+  ]
+}
