@@ -1,0 +1,73 @@
+{
+  "kind": "actual_chrome_offline_browser_qa",
+  "fixture": "FakeMeta + real FastAPI/SQLite/release Rust",
+  "viewport": {
+    "width": 1280,
+    "height": 585,
+    "horizontal_overflow": false
+  },
+  "native_api_test": {
+    "source_run": "30065940-0e84-43ea-987e-8e24b562fbe3",
+    "result": "passed with actual pending body-entry200/401 synchronization"
+  },
+  "pure_case_state_test": "passed",
+  "prior_frontend_build": "strict tsc/Vite22modules421ms passed; production UI unchanged",
+  "actual_stale_approval": {
+    "http_status": 409,
+    "preview_checkbox_approval_apply_invalidated": true,
+    "returned_to_stage1": true,
+    "fresh_investigation_message": true,
+    "stock_display_after409": 100,
+    "actual_db_stock": 101,
+    "presentation_freshness": "correction_required"
+  },
+  "unavailable_backend": {
+    "owned_backend_stopped_before_refresh": true,
+    "sanitized_error_visible": true,
+    "raw_upstream_message_in_ui": false,
+    "automatic_investigation_calls": 0
+  },
+  "keyboard": {
+    "patch_modal_opened_and_initial_close_focused": true,
+    "Escape_closed_and_restored_opener": true,
+    "Tab_from_sole_close_active_element": "BODY",
+    "full_focus_cycle_interpretation": "pending; no product failure assumed"
+  },
+  "independent_db": {
+    "target_stock": 101,
+    "unrelated_stock": 45,
+    "target_restock_total": 21,
+    "approvals": 0,
+    "repair_rows": 0
+  },
+  "request_counts": {
+    "GET /auth/me": 1,
+    "GET /incidents/INC-001": 3,
+    "GET /incidents/INC-001/evidence": 3,
+    "GET /incidents/INC-001/patch": 3,
+    "GET /incidents/INC-001/cases": 5,
+    "GET /cases/CASE-bf98f37aacbf3a42/report": 1,
+    "POST /admin/reset": 1,
+    "POST /incidents/INC-001/investigate": 1,
+    "GET /proposals/PROP-e4921937/preview": 1,
+    "GET /cases/CASE-ced4601bcb246ab7/report": 1,
+    "POST /proposals/PROP-e4921937/approve": 1
+  },
+  "new_meta_provider_calls": 0,
+  "first_live_evaluation_score_unchanged": "5/7",
+  "cleanup": {
+    "signed_out": true,
+    "created_tab_closed": true,
+    "owned_backend_exit0": true,
+    "owned_vite_exit0": true,
+    "qa_ports_listening": 0
+  },
+  "pending": [
+    "mobile390x844/360x800",
+    "delayed React saved-report session race",
+    "model/budget failure UI",
+    "stale apply409 retest",
+    "full keyboard cycle"
+  ],
+  "controller_note": "Initial inline PowerShell quoting for DB mutation failed before Python execution; dedicated reviewed controller then added exactly one restock1. No broad cleanup or unrelated services touched."
+}
