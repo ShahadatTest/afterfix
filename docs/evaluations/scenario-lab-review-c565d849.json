@@ -1,0 +1,28 @@
+{
+  "job_id": "e5ef65e8-28c5-48ee-902c-0fae61268c4c",
+  "run_id": "c565d849-5343-45f8-bdfd-f60098e9e93b",
+  "decision": "corrections_requested_before_product_install",
+  "model": "muse-wonder-1.0",
+  "input_tokens": 35451,
+  "output_tokens": 10270,
+  "reasoning_tokens_in_output": 2419,
+  "estimated_usd": 0.347204,
+  "cumulative_local_estimated_usd": 17.445032,
+  "source_review": "All staged module/tests/manifest and three materialized main.py edits reviewed before execution in an isolated overlay. Product sources unchanged.",
+  "focused_result": "29 passed, one existing TestClient/httpx warning, in6.09s; offline temporary DBs and existing real required Rust verifier",
+  "independent_probes": {
+    "failed_load_status": 500,
+    "failed_first_load_created_lab_table": true,
+    "scratch_runtime_error_escaped_route_handler": true,
+    "note": "The latter escaped to the ASGI/TestClient server boundary; no claim of raw error text exposed to a remote end user."
+  },
+  "findings": [
+    "load and advance create/commit lab metadata before their mutation transaction; failed first load leaves a new table, and an invalid advance can initialize metadata",
+    "scratch build/connection and some advance setup exceptions sit outside the fixed sanitized route error boundary",
+    "request models should use exact Literal confirmations and strict types as specified; existing tests lack full table/session rollback snapshots and setup-error coverage",
+    "remove dormant __wrapped__ branch in stale repeat test so the test cannot unexpectedly reset the fixture"
+  ],
+  "paid_runtime_calls": 0,
+  "product_installed": false,
+  "next": "Focused Meta correction, then review and offline focused/full checks before UI batch; recurring schedule remains paused"
+}

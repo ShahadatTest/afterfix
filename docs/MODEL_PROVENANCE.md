@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Scenario Lab backend initial staging corrections requested —2026-10-28
+
+Wonder1.0 runc565d849/jobe5ef65e8:35451input/10270output(2419reasoning),estimate$0.347204/cumulative$17.445032. Fullnewmodule/tests/manifest and3materializedmain.py diffs reviewed. Isolatedsourceoverlay+realexistingrequiredRust:29offline testsPASS/1existingwarning6.09s. Independentprobes found firstfailedloadcommittednewlabtable outside transaction andscratchRuntimeError escapedrouteboundary. No productfilesinstalled/current530corebaselineunchanged. Evidence evaluations/scenario-lab-review-c565d849.json. Meta prompt70 targetsatomicDDL/fullerrorboundary/strictconfirmation/fulltablerollbackregressions; laterUIpending. No actualruntimecalls or frozenbenchmarkretest; recurringautomationpaused.
+
 ## Local source package and scoped secret scan accepted —2026-10-28
 
 Lead artifactQA524b6590 pinnedf0144f6:140files/380592byteZIP plus manifest, independentlymatchedallmembers toexactGitblobIDs/sizes/SHA256; archive SHA256b4fa476f7de772a98b4ce080b23c45c1c1fbdbeb3bb524c0d05352d5c7d0b39c. CurrentconfiguredMeta-keyexact/encodedvariants andspecificpatterns scan344reachableblobs/4993190bytes pluscurrenttree/ZIPmembers:0matches. Keyinternalonly/no matchedtextorencodingslogged/sent. Publicredactedevidence in evaluations/source-secret-scan-f0144f6.json, source-package-f0144f6-manifest.json and source-package-f0144f6-review.json. ZeroAPI/networkcalls/newMetaimplementation; localcompletedestimate$17.097828 unchanged. Unknownrotatedcredentials/OCR/private/untracked/latereditsexcluded, notsecuritycertification/publicationapproval. Sourceartifact retained privately; no runnablebundle/video/hosting/repository/submission. Python/Rust isolatedpatchQA awaitingownerCspace; explicit3GiBtotalfreegate preventsnewinstall/generation untilcleared, unchangedheartbeatsquiet.
