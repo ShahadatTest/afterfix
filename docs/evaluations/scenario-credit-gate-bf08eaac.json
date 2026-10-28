@@ -1,0 +1,13 @@
+{
+  "job_id": "bf08eaac-9593-41d1-962a-d0c85d085a7f",
+  "decision": "rejected_preflight_no_model_request",
+  "guard": "credit_verification_older_than24h",
+  "verification_expired_at_utc": "2026-10-28T11:34:13.741976+00:00",
+  "local_run_metadata_id": "fef5eed0-2bfa-4146-a590-db22f15a4bfc",
+  "api_requests": 0,
+  "credential_loaded": false,
+  "reservation_created": false,
+  "new_cost_usd": 0,
+  "completed_local_estimate_usd": 17.445032,
+  "next": "Await owner current available promotional credit amount; no retry or reactivation of schedule"
+}

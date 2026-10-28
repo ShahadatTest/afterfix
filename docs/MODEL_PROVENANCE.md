@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Correction preflight rejected; owner usage refreshed —2026-10-28
+
+Jobbf08eaac exited1atcreditfreshnesscheck, beforeAPIkeyload/reservation/requestfile/provider call; nooutput/newcharge. Localrunfef5eed0 retainedandannotated failed_preflight_credit_stale_no_api; completedestimate17.445032 unchanged. Actualexpiry11:34:13UTC, correctingprior12:54estimate. Evidence evaluations/scenario-credit-gate-bf08eaac.json. Ownerthenreported22USDused; prior150USDgrantminus22=>derived128remaining, notdirectbalanceverification. Privateguarduses127with1USDroundingbuffer/newowner-reporttimestamp/currenttrackedbaseline; othercaps/reserve/freshness unchanged. Onepreparedcorrectionresubmission authorized, no new featureacceptance/benchmarkclaim or schedulerresume.
+
 ## Scenario Lab backend initial staging corrections requested —2026-10-28
 
 Wonder1.0 runc565d849/jobe5ef65e8:35451input/10270output(2419reasoning),estimate$0.347204/cumulative$17.445032. Fullnewmodule/tests/manifest and3materializedmain.py diffs reviewed. Isolatedsourceoverlay+realexistingrequiredRust:29offline testsPASS/1existingwarning6.09s. Independentprobes found firstfailedloadcommittednewlabtable outside transaction andscratchRuntimeError escapedrouteboundary. No productfilesinstalled/current530corebaselineunchanged. Evidence evaluations/scenario-lab-review-c565d849.json. Meta prompt70 targetsatomicDDL/fullerrorboundary/strictconfirmation/fulltablerollbackregressions; laterUIpending. No actualruntimecalls or frozenbenchmarkretest; recurringautomationpaused.
