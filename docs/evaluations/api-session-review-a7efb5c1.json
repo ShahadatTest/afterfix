@@ -1,0 +1,35 @@
+{
+  "kind": "native_script_review_before_browser_qa",
+  "run_id": "a7efb5c1-c926-4103-915c-d77433abc3a4",
+  "model": "muse-wonder-1.0",
+  "usage": {
+    "input_tokens": 10022,
+    "output_tokens": 6792,
+    "estimated_cost_usd": 0.175928
+  },
+  "actual_commands": [
+    {
+      "command": "node --experimental-strip-types frontend/scripts/check-api-session.ts",
+      "result": "pass line and exit0; mocked fetch only"
+    },
+    {
+      "command": "node --experimental-strip-types frontend/scripts/check-case-state.ts",
+      "result": "all assertions passed"
+    },
+    {
+      "command": "npm run build (frontend)",
+      "result": "strict tsc/Vite passed22modules421ms"
+    }
+  ],
+  "independent_probe": {
+    "case": "2b pending body",
+    "response_text_entered": 0,
+    "stale_error_returned": true,
+    "network_calls": 0
+  },
+  "decision": "corrections_requested_test_causality_only",
+  "production_api_source_changed": false,
+  "browser_mobile_checks_this_turn": false,
+  "live_provider_calls": 0,
+  "first_live_score_unchanged": "5/7"
+}
