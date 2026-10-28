@@ -1,0 +1,38 @@
+{
+  "kind": "lead_review_and_offline_validation",
+  "run_id": "57ae3d6b-666b-45f6-b379-dfa8492fe202",
+  "model": "muse-wonder-1.0",
+  "usage": {
+    "input_tokens": 21803,
+    "output_tokens": 16144,
+    "estimated_cost_usd": 0.410092
+  },
+  "focused_pytest": {
+    "passed": 31,
+    "seconds": 0.98
+  },
+  "full_pytest": {
+    "passed": 381,
+    "warnings": 1,
+    "seconds": 31.18
+  },
+  "offline_cli_preview": {
+    "passed": 7,
+    "attempted": 7
+  },
+  "offline_cli_synthetic_apply": {
+    "passed": 7,
+    "attempted": 7
+  },
+  "independent_error_probe": {
+    "attempted": 1,
+    "passed": 0,
+    "stopped_early": true,
+    "guard_argument_type": "str",
+    "network": "none"
+  },
+  "live_heldout_calls": 0,
+  "remaining_integrity_correction": "Descriptive case label appears in runtime incident ID; replace with neutral identifier and assert all7 payloads lack labels. Remove environment-copy test fixture.",
+  "decision": "corrections_requested_before_live",
+  "frozen_oracles_changed": false
+}
