@@ -1,6 +1,6 @@
 # Durable synthetic case reports
 
-Backend accepted after350 Python tests passed on2026-10-28 (23 focused report tests, real release Rust in recovery flows, offline fake Meta). This is consistency validation for the bounded synthetic inventory domain, not a tamper-proof audit or production recovery guarantee. Current frontend integration is a separate pending task.
+Backend accepted after350 Python tests passed on2026-10-28 (23 focused report tests, real release Rust in recovery flows, offline fake Meta). This is consistency validation for the bounded synthetic inventory domain, not a tamper-proof audit or production recovery guarantee. Frontend saved history/full download/read-only reload is implemented and desktop-browser checked using explicitly offline FakeMeta fixtures plus real Rust; live held-out/mobile/failure checks remain pending.
 
 Each completed investigation attempts ONE durable case capture without rerunning Meta. Response adds `case_id` (string or null) and `case_recording_status` (`recorded` or `unavailable`). Recording failure leaves the actual investigation result available and never silently retries a paid request. New authenticated viewer/operator GET routes:
 

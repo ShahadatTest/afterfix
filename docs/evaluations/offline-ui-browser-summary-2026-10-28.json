@@ -1,0 +1,44 @@
+{
+  "qa_mode": "OFFLINE FakeMeta browser + actual FastAPI/SQLite/real release Rust; NOT live AI evaluation",
+  "paid_api_calls": 0,
+  "requests": {
+    "GET /auth/me": 3,
+    "GET /incidents/INC-001": 9,
+    "GET /incidents/INC-001/evidence": 9,
+    "GET /incidents/INC-001/patch": 7,
+    "GET /incidents/INC-001/cases": 12,
+    "GET /cases/CASE-15175219cd55194d/report": 4,
+    "GET /cases/CASE-c30473196586ee1e/report": 1,
+    "POST /admin/reset": 1,
+    "POST /incidents/INC-001/investigate": 1,
+    "GET /proposals/PROP-b4455ace/preview": 1,
+    "GET /cases/CASE-2ece692c88cd36fe/report": 4,
+    "POST /proposals/PROP-b4455ace/approve": 1,
+    "POST /apply": 1,
+    "POST /verify": 1
+  },
+  "current_stock": 110,
+  "unrelated_stock": 45,
+  "case_count": 1,
+  "approval_count": 1,
+  "repair_count": 1,
+  "audit": [
+    {
+      "action": "approve",
+      "actor_id": "operator"
+    },
+    {
+      "action": "apply",
+      "actor_id": "operator"
+    }
+  ],
+  "download_bytes": 27447,
+  "initial_history_verified": true,
+  "reload_requires_signin": true,
+  "viewer_history_and_disabled_mutations": true,
+  "needs_review_case_selected": true,
+  "synthetic_reset_cleared_cases": true,
+  "explicit_checkbox_approval_apply_verify_passed": true,
+  "timeline_reversed_after_apply": true,
+  "mobile_and_delayed_failure_browser_checks": "pending"
+}
