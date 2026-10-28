@@ -33,6 +33,14 @@ AfterFix v1 serves a developer/operator investigating a synthetic inventory inci
 | Scenario validation | Varied counts/items/later activity, clean ledger, missing/conflicting evidence, stale/racing requests and adversarial text | Broad offline suite exists; held-out live matrix and browser failure paths pending |
 | Demo delivery | Readable desktop/mobile flow, clean-checkout instructions, three-minute narrative, publishable source and demo package | Desktop canonical flow verified; remaining artifacts pending |
 
+## Owner-approved Scenario Lab extension —2026-10-28
+
+The owner explicitly requested Meta implementation of a Scenario Lab after reviewing its purpose. Add three local synthetic demonstrations: duplicate-order recovery, missing-opening evidence requiring abstention/needs-review, and a legitimate later restock that invalidates an earlier preview/approval. This is demonstration coverage, not a replacement or rerun of the frozen live benchmark. Scenario catalogue labels/expected outcomes must never be injected as hidden answers into the model's incident/evidence payload.
+
+Implement backend gates/fixtures/tests first, then a small accessible frontend integrated with the existing session/reset/approval lifecycle. Lab is disabled by default behind AFTERFIX_ENABLE_SCENARIO_LAB=1. Mutations require configured operator, existing AFTERFIX_ALLOW_RESET=1 and explicit confirmation; no model/API call merely from selecting/loading a scenario. Fixed named scenarios only, no arbitrary SQL/database uploads/paths/quantities. Loading replaces the synthetic demo and clears cases/approval state only after explicit confirmation. Advance is a separate, bounded, snapshot/session-bound synthetic action, never an automatic repair/apply.
+
+All actual recovery continues through existing Meta investigation, deterministic Python/Rust validation, approval and separate transactional apply. Keep viewer read-only, credit/freshness/request limits and no-fallback behavior. Implement new lab mutations atomically with actor audit and rollback on failure; preserve ordinary reset behavior and invalidate obsolete lab sessions. Do not add dependencies, paid services, public hosting or real data. Product code/tests remain Meta generated and require source review before execution. The owner turned recurring checks off; this feature request does not reactivate them.
+
 ## Language and database responsibilities
 
 Planning guide: Python40%, TypeScript35%, Rust20%, SQL/CSS5%. These are approximate shares of authored functionality/source, not measured current line counts, effort guarantees or performance targets. Do not inflate code or rewrite working UI to hit a percentage.
