@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## UI build/state checks passed, effect stability correction —2026-10-28
+
+Wonder1.0 rund2fe6059/job4df6cb9e:23560input/22825output,estimate$0.550740,cumulative$12.9475115. Reviewed5 complete sources/diffs plus reused7cab types, temporary installation. Actual strict tsc/Vite build passed22modules565ms, native Node strip-types case-state assertions all passed (exact raw checks/statuses/flags, Rust readiness, scope identity). Source review found unbounded callback/effect dependency chain through reportState used only by no-op finally. Browser not run/runtime loop not claimed. Restored accepted frontend, removed copied new files; backend0eda9d9/350-test source unchanged. Marked corrections_requested, queued4b14a633 via prompt45 for <=2 exact UI edits/max4096; UI materializer stages only, TS syntax deferred to compiler, controller AST passed. No paid runtime/server/browser/repeated backend tests/deploy/generation waiting.
+
 ## Durable report UI initial review —2026-10-28
 
 Wonder1.0 run7cab0adb/jobfc8e7676:20731input/20513output,estimate$0.493184,cumulative$12.3967715. Reviewed all4 frontend sources/full diffs before temporary installation; strict build failed TS2339 nested preview proposal type. Native Node strip-types actual exact helper probe reproduced false Verified for malformed check/missing record status/failed verification status. Source review confirms StrictMode first-run-ref cancellation pattern and read/download/reset/error gaps; browser not run. Restored accepted App/types, removed new copied component/css; backend0eda9d9/350-test source unchanged. Marked corrections_requested; prompt44 requests focused frontend fixes plus pure native Node state regressions, no dependencies/paid runtime/generation waiting.
