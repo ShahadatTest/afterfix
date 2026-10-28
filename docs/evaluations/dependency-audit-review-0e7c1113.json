@@ -1,0 +1,40 @@
+{
+  "run_id": "0e7c1113-cbfc-438b-9638-b58275eff43b",
+  "job_id": "69fa3478-b977-4b5f-828a-9c11bc1fec07",
+  "model": "muse-wonder-1.0",
+  "tokens": {
+    "input": 12444,
+    "output": 9856,
+    "reasoning": 1847
+  },
+  "estimate_usd": 0.246896,
+  "cumulative_local_estimate_usd": 15.977632,
+  "review_decision": "corrections_requested",
+  "installed_in_product": false,
+  "review": "all staged tool/tests/docs read before executing only bounded offline checks; no source copied into product",
+  "focused_actual_pytest": "2 failed24passed0.58s; valid scopednpm rejected in defaultprepare and findingsmapping cases",
+  "real103inventory_default_cli": "invalid_package/nonzero; outputdirectory not created; zero network",
+  "lead_offline_probes": {
+    "pypi_invalid_dollar": "accepted_invalid",
+    "pypi_invalid_semicolon": "accepted_invalid",
+    "floating_schema": "accepted_invalid",
+    "hash_final_newline": "accepted_invalid",
+    "advisory_final_newline": "accepted_invalid",
+    "modified_final_newline": "accepted_invalid",
+    "http_error_read_arguments": [
+      []
+    ],
+    "http_error_status": 500,
+    "actual_network_calls": 0
+  },
+  "additional_source_review": [
+    "per-item OSV pagination should have correct incomplete/pagination reason",
+    "duplicate response JSON keys currently can hide first results; reject instead",
+    "weak request-order assertion must not accept any3queries"
+  ],
+  "next": "single correction63: strict whole-string ecosystem validation/scopednpm, integer schema, hash/ID/control checks, bounded HTTP errors, pagination+duplicateJSON and focused regressions",
+  "actual_osv_queries": 0,
+  "paid_runtime_calls": 0,
+  "frozen_live_score": "5/7 unchanged",
+  "docs": "initial staged DEPENDENCY_AUDIT.md retained for final lead review after corrections"
+}

@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Dependency audit initial staging corrections requested —2026-10-28
+
+Wonder1.0 run0e7c1113/job69fa3478:12444input/9856output(1847reasoning),estimate$0.246896,cumulative local$15.977632. All staged tool/tests/docs reviewed before bounded offline execution.2failed24passed0.58s: validscopednpm rejected; real103inventory defaultprepare alsofailed before output/no network. Lead probes confirmed invalidPyPiprefix/float schema/finalnewline metadata accepted and HTTPError.read unbounded; source reviewed per-itempagination/duplicateJSON/weaktest issues. Product notinstalled; focused correction63 queued next, no OSV/Meta runtime/API/guard/frozenbenchmark changes. Evidence dependency-audit-review-0e7c1113.json.
+
 ## Friendly investigation reasons accepted —2026-10-28
 
 Wonder1.0 runda284cfa/job2f44e2ea:26847input/1917output(1222reasoning),estimate$0.145728,cumulative local$15.730736. Three exact App-only edits materialized against b68f8241/app_ui and full diff reviewed before execution. Strict build22modules228ms passed; actual offline Chrome model-client failure now friendly without rawmaincode/private sentinel; explicitnormalRustpreview100to110 and draftcopy passed. DB100/unrelated45/restock20/zeroapprovalrepair afterexplicitreset. No backend/report/guard/state changes, paidruntime or livebenchmark repeat. Evidence friendly-investigation-accepted-da284cfa.json; screenshotprivate; owned browser/servers cleaned up.
