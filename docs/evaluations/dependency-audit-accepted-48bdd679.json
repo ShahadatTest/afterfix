@@ -1,0 +1,57 @@
+{
+  "reviewed_at": "2026-10-28T08:43:41.493359+00:00",
+  "model": "muse-wonder-1.0",
+  "run_id": "48bdd679-4822-43da-863e-3d0addff5983",
+  "job_id": "c3374ce2-11aa-4b57-92f2-618e844788b2",
+  "decision": "accepted",
+  "usage": {
+    "input_tokens": 16830,
+    "output_tokens": 12007,
+    "reasoning_tokens": 1857,
+    "estimated_usd": 0.30746,
+    "local_completed_cumulative_usd": 16.285092
+  },
+  "review": "All staged source/tests and complete old-to-new diff reviewed before copy/execution. Docs retained from reviewed original staging; lead clarified output-write failures.",
+  "files_sha256": {
+    "tools/audit_dependency_inventory.py": "652185c1adec8dfe3e133e1468f88c44c7d94b49daf888aa0c90a7faf12c4884",
+    "tests/test_dependency_audit.py": "d7ab60fdc57c5af9200cd74575ce047612e2841fa2df6c8005f2211aa749ce9c"
+  },
+  "pins": {
+    "tool_sha256": "652185c1adec8dfe3e133e1468f88c44c7d94b49daf888aa0c90a7faf12c4884",
+    "inventory_sha256": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37",
+    "source_hashes": {
+      "requirements.txt": "94a7b63609b83fee209ba81380b9c715b3d882d5586056858c60001b903ec5a8",
+      "frontend/package-lock.json": "0914839618c581d8467583d2ab24150c36c1a3cbf1689c1a366894fd7ebc664a",
+      "rust-verifier/Cargo.lock": "072e24b6e48bac7eefdad49d9dca69678af97e3625b61e784f81fb1cf98a2409"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/test_dependency_audit.py",
+      "result": "99 passed in 1.13s",
+      "network": false
+    },
+    {
+      "command": "tools/audit_dependency_inventory.py --inventory docs/evaluations/dependency-inventory-2026-10-28.json --output <new private output>",
+      "returncode": 0,
+      "summary": {
+        "advisory_instance_count": null,
+        "advisory_unique_count": null,
+        "counts_partial": false,
+        "inventory_sha256": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37",
+        "queried_count": 0,
+        "status": "not_queried",
+        "total_count": 103
+      },
+      "network": false
+    },
+    {
+      "result": "Prepared103queries exactly match sorted public inventory; source manifest hashes current; installed tool/tests byte-identical to reviewed Meta staging; background controller AST parsed."
+    }
+  ],
+  "known_limits": [
+    "No actual advisory query/result yet. Public OSV background QA next.",
+    "Backend403/Rust32/browser checks unchanged and not rerun for isolated tool.",
+    "Frozen live5/7 preserved; no new Meta runtime calls."
+  ]
+}

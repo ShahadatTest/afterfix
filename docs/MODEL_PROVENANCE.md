@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Dependency audit corrections accepted —2026-10-28
+
+Wonder1.0 run48bdd679/jobc3374ce2:16830input/12007output(1857reasoning),estimate$0.307460,cumulative local$16.285092. Full staged source/tests/diff reviewed before copying/executing. Focused99offline tests passed1.13s; real103inventory defaultprepare rc0/not_queried/nullcounts, no network. Lead independently matched all103prepared public queries and current source hashes; installed code byte-identical to Meta staging. Scopednpm/strictfullmatch/schema/metadata/HTTPError bounds/pagination/duplicateJSON fixes accepted. Docs retained from first reviewed staging with lead outcome clarification. No backend/runtime/guard/frozenbenchmark changes; no real advisory result claimed yet. Evidence dependency-audit-accepted-48bdd679.json. Next bounded public OSV QA uses pinned sources and shared dispatcher/locks without Meta credentials/install/upgrade/retry.
+
 ## Dependency audit initial staging corrections requested —2026-10-28
 
 Wonder1.0 run0e7c1113/job69fa3478:12444input/9856output(1847reasoning),estimate$0.246896,cumulative local$15.977632. All staged tool/tests/docs reviewed before bounded offline execution.2failed24passed0.58s: validscopednpm rejected; real103inventory defaultprepare alsofailed before output/no network. Lead probes confirmed invalidPyPiprefix/float schema/finalnewline metadata accepted and HTTPError.read unbounded; source reviewed per-itempagination/duplicateJSON/weaktest issues. Product notinstalled; focused correction63 queued next, no OSV/Meta runtime/API/guard/frozenbenchmark changes. Evidence dependency-audit-review-0e7c1113.json.
