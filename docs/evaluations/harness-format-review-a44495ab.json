@@ -1,0 +1,22 @@
+{
+  "kind": "lead_strict_format_review",
+  "run_id": "a44495ab-7466-4ed9-91b8-fe9d64f59d02",
+  "provider_status": "completed",
+  "usage": {
+    "input_tokens": 21796,
+    "output_tokens": 10430,
+    "estimated_cost_usd": 0.295784
+  },
+  "format_error": {
+    "category": "invalid_nested_edit_json",
+    "position": 9832,
+    "line": 1,
+    "column": 9833
+  },
+  "decision": "rejected",
+  "product_source_installed": false,
+  "source_repaired_by_lead": false,
+  "live_heldout_calls": 0,
+  "tests_run": false,
+  "next": "Standard direct complete source files instead of nested exact-edit artifact; same original draft and requirements."
+}

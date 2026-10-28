@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Completed outer response rejected for invalid nested edit JSON —2026-10-28
+
+Wonder1.0 a44495ab/job7e8d2765:21796input/10430output (3160reasoning),estimate$0.295784,cumulative$14.1479195. Outer response completed; nested review/eval-edits.json failed strict Python JSON parsing, no materialization/copy/execution/manual source repair. Format failure prevents source acceptance; unchanged product needs no test rerun. Known ledger usage settled; live held-out calls0. Next bounded task49 returns3 complete files directly through standard source_bundle, removing double-encoded edit format rather than retrying identical broken format. Same ff1be8c5 original draft/expected matrix and operational-error corrections, accepted guard/engine/auth unchanged; output24576 within unchanged$1 call cap subject to preflight credit gate. Metadata evaluations/harness-format-review-a44495ab.json.
+
 ## Incomplete evaluation correction response —2026-10-28
 
 Wonder1.0 run e761902f/job203ecd13:23101input/12288output (4639reasoning),estimate$0.338164; cumulative$13.8521355. Provider incomplete/max_output_tokens; no complete file object in single double-encoded artifact. Rejected whole incomplete output, no partial recovery/missing text inference/materialization/product execution or tests. All known usage settled, no unresolved requests. Lead inspected bounded status/usage/prefix/tail only; unchanged source does not need retesting. Next one bounded completion prompt48 keeps same immutable ff1be8c5 base, increases output allowance to24576 within UNCHANGED$1 call cap/credit guard, no benchmark retries or frozen expectation changes. STATE compacted with full previous version preserved in STATE_HISTORY_2026-10-28.md to reduce future context cost. Product checkpoint cf45730 unchanged; live held-out calls0.
