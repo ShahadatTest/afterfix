@@ -1,0 +1,29 @@
+{
+  "kind": "accepted_runtime_output_limit_correction",
+  "run_id": "45e4fb66-67f4-4c45-bb1b-a9a8756e9a58",
+  "base_run": "52b986de-216e-44ba-ad3c-74313d589963",
+  "model": "muse-wonder-1.0",
+  "usage": {
+    "input_tokens": 17783,
+    "output_tokens": 3962,
+    "estimated_cost_usd": 0.150372
+  },
+  "reviewed_exact_edits": 2,
+  "new_offline_test_file": "tests/test_investigator_output_limits.py",
+  "focused_tests": {
+    "passed": 165,
+    "seconds": 8.17
+  },
+  "full_tests": {
+    "passed": 403,
+    "warnings": 1,
+    "seconds": 31.16
+  },
+  "final_phase_output_limit": 2048,
+  "tool_phase_output_limit": 800,
+  "request_and_cost_caps_changed": false,
+  "automatic_retries": false,
+  "partial_output_accepted": false,
+  "first_live_score_unchanged": "5/7",
+  "new_live_calls": 0
+}

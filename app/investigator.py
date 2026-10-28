@@ -89,6 +89,11 @@ def _result(status, cat, incident_id, product_id, read_ids, client, trace, propo
 
 def _parse_output(resp):
     """Return (calls, texts, error_category). Reasoning items are ignored opaquely."""
+    if isinstance(resp, dict) and resp.get("status") == "incomplete":
+        details = resp.get("incomplete_details")
+        if isinstance(details, dict) and details.get("reason") == "max_output_tokens":
+            return None, None, "model_output_limit"
+        return None, None, "invalid_or_incomplete_response"
     if not isinstance(resp, dict) or resp.get("status") != "completed":
         return None, None, "invalid_or_incomplete_response"
     out = resp.get("output")
@@ -233,7 +238,7 @@ def investigate(conn, incident_id, client=None):
                 return _result("needs_review", "request_limit_before_final", incident_id, product_id, read_ids, client, trace, requests=requests)
             requests += 1
             try:
-                resp = client.create_response(history, tools=None if final_phase else TOOLS, text_format=FINAL_SCHEMA if final_phase else None, max_output_tokens=1200 if final_phase else 800)
+                resp = client.create_response(history, tools=None if final_phase else TOOLS, text_format=FINAL_SCHEMA if final_phase else None, max_output_tokens=2048 if final_phase else 800)
             except Exception:
                 return _result("needs_review", "model_client_error", incident_id, product_id, read_ids, client, trace, requests=requests)
             calls, texts, err = _parse_output(resp)
