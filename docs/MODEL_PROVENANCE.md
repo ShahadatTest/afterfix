@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Small neutral-ID correction truncated by reasoning allowance —2026-10-28
+
+Wonder1.0 e6aed235/job67efc1ad:18104input/4096output (3472reasoning),estimate$0.154336,cumulative$14.7123475. Provider incomplete/max_output_tokens; only624tokens left for artifact, no complete file object. No recovery/repair/materialization/copy/execution or tests. Known usage settled. Next bounded completion51 gives12288 total output tokens for the SAME <=5-edit neutral incident-ID/purity-test task against57ae3d6b; no expanded scope, benchmark retry or cap changes. Existing381 offline tests and7/7 preview/apply remain historical evidence; live held-out calls0. STATE compacted and full previous text archived to reduce future context overhead. Live remains gated on label-isolation regression.
+
 ## Evaluation harness offline validation and final label-isolation correction —2026-10-28
 
 Wonder1.0 57ae3d6b/job71dc1ab3:21803input/16144output (2253reasoning),estimate$0.410092,cumulative$14.5580115. All3 staged complete files reviewed, temporarily installed,31 focused tests0.98s and full381tests1warning31.18s passed. Actual CLI all7 offline preview and all7 explicit synthetic apply passed with required real Rust; independent previous injected-error probe now correctly failed first case/stopped, absolute str guard. No provider runtime calls/live score. Final SPEC integrity review found descriptive fixture labels in incident_id sent to runtime; live blocked, prompt50 <=5 exact edits neutralizes IDs from neutral product_id and asserts all7 payloads lack labels/oracles. Also replaces misleading environment-copy fixture with actual bounded purity test. Removed temporary tool/test/protocol and old context pending correction. No accepted engine/auth/guard/frozen expectation changes. Public evidence evaluations/harness-offline-review-57ae3d6b.json; detailed logs private control. Corrections are required for benchmark integrity, not cosmetic polishing.
