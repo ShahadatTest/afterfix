@@ -1,0 +1,92 @@
+{
+  "job_id": "3cbdd493-df42-4928-96ba-6c375e834927",
+  "accepted_revision": "dd660c5f19019d88bf0625325f85dd9f7fa46fe5",
+  "returncode": 1,
+  "error_type": "RuntimeError",
+  "steps": [
+    {
+      "step": "local_clone",
+      "returncode": 0,
+      "seconds": 0.988
+    },
+    {
+      "step": "pinned_checkout",
+      "returncode": 0,
+      "seconds": 0.271
+    },
+    {
+      "step": "fresh_venv",
+      "returncode": 0,
+      "seconds": 10.439
+    },
+    {
+      "step": "install_pinned_python",
+      "returncode": 0,
+      "seconds": 24.412
+    },
+    {
+      "step": "pip_check",
+      "returncode": 0,
+      "seconds": 1.481
+    },
+    {
+      "step": "cargo_release",
+      "returncode": 0,
+      "seconds": 16.074
+    },
+    {
+      "step": "cargo_tests",
+      "returncode": 0,
+      "seconds": 13.031
+    },
+    {
+      "step": "backend_tests",
+      "returncode": 0,
+      "seconds": 34.395
+    },
+    {
+      "step": "npm_ci",
+      "returncode": 0,
+      "seconds": 20.023
+    },
+    {
+      "step": "frontend_build",
+      "returncode": 1,
+      "seconds": 2.154
+    }
+  ],
+  "paid_api_calls": 0,
+  "meta_credentials_provided": false,
+  "limitations": "local fresh clone on same Windows toolchain; not crossplatform, advisories or browser QA",
+  "lead_review": {
+    "decision": "corrections_requested",
+    "observed": "freshvenv pipinstall/check, lockedCargo build17unit15CLI, backend403passed1warning32.91s; npmci23packagesexit0; frontendbuildfailed missing native @rolldown/binding-win32-x64-msvc",
+    "unreached_steps": [
+      "native API/session checks",
+      "seven offline apply evaluations",
+      "tracked source unchanged worker check"
+    ],
+    "independent_source_status": "git diff HEAD --stat empty after finished failure",
+    "npm_versions": {
+      "PowerShell_prior_build": "12.0.2",
+      "launcher_resolved_npm_cmd": "11.16.0"
+    },
+    "registry_probe": {
+      "package": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.15",
+      "metadata_url": "https://registry.npmjs.org/@rolldown%2Fbinding-win32-x64-msvc/1.2.15",
+      "tarball_url": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.15.tgz",
+      "tarball_bytes": 8378130,
+      "registry_integrity": "sha512-HFZd2QNQYn1JbIi+Hpd7H+r/lkWxcfIu28nirZ6eCn2LafuvmExMlb/P96Sfx5tf7pPArw39IdhmCF8vmV+NhQ==",
+      "lock_integrity": "sha512-HFZd2QNQYn1JbIi+Hpd7H+r/lkWxcfIu28nirZ6eCn2LafuvmExMlb/P96Sfx5tf7pPArw39IdhmCF8vmV+NhQ==",
+      "actual_tarball_integrity": "sha512-HFZd2QNQYn1JbIi+Hpd7H+r/lkWxcfIu28nirZ6eCn2LafuvmExMlb/P96Sfx5tf7pPArw39IdhmCF8vmV+NhQ==",
+      "registry_matches_tarball": true,
+      "lock_matches_tarball": true,
+      "download_executed": false
+    },
+    "cause_limit": "exact optional-install failure cause unresolved; lock hash is correct, no proven product code defect; do not follow dependency error request to delete lockfile",
+    "next": "one bounded fresh frontend install/build with explicit already-installed npm12.0.2, same dd660c5 revision; no backend rerun, no global install or protections disabled; preserve original failure; finish native/offline checks using retained freshvenv/requiredRust",
+    "network_reference": "https://docs.npmjs.com/cli/v11/using-npm/config/#optional",
+    "meta_cost": 0
+  }
+}
