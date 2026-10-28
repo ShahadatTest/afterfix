@@ -18,7 +18,7 @@ This checklist separates recorded evidence from work still pending. Checked item
 
 ## Pending validation — do not mark complete without new evidence
 
-- [ ] Resolve local disk-space blocker: fresh frontend install reported `ENOSPC` on2026-10-28 with about10MiB free onC:. Fresh Python403tests/Rust32tests passed; remaining native checks and7offline apply cases also passed. Full frontend clean-install/build remains unverified. See [retained disk failure](evaluations/frontend-repro-disk-2026-10-28.json). No product-code defect or npm-version cause is established from these failures.
+- [ ] Complete focused frontend reproduction after disk recovery: fresh install reported `ENOSPC` on2026-10-28 with about10MiB free onC:. At05:35UTC free space recovered to1620.8MiB and a new bounded frontend batch was queued; its outcome is pending. Fresh Python403tests/Rust32tests passed; remaining native checks and7offline apply cases also passed. Full frontend clean-install/build remains unverified. See [retained disk failure](evaluations/frontend-repro-disk-2026-10-28.json). No product-code defect or npm-version cause is established from these failures.
 - [ ] Clean-checkout setup and reproducibility using the documented Windows PowerShell commands.
 - [ ] Python, JavaScript, and Rust dependency advisory review.
 - [ ] Final secret review of source, reports, screenshots, and exported artifacts.
