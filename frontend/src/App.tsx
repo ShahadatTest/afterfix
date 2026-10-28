@@ -110,6 +110,9 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
     ]);
     setIncident(inc); setEvidence(ev);
   }, []);
+  const refreshAfterStale = useCallback(async (): Promise<boolean> => {
+    try { await refreshIncident(incidentId); refreshCases(); return true; } catch { return false; }
+  }, [refreshIncident, incidentId, refreshCases]);
 
   useEffect(() => {
     let cancelled = false;
@@ -209,7 +212,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
       if (!applyKeyRef.current) applyKeyRef.current = newKey();
       setStage(2); refreshCases();
     } catch (e) {
-      if (e instanceof ApiError && e.status === 409) { invalidateStale(); setError("The data changed since preview. Run a fresh investigation to create a new preview."); }
+      if (e instanceof ApiError && e.status === 409) { invalidateStale(); const refreshed = await refreshAfterStale(); setError(refreshed ? "The data changed since preview. Run a fresh investigation to create a new preview." : "The data changed since preview. Run a fresh investigation to create a new preview. The displayed incident data could not be refreshed and may be out of date."); }
       else setError(e instanceof Error ? e.message : "Approval could not be recorded.");
     } finally { releaseMutation(); }
   }
@@ -230,7 +233,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
       setApplyResult(r); setStage(3); refreshCases();
       await refreshIncident(incidentId);
     } catch (e) {
-      if (e instanceof ApiError && e.status === 409) { invalidateStale(); setError("The data changed since preview. Run a fresh investigation to create a new preview."); }
+      if (e instanceof ApiError && e.status === 409) { invalidateStale(); const refreshed = await refreshAfterStale(); setError(refreshed ? "The data changed since preview. Run a fresh investigation to create a new preview." : "The data changed since preview. Run a fresh investigation to create a new preview. The displayed incident data could not be refreshed and may be out of date."); }
       else setError(e instanceof Error ? e.message : "The repair could not be applied. You can retry with the same idempotency key.");
     } finally { releaseMutation(); }
   }

@@ -1,0 +1,87 @@
+{
+  "kind": "actual Chrome OFFLINE FakeMeta + real FastAPI SQLite Rust",
+  "run_id": "b68f8241-a7d1-4d9e-8ffd-4cebc0c3e277",
+  "model": "muse-wonder-1.0",
+  "coding_tokens": {
+    "input": 19242,
+    "output": 1932
+  },
+  "coding_estimate_usd": 0.115608,
+  "cumulative_local_estimate_usd": 15.437816,
+  "paid_runtime_calls": 0,
+  "viewport": [
+    1280,
+    585
+  ],
+  "horizontal_overflow": false,
+  "checks": {
+    "approve409_get_success": "actual UI stock101/events5, stage1 and downstream invalidated",
+    "apply409_get_success": "actual UI stock101/events5, stage1 and downstream invalidated",
+    "apply409_get_failure": "actual follow-up two GET503 via lead-only offline middleware; UI stock100/events4 retained with explicit may-be-out-of-date warning; no repair"
+  },
+  "final_independent_database": {
+    "products": [
+      {
+        "product_id": "GADGET-9",
+        "stock": 45
+      },
+      {
+        "product_id": "WIDGET-1",
+        "stock": 101
+      }
+    ],
+    "approvals": 1,
+    "repairs": 0,
+    "restock_total": 21
+  },
+  "successful_refresh_request_counts": {
+    "GET /auth/me": 1,
+    "GET /incidents/INC-001": 6,
+    "GET /incidents/INC-001/evidence": 6,
+    "GET /incidents/INC-001/patch": 4,
+    "GET /incidents/INC-001/cases": 11,
+    "GET /cases/CASE-0bb12b1c15431b4d/report": 1,
+    "POST /admin/reset": 2,
+    "POST /incidents/INC-001/investigate": 2,
+    "GET /proposals/PROP-05e9cd53/preview": 1,
+    "GET /cases/CASE-fd797a8371cfc77d/report": 2,
+    "POST /proposals/PROP-05e9cd53/approve": 1,
+    "GET /proposals/PROP-b3939c35/preview": 1,
+    "GET /cases/CASE-57134705c173e12d/report": 3,
+    "POST /proposals/PROP-b3939c35/approve": 1,
+    "POST /apply": 1
+  },
+  "failed_refresh_request_counts": {
+    "POST /admin/reset": 1,
+    "GET /incidents/INC-001": 2,
+    "GET /incidents/INC-001/evidence": 2,
+    "GET /incidents/INC-001/patch": 1,
+    "GET /incidents/INC-001/cases": 4,
+    "POST /incidents/INC-001/investigate": 1,
+    "GET /proposals/PROP-289b6654/preview": 1,
+    "GET /cases/CASE-96356dd763c1485d/report": 2,
+    "POST /proposals/PROP-289b6654/approve": 1,
+    "POST /apply": 1
+  },
+  "validation": {
+    "frontend_build": "strict tsc/Vite22 modules194ms",
+    "api_session_native": "PASS",
+    "case_state_native": "PASS",
+    "backend": "unchanged; prior403pass not rerun"
+  },
+  "limitations": [
+    "mobile, delayed React session/report and model/budget UI tests pending",
+    "prior live first-attempt benchmark remains5/7; no live retry",
+    "successful-refresh DB was reset before independent post-check; final failure-path DB independently checked below",
+    "native dialog full keyboard cycle pending"
+  ],
+  "controller_command_notes": [
+    "one attempted diff referenced nonexistent path, no mutation",
+    "one read used control cwd for product app/main.py and failed, server still started; rg glob unsupported, direct route search succeeded"
+  ],
+  "cleanup": {
+    "created_tab": "signed out and closed889211372",
+    "owned_servers": "both backend sessions and Vite exit0",
+    "listening_ports18157_18173": 0
+  }
+}
