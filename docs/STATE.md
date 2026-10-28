@@ -1,6 +1,14 @@
 # AfterFix current state
 
-Updated2026-10-28 after09:14UTC responsive CSSacceptance. Read AGENTS.md/SPEC.md first. Prior detailed commands, failures and controller history preserved verbatim in STATE_HISTORY_2026-10-28.md; actual model provenance in MODEL_PROVENANCE.md. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Never execute unreviewed staged code or expose credentials.
+Updated2026-10-28 after09:25UTC runtime review. Read AGENTS.md/SPEC.md first. Prior detailed commands, failures and controller history preserved verbatim in STATE_HISTORY_2026-10-28.md; actual model provenance in MODEL_PROVENANCE.md. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Never execute unreviewed staged code or expose credentials.
+
+## Runtime review and immediate correction
+
+CURRENT single background Meta job **a9f67cf3-fa23-4aff-a721-91cf7b832870** queued successfully using prompt67-product-tls-trust.md, max8192output/expect5minutes. Sources explicit app/meta_client.py, app/runtime_budget.py, requirements.txt, tests/test_meta_client.py, tests/test_runtime_budget.py, docs/RUNTIME_REVIEW.md. No generation polling; nextheartbeat FIRSTONLYstatus. On completion review all new helper/tests/manifest, materialize tls against a12cc99c-eed2-43b6-a11b-803e233c112a, inspect full existing-source diffs BEFOREcopy/execution, then focused TLS/client/runtime checks and fullPython suite. Do not treat old read-only inventory paragraph below as active. Generation usage not yet known; no completion claim.
+
+Finished read-only inventory job7cf1e4b4 rc0 reviewed against its bounded controller/log/report: Python3.12.10/OpenSSL3.0.16, SQLite3.49.1 with FTS5, Node24.18.0/npm12.0.2, Rust/Cargo1.98.0. Targeted official-source review found Python CA distrust/security patches, Node security update and Rust trait-vtable UB fix; SQLite later arbitrarySQL/corruptFTS5 issues have input preconditions not exposed by supported API. Full patched isolated runtime/toolchain rebuild and compatibility checks remain release gates. See RUNTIME_REVIEW.md and evaluations/runtime-advisory-review-2026-10-28.json; not exhaustive OS/vendor clearance.
+
+Lead-only control generation_tls.py now creates explicit CERT_REQUIRED/hostname/TLS>=1.2 context from hash-checked installed project certifi2026.10.23 bundle only, no inherited proxy/redirect/keylog or system-store mutation. generate_meta.py verifies it before key load/credit reservation. Actual offline118CA/env-sentinel/wronghash checks and AST parsing passed; one no-auth HEAD to official Meta returned401 over verified TLS, key_loadedfalse/paidcalls0. No product implementation authored by lead. materialize_edits.py tls profile explicitly allows four existing sources against immutable lead base a12cc99c-eed2-43b6-a11b-803e233c112a; this is NOT a model run. Prompt67 requests one Meta-generated shared TLS helper/tests plus exact edits for both product HTTPS paths and certifi pin. Product TLS correction/test outcome pending. Local completed estimate unchanged$16.642080; no runtime calls or existing suites repeated for inventory/controller review.
 
 ## Accepted product and constraints
 

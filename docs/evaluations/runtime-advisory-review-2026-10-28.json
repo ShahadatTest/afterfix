@@ -1,0 +1,49 @@
+{
+  "job_id": "7cf1e4b4-a32a-431d-afc1-8e09f83794be",
+  "decision": "accepted_inventory_with_runtime_patch_gaps",
+  "scope": "targeted officialrelease/advisory review; no exhaustiveOS/vendor coverage",
+  "findings": [
+    {
+      "component": "Python/OpenSSL",
+      "installed": "3.12.10 / OpenSSL3.0.16",
+      "primary_source": "https://www.python.org/downloads/release/python-31216/",
+      "finding": "Python3.12.16 adds certificate-key distrust and other security fixes. Existing Python/control runtime predates it; default urllib TLS trust is not proven current. Full runtime upgrade remains a release condition."
+    },
+    {
+      "component": "SQLite",
+      "installed": "3.49.1; FTS5 compiled",
+      "primary_source": "https://sqlite.org/cves.html",
+      "finding": "Older than3.50.2/3.50.3/3.53.2 fixes for arbitrarySQL/corruptFTS5 preconditions. Supported API exposes neither arbitrarySQL nor uploadedDBs; values bound, fixedschema/localDB. No version-only immunity claim; reassess if inputs change."
+    },
+    {
+      "component": "Node",
+      "installed": "24.18.0",
+      "primary_source": "https://nodejs.org/en/blog/release/v24.22.1/",
+      "finding": "24.22.1 security release fixes DNS/TLS/Brotli/HTTP/snapshot issues. Here Node is build/localVite tooling, not FastAPI runtime. Patched isolated toolchain/revalidation remains pending."
+    },
+    {
+      "component": "Rust/Cargo",
+      "installed": "1.98.0",
+      "primary_source": "https://blog.rust-lang.org/2026/09/03/Rust-1.98.1/",
+      "finding": "1.98.1 fixes a trait-vtable miscompilation causing undefined behavior; tested1.98.0 artifact not presumed unaffected. Patchedcompiler rebuild/comparison required before release; no globalrustup update performed."
+    }
+  ],
+  "lead_controller_TLS": {
+    "status": "verified_updated_bundle_only_before_any_new_Meta_generation",
+    "certifi_version": "2026.10.23",
+    "bundle_sha256": "2ef52ad56b4803e264045c915e55c236cbfa045b84b81efefc218a19eb44bd2b",
+    "CA_count": 118,
+    "CERT_REQUIRED": true,
+    "hostname_check": true,
+    "minimum_TLS": "1.2",
+    "keylogging": false,
+    "sanity_checks": "env CA/keylog sentinels ignored withoutcreatingfile; wrongbundlehash rejected;3controllerASTpass",
+    "no_auth_HEAD_tls_http_status": 401,
+    "key_loaded": false,
+    "paid_api_calls": 0,
+    "note": "Generation uses this explicitHTTPScontext/no proxies/no redirects; reviewedCA hash checked beforekeyload/creditreservation. No systemtruststore/securitysettings modified. This mitigates trustroot exposure, notall Python/OpenSSL defects."
+  },
+  "next_Meta_base": "a12cc99c-eed2-43b6-a11b-803e233c112a",
+  "product_TLS_implementation": "pending Meta bounded generation; no productcodewrittenbylead",
+  "status": "local_demo_can_continue_with_reviewed_controller_TLS; public_release_runtime_validation_open"
+}
