@@ -1,0 +1,51 @@
+{
+  "actual_decision": "needs_review",
+  "actual_recorded_stock": 222,
+  "approvals_after": 0,
+  "case_id": "H04-clean-replay",
+  "case_recording": {
+    "case_id": "CASE-f87b30258154836d",
+    "status": "recorded"
+  },
+  "client_requests_attempted": 3,
+  "evidence_label": "guarded_provider",
+  "expected": {
+    "corrected_stock": null,
+    "credit_qty": 0,
+    "decision": "needs_review",
+    "recorded_stock": 222,
+    "reverse": "none; no repair is supported"
+  },
+  "failures": [
+    "unsupported_abstention_not_legitimate"
+  ],
+  "live_requested": true,
+  "mode": "live",
+  "model": "muse-spark-1.3",
+  "notes": [],
+  "operational_failure": false,
+  "passed": false,
+  "pre_fingerprint": "e7920a953b64139ea97643091971ff6cdbb10ac5df41df8644bdaa1feeb8edad",
+  "provider": "meta_guarded",
+  "provider_responses_returned": 3,
+  "repairs_after": 0,
+  "setup": {
+    "deduction_ids": [
+      3
+    ],
+    "extra_event_ids": [],
+    "later_order_id": null,
+    "restock_id": 4
+  },
+  "simulated_responses_returned": 0,
+  "stop_category": "invalid_or_incomplete_response",
+  "usage": {
+    "estimated_cost_usd": 0.0099115,
+    "input_tokens": 3244,
+    "label": "actual",
+    "output_tokens": 1378,
+    "requests": 3,
+    "total_tokens": 4622,
+    "unknown_usage_calls": 0
+  }
+}

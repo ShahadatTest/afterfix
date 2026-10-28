@@ -1,0 +1,59 @@
+{
+  "actual_decision": "needs_review",
+  "actual_recorded_stock": 220,
+  "approvals_after": 0,
+  "case_id": "H02-many-extras",
+  "case_recording": {
+    "case_id": "CASE-31d4629e4ab19846",
+    "status": "recorded"
+  },
+  "client_requests_attempted": 3,
+  "evidence_label": "guarded_provider",
+  "expected": {
+    "corrected_stock": 259,
+    "credit_qty": 39,
+    "decision": "proposed",
+    "recorded_stock": 220,
+    "reverse": "all equal-quantity repeated order deductions after first delivery"
+  },
+  "failures": [
+    "decision_mismatch",
+    "supported_case_missing_proposal"
+  ],
+  "live_requested": true,
+  "mode": "live",
+  "model": "muse-spark-1.3",
+  "notes": [],
+  "operational_failure": false,
+  "passed": false,
+  "pre_fingerprint": "97389a99c07f89107302dd73071756db62f90a7094af4bb75a1db108e848b3f8",
+  "provider": "meta_guarded",
+  "provider_responses_returned": 3,
+  "repairs_after": 0,
+  "setup": {
+    "deduction_ids": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "extra_event_ids": [
+      4,
+      5,
+      6
+    ],
+    "later_order_id": 8,
+    "restock_id": 7
+  },
+  "simulated_responses_returned": 0,
+  "stop_category": "invalid_or_incomplete_response",
+  "usage": {
+    "estimated_cost_usd": 0.010247000000000001,
+    "input_tokens": 3526,
+    "label": "actual",
+    "output_tokens": 1374,
+    "requests": 3,
+    "total_tokens": 4900,
+    "unknown_usage_calls": 0
+  }
+}

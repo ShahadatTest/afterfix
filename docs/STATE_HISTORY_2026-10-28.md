@@ -381,3 +381,48 @@ Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 
 
 
 
+
+
+## State snapshot before04:22UTC first actual live result review
+
+# AfterFix current state
+
+Updated2026-10-28 after04:12UTC heartbeat. Read AGENTS.md and SPEC.md first. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Full prior state is archived in STATE_HISTORY_2026-10-28.md; actual model usage in MODEL_PROVENANCE.md. Never expose credentials or execute unreviewed generated code.
+
+## Accepted checkpoints and evidence
+
+Latest product/docs checkpoint cf45730. Backend0eda9d9: durable case reports/read-only listing/retrieval accepted,350 Python tests passed1existingwarning28.49s. Fixed Rust executable required for preview/approval/current-transaction apply; missing/disagreeing/malformed/timeout fails closed, no fallback. Actor/snapshot/SQLite/transaction/idempotency preserved. Rust17unit+15CLItests and184 independent cases passed. UI d91991c history/full exact JSON download/read-only reload accepted; latest two literal copy edits accepted in cf45730, strict tsc/Vite build22modules198ms passed. No runtime/auth/guard changes after those checkpoints.
+
+Actual authenticated Chrome REAL Spark1.3/Rust canonical recovery previously passed: stock100->110, restock preserved, unrelated45, one actor-bound approval/repair,10 actual verification checks. Evidence evaluations/browser-rust-recovery-2026-10-28.json and rust-browser-independent-2026-10-28.json.3livecalls3296input890output,$0.0079025; not held-out benchmark. Portable guarded default-runtime varied live smoke separately passed; all usage shares control ledger.
+
+Durable UI actual Chrome desktop OFFLINE FakeMeta + real FastAPI/SQLite/Rust QA passed: initial StrictMode history restore, exact27447byte server JSON download, reload signin, viewer disabled mutations, needs-review history, reset clears cases, explicit investigation/preview/checkbox/approve/separateapply/verify110 and Reversed timeline. Exactly1repair, restock/unrelated preserved. Public evaluations/offline-ui-browser-summary-2026-10-28.json and offline-ui-downloaded-case-2026-10-28.json. Fake fixture is NOT live model evidence/spend. Signed out/created tab closed, owned servers stopped, ports18157/18173 last verified0. Mobile/delayed-error/stale browser checks pending. No servers started this heartbeat.
+
+Frozen evaluation matrix evaluations/heldout-inventory-v1.json +.sha256 finalized01:28:06UTC before live runs, canonical JSON digest bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51.7predeclared varied/multiple-extra/later/clean/missing/conflicting/adversarial cases; expectations unchanged. First live batch is queued below; no held-out results reviewed yet. Never send oracle/marker/expected fields to runtime Spark. Preserve every actual failure, no score retuning/retries. Require>=6 DISTINCT actual provider cases; preflight/zero-response cases do not count. Freeze additional valid scenarios before any live run if needed, not after seeing outcomes.
+
+## Accepted evaluation harness and next actual live batch
+
+Run9f343e4e/jobac9e7a5d completed Wonder1.0 input17991/output3633 (reasoning2608),estimate$0.144624,cumulative$14.8569715. Strict valid JSON4 exact edits materialized against explicit57ae3d6b base/eval profile; unique matches/allowlist/AST/hashes passed. Reviewed full diffs/source before installation. Neutral incident IDs derive ONLY from neutral product_id; all7 serialized runtime payload tests exclude descriptive IDs/oracle marker/expected keys. Removed environment-copy fixture; sentinel env/network/real-guard offline purity test passed. Existing backend/auth/guard/Rust/frozen manifest unchanged.
+
+Actual focused `.venv/Scripts/python.exe -m pytest -q tests/test_inventory_evaluation.py`:39passed1.29s. Affected CLI7case offline --apply-synthetic:7passed0failed, actual_provider_cases0/live_aifalse, exact frozen digest unchanged; real required Rust used. Logs ../afterfix-control/evaluations/eval-9f343e4e-focused.log/eval-9f343e4e-offline-apply.log; output heldout-9f343e4e-offline-apply/. Last full suite before isolated fixture-ID/test correction381passed1warning31.18s, not rerun/claimed as389. Full tool source originally57ae3d6b was reviewed and31focused/full381/all7offline-preview/all7offline-apply validated; error-injection probe now stops/fails first case. Acceptance report evaluations/harness-accepted-9f343e4e.json, no actual held-out model-quality claim yet. Earlier incomplete/malformed response provenance is archived, no partial JSON/source repair.
+
+NEXT actual runtime evaluation is ONE fixed background batch, not another code-generation/polish request: `python evaluate_live_background.py launch` in control. Reviewed lead-only launcher executes ONLY already reviewed product tools/evaluate_inventory.py using product venv, frozen original7-case manifest, --live --confirm-synthetic --runtime-dir EXISTING_CONTROL --apply-synthetic on fresh in-memory DBs. API key loaded only internally via existing private loader into child environment, never args/logs/model/report. Every case uses unchanged shared RuntimeBudgetTransport,6requests/$0.25; batch maximum42requests/$1.75, project$100/reserve$50/freshness/unknown-usage gates unchanged. No new account settings/overage/production. Preserve all first-attempt failures; do not rerun a case to improve score.
+
+Runtime controller registers kind=live_evaluation in SAME jobs/latest/control/worker locks. `python dispatch_meta.py status` remains FIRST and detects it; queued/running => END quietly, no context/polling/duplicate/generation. Dispatcher source-generation worker still stages ONLY; new lead controller is separate and executes only reviewed fixed QA command. Generic dispatcher review works for the finished runtime metadata. Source/Rust hashes pinned before launch and checked before execution, output folder refuses overwrite,1800s timeout retains outputs and marks usage review required rather than retries. Deadline2026-11-04 20:00UTC enforced. Source generation cannot start while live job is unreviewed.
+
+CURRENT background job **eadbc961-b63c-4446-9ca2-6c9530d8ead6**, kind=live_evaluation, queued successfully through reviewed lead controller after accepted source checkpoint8bc6dd6. Credit/freshness/settled-usage/source-hash/frozen-manifest gates passed before launch. Five-minute next check, no waiting/polling after launch. On completion read bounded jobs/<id>.log + metadata, per-case JSON and summary from ../afterfix-control/evaluations/heldout-live-v1/. Inspect shared ledger safe usage/status only, compare actual provider call counts and every frozen expected/actual outcome. All failures remain failures and partial runs remain partial; unsupported semantic abstention vs operational failure distinguished. Count>=6 distinct provider-response cases only when actual evidence exists; flag0-call failures, never call fake tests live. Copy reviewed nonsecret summaries to public docs/evaluations after checking results; update usage/provenance/STATE, mark runtime job reviewed using dispatcher, then queue ONE next bounded Meta implementation batch as needed (remaining mobile/failure/stale QA/release/demo). No live report exists at launch preparation; do not wait/poll after dispatch.
+
+## Next milestones and release limits
+
+Harness accepted; next review actual frozen live matrix, mobile/failure/stale browser QA, reproducibility/dependency/secret/clean-checkout checks and3minute demo package. Keep scope synthetic inventory; no new domains or architecture churn. No public repo/push/hosting/deployment/submission/production/legal/billing changes authorized/performed. Configured shared operator/viewer identities are not per-person or multi-tenant accounts; HTTPS/isolation/distributed limits remain hosted release conditions. No universal recovery/security certification/score guarantee.
+
+## Async workflow and credit
+
+FIRST ONLY adjacent `python dispatch_meta.py status`. Queued/running => END quietly, no context reads/polls/waits/duplicates. Finished => review bounded metadata/all source, focused tests, actual provenance/usage/state, mark reviewed, launch ONE coherent background batch and END WITHOUT POLLING. No claim of uninterrupted24/7 execution; host/app/network/tools must be available. Automation5min check is scheduling bound, not generation ETA.
+
+Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 reserve,24h credit freshness and unknown-usage gates unchanged. Owner reported$150 promotional credit2026-10-27; account-wide balance/other usage unknown. Cumulative local completed estimate $14.8569715 before actual held-out runtime batch, NOT provider balance. No subscription/Contributor/training/overage, no unresolved run_meta.py CLI/sandbox route or muse.ai. Stop initiating work by2026-11-04 20:00UTC (Nov5 02:00Bangladesh); submission08:00Bangladesh.
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 # Held-out inventory evaluation protocol
 
-Status: tooling only. Frozen 7-case matrix `docs/evaluations/heldout-inventory-v1.json`: **LIVE NOT RUN**. No live score or pass-rate claim. Lead decides any live execution.
+Status: first live attempt completed2026-10-28: **5/7 pass,2/7 fail**,7actual provider cases/21calls. Original frozen expectations and failures retained. See EVALUATION_RESULTS.md and evaluations/heldout-live-v1/lead-review.json. No automatic benchmark replay or score replacement.
 
 ## Integrity and isolation
 Digest is SHA-256 of canonical JSON (`sort_keys`, compact separators, ASCII). Manifest is read with a 256 KiB bound, paired `.sha256`, strict integer/version and ID `fullmatch` checks before any case, transport, or output. Exactly the declared cases or a bounded `--case` subset run. Investigator receives only incident/patch/requested events; oracle/expected/marker fields are local scoring data. Each case uses fresh in-memory SQLite, actual buggy/fixed/restock handlers, independent pre-state rows, one investigation, and one `record_case` attempt. A recording return other than a nonempty `CASE-...` string, or an exception, is failure and never causes re-investigation.
@@ -27,4 +27,4 @@ The runner records `live_requested`, attempted client requests, successfully ret
 `--output` must be a new directory. Exit is nonzero if any attempted case fails or configuration/manifest/guard errors occur; attempted outcomes remain saved.
 
 ## Limitations
-Small synthetic function-level matrix; not a security certification, production benchmark, auth/route benchmark, or universal recovery claim. Offline results validate wiring/fixtures/scoring/Rust preview only. Live held-out results do not exist yet. Required Rust must be built as documented; missing/disagreeing Rust blocks preview/approval/apply.
+Small synthetic function-level matrix; not a security certification, production benchmark, auth/route benchmark, or universal recovery claim. Offline results validate wiring/fixtures/scoring/Rust preview only. First-attempt live held-out results are retained as5/7, including2invalid/incomplete responses; later development fixes do not replace them. Required Rust must be built as documented; missing/disagreeing Rust blocks preview/approval/apply.

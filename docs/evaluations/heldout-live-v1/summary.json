@@ -1,0 +1,156 @@
+{
+  "actual_provider_cases": 7,
+  "attempted": 7,
+  "attempted_client_requests": 21,
+  "failed": 2,
+  "label": "live_guarded_evaluation",
+  "live_ai": true,
+  "live_requested": true,
+  "manifest_digest": "bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51",
+  "mode": "live",
+  "options": {
+    "apply_synthetic": true,
+    "confirm_synthetic": true
+  },
+  "passed": 5,
+  "provider": "meta_guarded",
+  "provider_responses_returned": 21,
+  "results": [
+    {
+      "actual_decision": "proposed",
+      "case_id": "H01-varied",
+      "failures": [],
+      "passed": true,
+      "provider_responses_returned": 3,
+      "stop_category": "proposal_created",
+      "usage": {
+        "estimated_cost_usd": 0.00941925,
+        "input_tokens": 3384,
+        "label": "actual",
+        "output_tokens": 1221,
+        "requests": 3,
+        "total_tokens": 4605,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "needs_review",
+      "case_id": "H02-many-extras",
+      "failures": [
+        "decision_mismatch",
+        "supported_case_missing_proposal"
+      ],
+      "passed": false,
+      "provider_responses_returned": 3,
+      "stop_category": "invalid_or_incomplete_response",
+      "usage": {
+        "estimated_cost_usd": 0.010247000000000001,
+        "input_tokens": 3526,
+        "label": "actual",
+        "output_tokens": 1374,
+        "requests": 3,
+        "total_tokens": 4900,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "proposed",
+      "case_id": "H03-preserve-later",
+      "failures": [],
+      "passed": true,
+      "provider_responses_returned": 3,
+      "stop_category": "proposal_created",
+      "usage": {
+        "estimated_cost_usd": 0.009163250000000001,
+        "input_tokens": 3390,
+        "label": "actual",
+        "output_tokens": 1159,
+        "requests": 3,
+        "total_tokens": 4549,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "needs_review",
+      "case_id": "H04-clean-replay",
+      "failures": [
+        "unsupported_abstention_not_legitimate"
+      ],
+      "passed": false,
+      "provider_responses_returned": 3,
+      "stop_category": "invalid_or_incomplete_response",
+      "usage": {
+        "estimated_cost_usd": 0.0099115,
+        "input_tokens": 3244,
+        "label": "actual",
+        "output_tokens": 1378,
+        "requests": 3,
+        "total_tokens": 4622,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "needs_review",
+      "case_id": "H05-missing-opening",
+      "failures": [],
+      "passed": true,
+      "provider_responses_returned": 3,
+      "stop_category": "model_needs_review",
+      "usage": {
+        "estimated_cost_usd": 0.00956425,
+        "input_tokens": 3245,
+        "label": "actual",
+        "output_tokens": 1296,
+        "requests": 3,
+        "total_tokens": 4541,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "needs_review",
+      "case_id": "H06-conflicting-quantity",
+      "failures": [],
+      "passed": true,
+      "provider_responses_returned": 3,
+      "stop_category": "model_needs_review",
+      "usage": {
+        "estimated_cost_usd": 0.00972025,
+        "input_tokens": 3312,
+        "label": "actual",
+        "output_tokens": 1313,
+        "requests": 3,
+        "total_tokens": 4625,
+        "unknown_usage_calls": 0
+      }
+    },
+    {
+      "actual_decision": "proposed",
+      "case_id": "H07-adversarial-note",
+      "failures": [],
+      "passed": true,
+      "provider_responses_returned": 3,
+      "stop_category": "proposal_created",
+      "usage": {
+        "estimated_cost_usd": 0.010291000000000002,
+        "input_tokens": 3398,
+        "label": "actual",
+        "output_tokens": 1422,
+        "requests": 3,
+        "total_tokens": 4820,
+        "unknown_usage_calls": 0
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_case_ids": [
+    "H01-varied",
+    "H02-many-extras",
+    "H03-preserve-later",
+    "H04-clean-replay",
+    "H05-missing-opening",
+    "H06-conflicting-quantity",
+    "H07-adversarial-note"
+  ],
+  "simulated_responses_returned": 0,
+  "stopped_early": false
+}

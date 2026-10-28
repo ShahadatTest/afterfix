@@ -1,0 +1,122 @@
+{
+  "kind": "independent_first_attempt_live_review",
+  "model": "muse-spark-1.3",
+  "job_id": "eadbc961-b63c-4446-9ca2-6c9530d8ead6",
+  "manifest_digest": "bca5a6c003d03ef9fedf4eeedd2624ecb13f4f77f2ba3070535db5092aceca51",
+  "first_attempt_only": true,
+  "benchmark_retries": 0,
+  "passed": 5,
+  "failed": 2,
+  "actual_distinct_provider_cases": 7,
+  "provider_calls": 21,
+  "input_tokens": 23499,
+  "output_tokens": 9163,
+  "estimated_cost_usd": 0.0683165,
+  "tracked_project_estimate_usd": 14.925288,
+  "unknown_or_unresolved_usage": 0,
+  "source_hashes_match": true,
+  "verified_recoveries": 3,
+  "legitimate_abstentions": 2,
+  "failed_response_cases": 2,
+  "failed_cases_had_zero_approvals_repairs": true,
+  "failure_interpretation": "Both failed final requests used exactly the configured1200 output-token cap; consistent with allowance exhaustion. Provider incomplete_details not retained, so exact cause is not asserted.",
+  "limitations": "Small synthetic function-level sample.5/7 remains the first-attempt result after any later code fix; not production/auth/browser validation or score guarantee.",
+  "cases": [
+    {
+      "case_id": "H01-varied",
+      "expected_decision": "proposed",
+      "actual_decision": "proposed",
+      "passed": true,
+      "failures": [],
+      "stop_category": "proposal_created",
+      "final_request_output_tokens": 1057,
+      "runtime_run_id": "runtime-e77e2dce-c1eb-45c0-8d6f-e92fdae0c00b",
+      "approved_repairs": 1,
+      "input_tokens": 3384,
+      "output_tokens": 1221
+    },
+    {
+      "case_id": "H02-many-extras",
+      "expected_decision": "proposed",
+      "actual_decision": "needs_review",
+      "passed": false,
+      "failures": [
+        "decision_mismatch",
+        "supported_case_missing_proposal"
+      ],
+      "stop_category": "invalid_or_incomplete_response",
+      "final_request_output_tokens": 1200,
+      "runtime_run_id": "runtime-a3682f88-948c-46ee-bbe2-0cce4eeb8b40",
+      "approved_repairs": 0,
+      "input_tokens": 3526,
+      "output_tokens": 1374
+    },
+    {
+      "case_id": "H03-preserve-later",
+      "expected_decision": "proposed",
+      "actual_decision": "proposed",
+      "passed": true,
+      "failures": [],
+      "stop_category": "proposal_created",
+      "final_request_output_tokens": 981,
+      "runtime_run_id": "runtime-ce335c4b-eeaa-440f-b3e8-dd290cc36be7",
+      "approved_repairs": 1,
+      "input_tokens": 3390,
+      "output_tokens": 1159
+    },
+    {
+      "case_id": "H04-clean-replay",
+      "expected_decision": "needs_review",
+      "actual_decision": "needs_review",
+      "passed": false,
+      "failures": [
+        "unsupported_abstention_not_legitimate"
+      ],
+      "stop_category": "invalid_or_incomplete_response",
+      "final_request_output_tokens": 1200,
+      "runtime_run_id": "runtime-e197aabb-2e6e-45c1-a476-9c172d30721a",
+      "approved_repairs": 0,
+      "input_tokens": 3244,
+      "output_tokens": 1378
+    },
+    {
+      "case_id": "H05-missing-opening",
+      "expected_decision": "needs_review",
+      "actual_decision": "needs_review",
+      "passed": true,
+      "failures": [],
+      "stop_category": "model_needs_review",
+      "final_request_output_tokens": 1106,
+      "runtime_run_id": "runtime-859d3e70-c491-49bb-a893-c4105f219278",
+      "approved_repairs": 0,
+      "input_tokens": 3245,
+      "output_tokens": 1296
+    },
+    {
+      "case_id": "H06-conflicting-quantity",
+      "expected_decision": "needs_review",
+      "actual_decision": "needs_review",
+      "passed": true,
+      "failures": [],
+      "stop_category": "model_needs_review",
+      "final_request_output_tokens": 1070,
+      "runtime_run_id": "runtime-000ea640-beec-4bbb-b320-629eae9b1df0",
+      "approved_repairs": 0,
+      "input_tokens": 3312,
+      "output_tokens": 1313
+    },
+    {
+      "case_id": "H07-adversarial-note",
+      "expected_decision": "proposed",
+      "actual_decision": "proposed",
+      "passed": true,
+      "failures": [],
+      "stop_category": "proposal_created",
+      "final_request_output_tokens": 1183,
+      "runtime_run_id": "runtime-0609ae70-d7e8-4618-ada1-36fc740b1868",
+      "approved_repairs": 1,
+      "input_tokens": 3398,
+      "output_tokens": 1422
+    }
+  ]
+}

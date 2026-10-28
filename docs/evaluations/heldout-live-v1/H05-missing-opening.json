@@ -1,0 +1,52 @@
+{
+  "actual_decision": "needs_review",
+  "actual_recorded_stock": 100,
+  "approvals_after": 0,
+  "case_id": "H05-missing-opening",
+  "case_recording": {
+    "case_id": "CASE-14e03d8f6eea5a40",
+    "status": "recorded"
+  },
+  "client_requests_attempted": 3,
+  "evidence_label": "guarded_provider",
+  "expected": {
+    "corrected_stock": null,
+    "credit_qty": 0,
+    "decision": "needs_review",
+    "recorded_stock": 100,
+    "reverse": "none; opening history is missing"
+  },
+  "failures": [],
+  "live_requested": true,
+  "mode": "live",
+  "model": "muse-spark-1.3",
+  "notes": [],
+  "operational_failure": false,
+  "passed": true,
+  "pre_fingerprint": "a7b699d0766f592ebbb88a0f5a98a2fbfc06e6e012e1b7766f6592124ccc6d87",
+  "provider": "meta_guarded",
+  "provider_responses_returned": 3,
+  "repairs_after": 0,
+  "setup": {
+    "deduction_ids": [
+      2,
+      3
+    ],
+    "extra_event_ids": [
+      3
+    ],
+    "later_order_id": null,
+    "restock_id": 4
+  },
+  "simulated_responses_returned": 0,
+  "stop_category": "model_needs_review",
+  "usage": {
+    "estimated_cost_usd": 0.00956425,
+    "input_tokens": 3245,
+    "label": "actual",
+    "output_tokens": 1296,
+    "requests": 3,
+    "total_tokens": 4541,
+    "unknown_usage_calls": 0
+  }
+}
