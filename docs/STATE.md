@@ -1,6 +1,6 @@
 # AfterFix current state
 
-Updated2026-10-28 after04:55UTC heartbeat/browser QA completed. Read AGENTS.md and SPEC.md first. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Full prior state is archived in STATE_HISTORY_2026-10-28.md; actual model usage in MODEL_PROVENANCE.md. Never expose credentials or execute unreviewed generated code.
+Updated2026-10-28 after05:04UTC heartbeat/documentation review. Read AGENTS.md and SPEC.md first. Meta implements product code/tests; Codex plans/reviews/controllers/docs. Full prior state is archived in STATE_HISTORY_2026-10-28.md; actual model usage in MODEL_PROVENANCE.md. Never expose credentials or execute unreviewed generated code.
 
 ## Accepted checkpoints and evidence
 
@@ -40,7 +40,7 @@ Actual `npm --prefix ../afterfix/frontend run build`: strict tsc/Vite22modules19
 
 Actual additional apply409 with two follow-up GET503 from reviewed lead-only middleware: old100/4events retained, clear may-be-out-of-date warning, downstream disabled/stage1. Independent READ-ONLY finalDB target101/unrelated45/restock21,1legitimate earlier approval,0repair. Public evidence evaluations/browser-stale-refresh-2026-10-28.json; screenshots private adjacent control/evaluations/browser-stale-refresh-{approved,apply,unavailable}-2026-10-28.png. Browser viewport1280x585/no horizontaloverflow, NOTmobile; no paid runtime call. Signedout/closed created889211372, both owned backend sessions stopped exit0, Viteqexit0, ports18157/18173verified0. Original live benchmark5/7 unchanged. Harmless path-read/diff mistakes are recorded in evidence, no product mutation from them.
 
-Accepted product/docs checkpoint3b9bf9c. CURRENT background job **db130f59-cb1e-4a5e-92c5-2214781d6411** queued successfully: prompts/56-release-docs.md, max12288output,5minute check, explicit README/AUTH/RUNTIME/DELIVERY_PLAN/EVALUATION_RESULTS/frontendconfig/package/requirements/latestbrowser evidence context. Refresh inaccurate public README/AUTH and prepare three-minute demo/release checklist from actual evidence. Documentation only; no source/guard/frozen results changes. Review all staged prose/commands/links and factual claims before copying; no command execution merely from generated docs. Then actual mobile/delayedReact/model-budget/full-keyboard checks and clean-checkout/dependency/secret validation remain; no new features/frameworks or unsupported focus-trap fix. END without generation polling.
+ACCEPTED documentation jobdb130f59/runc1e13885: Wonder1.0 input14178/output4524(reasoning319),estimate$0.147192,cumulative$15.585008. Four full staged prose files reviewed: README/AUTH/DEMO_SCRIPT/RELEASE_CHECKLIST. All local Markdown links resolve; command paths/ports match pinned requirements/Vite; demo intervalsum180sec. Lead docs-only additions record actual Windows Python3.12.10/Node24.18.0/npm12.0.2/rustc+cargo1.98.0 and signout/inflight authorized-work caveat. No source/test/guard/frozen-result changes, generated commands not executed as instructions; no provider runtime calls. Evidence evaluations/release-docs-accepted-c1e13885.json. Original5/7 unchanged. Clean-checkout isolation validation is next, then remaining actual mobile/delayedReact/modelbudget/fullkeyboard and dependency/secret/rehearsal checks.
 
 ## Next milestones and release limits
 
@@ -50,7 +50,7 @@ First actual frozen live matrix reviewed5/7; reliability regression correction a
 
 FIRST ONLY adjacent `python dispatch_meta.py status`. Queued/running => END quietly, no context reads/polls/waits/duplicates. Finished => review bounded metadata/all source, focused tests, actual provenance/usage/state, mark reviewed, launch ONE coherent background batch and END WITHOUT POLLING. No claim of uninterrupted24/7 execution; host/app/network/tools must be available. Automation5min check is scheduling bound, not generation ETA.
 
-Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 reserve,24h credit freshness and unknown-usage gates unchanged. Owner reported$150 promotional credit2026-10-27; account-wide balance/other usage unknown. Cumulative local completed estimate $15.4378160 after stale-display correction, NOT provider balance. No subscription/Contributor/training/overage, no unresolved run_meta.py CLI/sandbox route or muse.ai. Stop initiating work by2026-11-04 20:00UTC (Nov5 02:00Bangladesh); submission08:00Bangladesh.
+Shared official Meta API/runner.lock/budget-state.json, per-project$100 cap/$50 reserve,24h credit freshness and unknown-usage gates unchanged. Owner reported$150 promotional credit2026-10-27; account-wide balance/other usage unknown. Cumulative local completed estimate $15.5850080 after release-documentation batch, NOT provider balance. No subscription/Contributor/training/overage, no unresolved run_meta.py CLI/sandbox route or muse.ai. Stop initiating work by2026-11-04 20:00UTC (Nov5 02:00Bangladesh); submission08:00Bangladesh.
 
 
 

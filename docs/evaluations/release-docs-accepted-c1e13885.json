@@ -1,0 +1,32 @@
+{
+  "run_id": "c1e13885-619a-4da6-b25f-053dfe98e61b",
+  "job_id": "db130f59-cb1e-4a5e-92c5-2214781d6411",
+  "model": "muse-wonder-1.0",
+  "input_tokens": 14178,
+  "output_tokens": 4524,
+  "estimate_usd": 0.147192,
+  "cumulative_local_estimate_usd": 15.585008,
+  "files": [
+    "README.md",
+    "docs/AUTH.md",
+    "docs/DEMO_SCRIPT.md",
+    "docs/RELEASE_CHECKLIST.md"
+  ],
+  "review": "all four full staged prose files reviewed before copying; local links all resolve; commands reviewed against pinned requirements and actual vite config; no generated commands executed",
+  "lead_prose_adjustments": [
+    "actual toolchain versions observed now, not guessed",
+    "preserve warning that authorized server work can finish after sign-out"
+  ],
+  "demo_timeline_seconds": [
+    20,
+    25,
+    25,
+    25,
+    25,
+    25,
+    20,
+    15
+  ],
+  "validation": "sum180sec; docs only, no product tests rerun; clean checkout still pending",
+  "frozen_live_result": "5/7 unchanged; no runtime API calls"
+}

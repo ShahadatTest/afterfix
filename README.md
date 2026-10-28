@@ -1,35 +1,121 @@
 # AfterFix
 
-Evidence-driven recovery for an inventory double-delivery bug. The local React interface completes investigation, preview, explicit approval, repair and verification through FastAPI. A real Spark1.3 browser investigation identified a duplicate deduction; Rust independently checked the ledger before approval/apply, and the repair restored stock from100 to110 while preserving the later restock and unrelated product. Actual exported report: docs/evaluations/browser-rust-recovery-2026-10-28.json. Backend suite327 passed; frontend strict TypeScript/Vite build passed previously. See docs/STATE.md for evidence and remaining validation.
+AfterFix is a local, synthetic inventory-recovery demo. It helps an operator investigate inventory damaged by a duplicate-delivery bug after the code fix, review an evidence-linked repair, approve it explicitly, apply it separately, and verify that valid activity was preserved.
 
-Fixed v1 scope and ordered acceptance gates are in SPEC.md and docs/DELIVERY_PLAN.md. Operator/viewer access control, actor-bound approval/audit, required Rust agreement gates and portable bounded runtime are implemented and verified locally. Complete case reports and held-out evaluations remain. Current database is SQLite; a PostgreSQL migration is outside local v1. Public hosting/security release work remains incomplete; see docs/SECURITY_REVIEW.md and docs/AUTH.md.
+It is not a production recovery product, an arbitrary SQL repair tool, or a universal rollback system. No security certification, production readiness, or perfect reliability is claimed.
 
-## Quick start (lead to run, isolated env)
+## What the demo shows
 
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-cargo build --locked --release --manifest-path rust-verifier/Cargo.toml
-pytest -q
-uvicorn app.main:app --reload
+The canonical incident records stock changing **100 → 80 → 100**:
+
+1. An initial stock of 100 is recorded.
+2. A duplicate delivery deducts the same 10-unit order twice, taking stock to 80.
+3. A legitimate 20-unit restock takes stock to 100.
+4. The code is fixed, but the stored stock remains wrong.
+5. AfterFix investigates the evidence, calculates a 10-unit reversal, and previews stock **100 → 110**.
+6. A human reviews the evidence, checks the review box, approves, and then applies as a separate action.
+7. Verification confirms stock 110, preservation of the restock and unrelated product, and the supporting ledger checks.
+
+Deterministic software calculates quantities and validates invariants. The Meta model performs the bounded, read-only investigation and must cite observed evidence; model text is not treated as fact or as an instruction to write data.
+
+## Current verified status
+
+Latest recorded checks:
+
+- Backend: **403 passed**, with one existing warning.
+- Rust: **17 unit tests + 15 CLI tests**, plus **184 independent cases**.
+- Frontend: strict TypeScript/Vite build passed, **22 modules in 194 ms**.
+- Native Node API-session and case-state checks passed.
+- An actual authenticated Chrome recovery using real Spark 1.3 completed **100 → 110** with one actor-bound approval/repair and **10 preservation checks passed**.
+- Durable version 1 reports, saved case history, read-only reload, and exact JSON download are implemented.
+- Saved case history restores automatically after sign-in, but it never restores approval, checkbox, or apply state. Any new mutation requires a fresh, explicit investigation.
+- A browser reload forgets the in-memory application token and requires sign-in again.
+- Actual stale-state checks passed: an approval/apply `409` invalidates downstream state and refreshes to stock 101 with 5 events. When refresh returns `503`, the old data remains visible with a clear warning. The final independent database check found 0 repairs in that failure path.
+- Actual desktop viewport checked: **1280 × 585**, with no horizontal overflow. This was not a mobile check.
+
+The first immutable seven-case live benchmark remains **5/7 passed, 2/7 failed**, using 21 calls and an estimated **$0.0683165**. Cases H02 and H04 returned invalid/incomplete responses and are retained as failures. There has been no v1 rerun. The later 2048 output-cap correction passed offline regressions, but its live effect has not been measured.
+
+Offline fixtures are test evidence only; they are not live model evidence. Mobile layout, delayed React behaviour, model-budget browser behaviour, and a complete keyboard cycle remain pending.
+
+## Windows PowerShell setup
+
+These commands are proposals for a clean checkout. They have not been validated as a complete clean-checkout run in this documentation update.
+
+From the repository root, create an isolated Python environment and install dependencies:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 ```
 
-Frontend: run `npm ci --ignore-scripts` then `npm run dev` in frontend/. Its `/api` proxy expects the backend on127.0.0.1:18157, so use `uvicorn app.main:app --host 127.0.0.1 --port 18157` for that interface. `npm run build` performs strict TypeScript validation and builds assets.
+Build and test the Rust verifier **before** running the Python suite, because the API integration requires the release binary:
 
-Live investigation additionally needs the bounded Meta transport and fresh shared budget/credit metadata described in docs/RUNTIME.md. Set the trusted absolute AFTERFIX_RUNTIME_DIR and server-only MODEL_API_KEY through a protected process environment; all coding/runtime processes for the same project must share the same ledger. Do not initialize a second ledger or pass secrets in CLI arguments. The portable code imports no adjacent private controller; existing explicitly configured loopback gateway mode remains supported instead. There is no unguarded direct-provider fallback. Deterministic routes/tests work without Meta credentials. A real default-runtime varied smoke produced a295-to318 preview without approving/applying or changing live stock; see docs/evaluations/portable-varied-runtime-2026-10-27.json.
+```powershell
+cargo build --locked --release --manifest-path rust-verifier/Cargo.toml
+cargo test --locked --manifest-path rust-verifier/Cargo.toml
+.\.venv\Scripts\python.exe -m pytest -q
+```
 
-Before using protected routes, configure distinct server application access tokens as described in docs/AUTH.md. Then sign in through the local interface with the appropriate AfterFix key. These are not Meta API credentials. Reset requires an operator plus AFTERFIX_ALLOW_RESET=1 and affects only synthetic demo data. No token defaults, URL/body credentials or unauthenticated seed route exist. GET /health remains public.
+The lead recorded Windows toolchain versions on 2026-10-28: **Python 3.12.10, Node v24.18.0, npm 12.0.2, rustc/cargo 1.98.0**. Cross-platform testing is pending.
 
-Flow: `POST /proposals` (draft) -> `GET /proposals/{id}/preview` (sandbox simulation on a disposable backup) -> `POST /proposals/{id}/approve` (human route, binds proposal+fingerprint) -> `POST /apply` (human route, transactional + idempotent) -> `POST /verify`.
+## Run locally
 
-`reset` is local synthetic only and is intentionally absent from `TOOL_MANIFEST`. The manifest exposes investigation tools only; model output must never contain approve/apply/reset calls.
+Start the backend on loopback port 18157:
 
-## Integrity notes
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 18157
+```
 
-Rust verifier: `cargo test --locked --manifest-path rust-verifier/Cargo.toml`. Its bounded JSON protocol and checked arithmetic/reference checks are in docs/RUST_PROTOCOL.md; required fixed-executable API integration is in docs/RUST_INTEGRATION.md. Missing binary, disagreement or invalid output blocks approval/apply without a fallback. Build the release artifact before running the recovery API/tests.
+In a second PowerShell window, start the frontend:
 
-- Apply holds `BEGIN IMMEDIATE` before any reads; same-key retries are validated against the bound proposal/approval; different keys cannot double-repair.
-- Evidence must cite both the original and every duplicate deduction; prior repairs are recorded as explicit reversed IDs.
-- Preview simulates on a disposable backup; live DB stays unchanged; approval/apply revalidate staleness.
-- No unconditional rollback is claimed; verify checks ledger match, zero outstanding duplicates, preserved restocks (not required to exist), and unchanged unrelated products.
+```powershell
+cd frontend
+npm ci --ignore-scripts
+npm run dev
+```
+
+The development frontend uses port **18173** by default and proxies API requests to the backend. For a production-style frontend build:
+
+```powershell
+npm run build
+```
+
+Do not use a default `uvicorn` port-8000 quick start with this demo; it conflicts with the configured local proxy expectation of port 18157.
+
+Deterministic tests and offline routes do not require a Meta credential. A live investigation is explicitly paid and gated; it is not part of the deterministic test run.
+
+## Access and live-runtime configuration
+
+Before using protected routes, read [docs/AUTH.md](docs/AUTH.md) and [docs/RUNTIME.md](docs/RUNTIME.md).
+
+- Configure the server-only `MODEL_API_KEY` through a protected process environment. Never put it in command arguments, source, browser storage, logs, or reports.
+- Set `AFTERFIX_RUNTIME_DIR` to a trusted absolute path that already contains the existing shared runtime ledger for this project.
+- All related processes must share that ledger. Do not create a second ledger for an existing project.
+- Use the runtime initializer only for a genuinely new, zero-usage project. For an existing owner/shared ledger, never reset it and never start a new split ledger; follow [docs/RUNTIME.md](docs/RUNTIME.md).
+- Application access tokens are separate from the Meta key. Use distinct URL-safe tokens of 32–128 characters for operator and, optionally, viewer. There are no default or public QA credentials.
+- Reset is allowed only for the operator and only when `AFTERFIX_ALLOW_RESET=1` is explicitly set.
+- The shared guard uses a $100 project cap, $50 reserve, and 24-hour credit-freshness check. Account-wide usage outside this ledger is uncertain, so no overage is assumed or authorized.
+- Each investigation is bounded to 6 calls and an estimated $0.25 guard.
+
+No private control path is required in a public checkout.
+
+## Saved reports
+
+After an investigation, the durable version 1 case report can be reloaded read-only and downloaded as exact JSON. Reloading a saved case does not restore approval, checkbox, or apply state and does not start a new investigation or mutation.
+
+## Further documentation
+
+- [Runtime and budget guard](docs/RUNTIME.md)
+- [Authentication and roles](docs/AUTH.md)
+- [Rust protocol](docs/RUST_PROTOCOL.md)
+- [Rust integration](docs/RUST_INTEGRATION.md)
+- [Evaluation results](docs/EVALUATION_RESULTS.md)
+- [Delivery plan](docs/DELIVERY_PLAN.md)
+- [Current state](docs/STATE.md)
+- [Actual canonical browser recovery evidence](docs/evaluations/browser-rust-recovery-2026-10-28.json)
+- [Stale-refresh browser evidence](docs/evaluations/browser-stale-refresh-2026-10-28.json)
+
+## Scope limits
+
+Version 1 covers evidenced duplicate inventory-deduction recovery in a synthetic local demo. It does not support arbitrary SQL, uploaded production databases, unattended apply, automatic approval, or universal rollback. Public hosting, repository publication, video publication, and contest submission require separate owner tasks.

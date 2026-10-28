@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Release documentation accepted —2026-10-28
+
+Wonder1.0 runc1e13885/jobdb130f59:14178input/4524output(319reasoning),estimate$0.147192,cumulative local$15.585008. Full README/AUTH/DEMO_SCRIPT/RELEASE_CHECKLIST reviewed before installation, all relative links resolve; actual180sec demo intervals checked. Lead prose additions record observed Python3.12.10/Node24.18.0/npm12.0.2/Rust1.98.0 and preserve signout/inflight-work caveat. No implementation change/test rerun/API call; clean-checkout and remaining browser/release checks pending. Recorded live5/7 immutable. Evidence release-docs-accepted-c1e13885.json.
+
 ## Stale incident display correction accepted —2026-10-28
 
 Wonder1.0 runb68f8241/job b0d489c4:19242 input/1932 output(1134reasoning),estimated$0.115608,local completed cumulative$15.437816,not provider balance. Three exact Meta App.tsx edits materialized against immutable d2fe6059 base; full diff reviewed before execution. Actual strict frontend build22modules194ms plus native API-session/case-state checks passed. No backend source change; previous403backend pass not rerun.

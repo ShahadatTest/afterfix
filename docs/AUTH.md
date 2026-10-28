@@ -1,30 +1,66 @@
-# Local demo access
+# Authentication and access
 
-AfterFix now requires bearer authentication for every API route except exact GET /health. This is a minimal single-demo-instance operator/viewer design, not individual accounts or a multi-tenant identity platform. Host only on loopback until release conditions in SECURITY_REVIEW.md/DELIVERY_PLAN.md are satisfied.
+AfterFix uses minimal bearer-token access for one local synthetic demo instance. It is not an identity platform, does not provide per-person or multi-tenant accounts, and is not a security certification.
+
+Every API route except the exact public `GET /health` requires authentication.
+
+## Roles
+
+- **Operator:** may read demo data, run investigations, preview, approve, apply, and use reset only when reset is explicitly enabled.
+- **Viewer:** may read authorized demo data, previews, saved cases, and reports, and use read-only verification. A viewer cannot investigate, approve, apply, or reset.
+
+Approval and apply are separate actions. Authentication never creates automatic approval.
 
 ## Server configuration
 
-Configure AFTERFIX_OPERATOR_TOKEN in the server process environment. AFTERFIX_VIEWER_TOKEN is optional. Use distinct randomly generated ASCII URL-safe tokens (letters, digits, hyphen, underscore),32..128 characters. There are no default credentials. Missing/invalid/colliding configuration fails closed with503. Never use the Meta API key as an application access token; the two have different purposes and destinations. Do not put tokens in source, URLs, reports or command arguments. Supply them through a protected local process environment/secret setup.
+Configure these values only through a protected server process environment or an approved secret mechanism:
 
-AFTERFIX_ALLOW_RESET=1 explicitly enables the synthetic reset route for the operator. It is disabled by default. This flag cannot permit a viewer to reset. Keep all demo data synthetic. Single shared instance credentials do not provide per-person attribution or private tenant/session datasets.
+- `AFTERFIX_OPERATOR_TOKEN` — required operator application token.
+- `AFTERFIX_VIEWER_TOKEN` — optional, distinct viewer application token.
+- `AFTERFIX_ALLOW_RESET` — set to exactly `1` only when synthetic reset is intentionally enabled for the operator.
 
-## Browser behavior
+Application tokens must be distinct, randomly generated, ASCII URL-safe values of **32 to 128 characters**. There are no default credentials and no public QA credentials. Missing, invalid, or colliding configuration fails closed.
 
-Enter only the AfterFix access key on the sign-in screen. The app checks GET /auth/me, then mounts the workspace with the server-returned role/capability. Application access keys stay in JavaScript memory and Authorization headers; no browser local/session storage, cookies, exports or URL parameters. Sign out and page reload clear the client session. This is client-side forgetting, not revocation of a static token; removing/changing the configured token revokes future requests. Already-started authorized work may finish after sign-out.
+Never use the Meta API key as an application token. The application token, Meta key, and runtime-ledger controls serve different purposes. Never place credentials in source, URLs, command arguments, browser storage, logs, screenshots, or reports.
 
-An operator may investigate/propose/approve/apply, and reset only if explicitly enabled. A viewer may read authorized demo records/patch/preview and call read-only verification; it cannot spend on investigation or mutate. This UI currently restores only incident/evidence on sign-in, not a previous session's proposal/report; report persistence is a later task.
+Reset affects only local synthetic demo data. The flag does not give a viewer reset permission.
 
-## Backend controls and limits
+## Browser behaviour
 
-- Authentication/permissions run before JSON validation, database work and Meta client dependency resolution. Only one Authorization header is accepted; comparisons are constant-time. Error bodies do not echo submitted credentials/fields.
-- All protected HTTP request bodies are limited to64KiB of actual bytes with a5-second read deadline, including GET/chunked input. Oversized requests return413, timeout408.
-- Investigation permits one active request per app process and three starts per60seconds. Excess requests return429/Retry-After without queueing/retrying paid calls. This does not replace the separate shared Meta credit/request guard. Multiple workers need coordinated outer limits before shared hosting.
-- Approval stores the authenticated configured actor ID; apply checks that binding before mutation, cached retry success and already-applied shortcuts. Old approvals with blank actors cannot authorize a new apply. Internal trusted direct-engine calls default to local-core; the HTTP API never selects that identity from caller input.
-- Reset/approval/apply audit rows record the actor. Records remain trusted synthetic SQLite data, not cryptographically tamper-proof evidence.
-- The frontend constrains token-bearing requests to same-origin /api paths, refuses redirects and discards stale session responses. A stale401 cannot sign out a newer session. Server-side permission checks remain authoritative.
+The browser keeps the application token only in memory and sends it in `Authorization` headers. It does not store the token in local storage, session storage, cookies, exports, or URL parameters.
+
+- Sign-in checks `GET /auth/me` and uses the server-returned role and capabilities.
+- Sign-out clears the client session.
+- A browser reload forgets the in-memory token and requires sign-in again.
+- Already-started authorized work may finish after sign-out.
+- This is client-side forgetting, not revocation. Changing or removing the configured server token is required to revoke future requests.
+- Saved case history restores automatically after sign-in.
+- Restored history is read-only. It never hydrates approval, checkbox, or apply state.
+- Any new mutation requires a fresh, explicit investigation, preview, review, approval, and separate apply.
+
+Server-side authorization remains authoritative even if browser controls are hidden or disabled.
+
+## Backend controls
+
+- Authentication and permission checks run before protected work.
+- Only one `Authorization` header is accepted, and token comparison is constant-time.
+- Error responses do not echo submitted credentials.
+- Protected request bodies are limited to 64 KiB with a bounded read time.
+- Investigation concurrency and start rate are limited per application process; excess requests fail without queueing a paid retry.
+- Approval records the authenticated configured actor. Apply checks that actor binding before mutation or an already-applied shortcut.
+- Reset, approval, and apply audit records include the actor.
+- Records are trusted synthetic SQLite data, not tamper-proof evidence.
+
+Multiple workers or hosts need coordinated limits and data isolation before any shared hosting. Authentication alone does not make the local demo suitable for public production use.
 
 ## Verified evidence
 
-Full backend suite257 passed, one existing nonblocking Starlette/httpx deprecation warning. Strict frontend TS/Vite build passed. Lead's mocked-fetch security probe verified key shape, URL confinement, redirect refusal, stale/current401 ownership and sanitized header failures (no network). Authenticated real Chrome/Meta flow completed with final stock110 and10 passing preservation/verification checks. Viewer login/read-only controls, operator logout and reload-to-sign-in were observed. Direct actual-server probes returned401 for anonymous reads/reset and403 for viewer investigate/reset/approve/apply. Actual synthetic reports are in docs/evaluations/.
+- The latest full backend run recorded **403 passed** with one existing warning.
+- Native API-session and case-state checks passed.
+- An actual authenticated Chrome recovery using real Spark 1.3 completed stock **100 → 110** with one actor-bound approval/repair and 10 preservation checks.
+- Anonymously protected requests and viewer mutation attempts were denied in local testing.
+- Actual stale approval/apply handling invalidated downstream state; successful refresh showed stock 101 and 5 events, while a failed refresh retained old data with a clear warning.
 
-The owner's guarded preview launcher remains outside this public checkout; it creates/deletes ephemeral QA access tokens without printing them and injects the shared credit transport. The public portable runtime is now implemented/tested; see RUNTIME.md. Hosted HTTPS/isolation, coordinated multi-worker limits and dependency advisory review remain release work. Authentication alone is not production certification.
+Evidence: [canonical browser recovery](evaluations/browser-rust-recovery-2026-10-28.json) and [stale-refresh checks](evaluations/browser-stale-refresh-2026-10-28.json).
+
+Hosted HTTPS, session/data isolation, coordinated limits, access-key provisioning and revocation procedures, dependency review, and secret review remain release tasks. See [RUNTIME.md](RUNTIME.md) for the separate Meta runtime guard and [STATE.md](STATE.md) for current limitations.
