@@ -1,0 +1,85 @@
+{
+  "job_id": "3d199e2c-8748-48d1-8063-b458a173290b",
+  "paid_api_calls": 0,
+  "credential_access": false,
+  "global_install": false,
+  "checks": [
+    {
+      "label": "version",
+      "returncode": 0
+    },
+    {
+      "label": "typescript",
+      "returncode": 0
+    },
+    {
+      "label": "vite_build",
+      "returncode": 0
+    },
+    {
+      "label": "api_session",
+      "returncode": 0
+    },
+    {
+      "label": "case_state",
+      "returncode": 0
+    }
+  ],
+  "binary_url": "https://nodejs.org/dist/v24.22.1/win-x64/node.exe",
+  "checksum_url": "https://nodejs.org/dist/v24.22.1/SHASUMS256.txt",
+  "binary_sha256": "d702daa815eabbff763c7d3808e235cf031cf2ca70211b56847bc72f51e240e5",
+  "binary_bytes": 93915464,
+  "integrity": "official HTTPS SHASUMS match; no independent PGP verification",
+  "frontend_before_sha256": {
+    "frontend/index.html": "a3dc0c3416bb99bc38b5e48e388c200d72685b8e246eea4c10fb02c76d3b3bb5",
+    "frontend/package-lock.json": "0914839618c581d8467583d2ab24150c36c1a3cbf1689c1a366894fd7ebc664a",
+    "frontend/package.json": "87de7d576cfcf6427a883ec0df4d1993554a042516faaf562233437d4abdbd3f",
+    "frontend/scripts/check-api-session.ts": "05220374a32d1aec46fbfc2fda3b79b92d5624a26ba626889b3b227ce726785c",
+    "frontend/scripts/check-case-state.ts": "0cbdf4a0d0d8bd4a1a632bda7949f33f72a82b36421b7e18d5113a4a419e2149",
+    "frontend/src/App.tsx": "a09734b066c7e2abca9f465037017146dd8f74f53cfaf1dcffe69156dca33fc8",
+    "frontend/src/CaseReports.tsx": "731f2ce3d46a6d3725dd7421d99e0f71107d356a8c27075159b3d00718df8db0",
+    "frontend/src/api.ts": "5bdb6891fa470e809876c6ed049892b431339a8bea267c11ae39249d42172ba5",
+    "frontend/src/auth.css": "c05b54034228f53a06de2203fc042f3a0b048c89ce98c94cc6b527c3fae0348d",
+    "frontend/src/auth.tsx": "6abf22e293229ff0ba9f19bb24ceedc9ca0af232b569ab9f2b99297a07edcc2c",
+    "frontend/src/caseState.ts": "c6e115fb38ccaa998bfdb22d51bddb9540d7758dfc70f5a3083cd4e621a8313e",
+    "frontend/src/cases.css": "967b1dcf3067a83f0ad38834d8e2bbbd677da8e7ff325ae6be1c879b915bf868",
+    "frontend/src/main.tsx": "29ff42ec2545f0c48e8217bdbacb1f9e3247594343c240f789a34d1a8c836090",
+    "frontend/src/styles.css": "01120a40af4958b172ae97bfa826e09c1ce97b47a8bff31862143f4f2fb3c05b",
+    "frontend/src/types.ts": "e49518c0a6bd1413bbcf3e5bca3549b26b15133918de7545ce9f58693015ce3a",
+    "frontend/src/vite-env.d.ts": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92",
+    "frontend/tsconfig.json": "a3529f8f9ad427621d5070e27441f512c688bc89dda530dec0096d93947fff8c",
+    "frontend/vite.config.ts": "668e17d79f17c92b466ec59353c8df0ea7a52300e47fd299f017f027c9b551f4"
+  },
+  "frontend_after_sha256": {
+    "frontend/index.html": "a3dc0c3416bb99bc38b5e48e388c200d72685b8e246eea4c10fb02c76d3b3bb5",
+    "frontend/package-lock.json": "0914839618c581d8467583d2ab24150c36c1a3cbf1689c1a366894fd7ebc664a",
+    "frontend/package.json": "87de7d576cfcf6427a883ec0df4d1993554a042516faaf562233437d4abdbd3f",
+    "frontend/scripts/check-api-session.ts": "05220374a32d1aec46fbfc2fda3b79b92d5624a26ba626889b3b227ce726785c",
+    "frontend/scripts/check-case-state.ts": "0cbdf4a0d0d8bd4a1a632bda7949f33f72a82b36421b7e18d5113a4a419e2149",
+    "frontend/src/App.tsx": "a09734b066c7e2abca9f465037017146dd8f74f53cfaf1dcffe69156dca33fc8",
+    "frontend/src/CaseReports.tsx": "731f2ce3d46a6d3725dd7421d99e0f71107d356a8c27075159b3d00718df8db0",
+    "frontend/src/api.ts": "5bdb6891fa470e809876c6ed049892b431339a8bea267c11ae39249d42172ba5",
+    "frontend/src/auth.css": "c05b54034228f53a06de2203fc042f3a0b048c89ce98c94cc6b527c3fae0348d",
+    "frontend/src/auth.tsx": "6abf22e293229ff0ba9f19bb24ceedc9ca0af232b569ab9f2b99297a07edcc2c",
+    "frontend/src/caseState.ts": "c6e115fb38ccaa998bfdb22d51bddb9540d7758dfc70f5a3083cd4e621a8313e",
+    "frontend/src/cases.css": "967b1dcf3067a83f0ad38834d8e2bbbd677da8e7ff325ae6be1c879b915bf868",
+    "frontend/src/main.tsx": "29ff42ec2545f0c48e8217bdbacb1f9e3247594343c240f789a34d1a8c836090",
+    "frontend/src/styles.css": "01120a40af4958b172ae97bfa826e09c1ce97b47a8bff31862143f4f2fb3c05b",
+    "frontend/src/types.ts": "e49518c0a6bd1413bbcf3e5bca3549b26b15133918de7545ce9f58693015ce3a",
+    "frontend/src/vite-env.d.ts": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92",
+    "frontend/tsconfig.json": "a3529f8f9ad427621d5070e27441f512c688bc89dda530dec0096d93947fff8c",
+    "frontend/vite.config.ts": "668e17d79f17c92b466ec59353c8df0ea7a52300e47fd299f017f027c9b551f4"
+  },
+  "status": "passed",
+  "limits": "Same installed frontend dependencies; not fresh npm install, browser, Python/Rust patch or global runtime change",
+  "lead_review": "accepted five actual checks; independent controller/binary/current-source hash verification; logs reviewed",
+  "build_result": "22 modules/622ms/JS282.02kB gzip82.82; TypeScript noEmit and two native regression scripts passed",
+  "artifact_sha256": {
+    "SHASUMS256.txt": "fdfbffc969c0f604beff0124d409b33a43b53f5c681d6220f80023e0d6df9dc4",
+    "version.log": "b8a527ca60b496131eccd1fcbeccf289ebc0a7e63be57e4b4c6f8f67648bcc07",
+    "typescript.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vite_build.log": "79b1a36e91e1b0c8800344026c62e90373fa250df7370d5d19ca29a9cae3b1e4",
+    "api_session.log": "f008006cabe920cf8ceba2650be40195576a626a3f2c8064d1bfd9384d432e03",
+    "case_state.log": "719f54dc555d3cb9e3484f82573629938556cbed2dd38b9b3cafc2f36311b12a"
+  }
+}

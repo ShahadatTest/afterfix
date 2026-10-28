@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Portable patched Node QA accepted —2026-10-28
+
+Lead-only job3d199e2c passedfivechecks using official hash-verified Node24.22.1 portablebinary: exactversion, existing TypeScript--noEmit, Vite22modules622ms/JS282.02kBgzip82.82, nativeAPI-session andcase-state. Independentcontroller/binary/current18trackedfrontendhash verification passed; sourceunchanged. Evidence evaluations/node-patch-accepted-3d199e2c.json. No productimplementation/newMeta calls, credentialaccess, npm/globalinstall/browser/benchmarkrepeat; completedestimate$17.097828 unchanged. PGPnotindependentlyverified; same existing dependencies, notfreshnpmcheck. Python/OpenSSL/SQLite/Rust runtimepatch/rebuild gatesremainopen; C-onlydisk~1.1GiB/~85MiBabove1GiBreserve preventsnewheavytoolchains pendingownerheadroom. Nextleadlocal sourcearchive/exactmanifest andscopedsecretreview, no publication.
+
 ## Product TLS correction accepted —2026-10-28
 
 Wonder1.0 runb0866a8b/job00a68dd3:41324input/4372output(840reasoning),estimate$0.252736/cumulative$17.097828. Full helper/tests/manifest and8existing-source diffs reviewed beforecopy/execution; sameexactmanifest/base preserved,6installedhashes byteidenticaltoMeta. RawRuntimeError sanitation regression fixed; Unicode CA path accepted. Actual isolatedsafeenv focusedTLS/client/runtime145passed4.70s; fullPython530passed1existingTestClient/httpxwarning31.79s. Evidence evaluations/tls-accepted-b0866a8b.json. Version-gated certifi-only explicitTLS context used bybothdefaultHTTPStransports; no systemtrust/globalconfiguration change. No realprovider/Rustbrowserrebuild/heldoutrepeat/runtimeupgrade; fullruntime/toolchainreleasegates remain. Firstfailedstaging/probe retained. Nextlead-only patchedNode portablebinary/hash/compatibilityQA, no new product implementationrequest.
