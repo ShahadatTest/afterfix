@@ -19,6 +19,7 @@ import uuid
 from decimal import Decimal, InvalidOperation
 
 from app.meta_client import MODEL
+from app.tls_context import trusted_tls_context
 
 OFFICIAL_URL = "https://api.meta.ai/v1/responses"
 INPUT_RATE = 1.25e-6
@@ -112,7 +113,7 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def _default_opener(request, timeout):
-    opener = urllib.request.build_opener(_NoRedirect())
+    opener = urllib.request.build_opener(_NoRedirect(), urllib.request.HTTPSHandler(context=trusted_tls_context()))
     return opener.open(request, timeout=timeout)
 
 

@@ -1,0 +1,56 @@
+{
+  "run_id": "b0866a8b-0d67-40c5-9c72-de7e63d7b01e",
+  "source_sha256": {
+    "app/tls_context.py": "780d4fb8557de3ab48fdd2bf0a69157d2087455b2bfb5e9e7c0457e9ebc19453",
+    "tests/test_tls_context.py": "408e5e962b599a23c985bc595e0dd91c8915e56e780eb572eb7f55c6c134d152",
+    "app/meta_client.py": "621413129cd224a3f9eb5fbc4b09c2abaefcc4583318a007b6fc19d291aaf694",
+    "app/runtime_budget.py": "fbb26312e15af0c99254b60c1a1c7f2ef1b4d9b220ccc3c406730f1a2e43e48c",
+    "requirements.txt": "40d5544e12389246bd3773e091a35223f9b22b1c9a1ec1597315c0f8f72ee37c",
+    "tests/test_meta_client.py": "6f3b76febb312e21c0a2f110dd48b97ce3d9318b1d25a753bc4232d5057b9371"
+  },
+  "sources_byte_identical_to_Meta": true,
+  "checks": [
+    {
+      "label": "focused",
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests/test_tls_context.py",
+        "tests/test_meta_client.py",
+        "tests/test_runtime_budget.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 5.735,
+      "log": "evaluations\\tls70-focused.log"
+    },
+    {
+      "label": "full",
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 32.734,
+      "log": "evaluations\\tls70-full.log"
+    }
+  ],
+  "credential_access": false,
+  "paid_calls": 0,
+  "runtime_upgrades": false,
+  "job_id": "00a68dd3-ce5c-48f9-bc0c-40f5d274fa5a",
+  "decision": "accepted_after_full_source_review_and_real_tests",
+  "model": "muse-wonder-1.0",
+  "input_tokens": 41324,
+  "output_tokens": 4372,
+  "reasoning_tokens_in_output": 840,
+  "estimated_usd": 0.252736,
+  "cumulative_local_estimated_usd": 17.097828,
+  "focused_result": "145 passed in 4.70s",
+  "full_result": "530 passed, one existing TestClient/httpx warning in31.79s",
+  "limits": "Offline TLS configuration/default-transport integration; no live provider, patched Python/OpenSSL/Node/Rust, browser or new benchmark claim"
+}

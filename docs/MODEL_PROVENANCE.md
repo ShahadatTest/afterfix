@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Product TLS correction accepted —2026-10-28
+
+Wonder1.0 runb0866a8b/job00a68dd3:41324input/4372output(840reasoning),estimate$0.252736/cumulative$17.097828. Full helper/tests/manifest and8existing-source diffs reviewed beforecopy/execution; sameexactmanifest/base preserved,6installedhashes byteidenticaltoMeta. RawRuntimeError sanitation regression fixed; Unicode CA path accepted. Actual isolatedsafeenv focusedTLS/client/runtime145passed4.70s; fullPython530passed1existingTestClient/httpxwarning31.79s. Evidence evaluations/tls-accepted-b0866a8b.json. Version-gated certifi-only explicitTLS context used bybothdefaultHTTPStransports; no systemtrust/globalconfiguration change. No realprovider/Rustbrowserrebuild/heldoutrepeat/runtimeupgrade; fullruntime/toolchainreleasegates remain. Firstfailedstaging/probe retained. Nextlead-only patchedNode portablebinary/hash/compatibilityQA, no new product implementationrequest.
+
 ## Product TLS initial staging corrections requested —2026-10-28
 
 Wonder1.0 run00534a24/joba9f67cf3:27613input/4628output(1751reasoning),estimate$0.203012/cumulative$16.845092. Reviewed complete new helper/tests/exactmanifest and8materialized existing-source diffs; AST passed. Actual offline stagedhelper probe demonstrated raw certifi.where RuntimeError sentinel and unsuppressedcontext; ASCII-only CA path is also unnecessary portability restriction. No productfiles installed, full/focusedpytest or paidruntimecalls. Evidence evaluations/tls-review-00534a24.json. Meta prompt68 corrects sameboundedbatch and adds regressiontests; originalstaging/failurepreserved. No security clearance or patchedruntime claim.

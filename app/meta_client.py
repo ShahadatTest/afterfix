@@ -5,6 +5,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from app.tls_context import trusted_tls_context
+
 MODEL = "muse-spark-1.3"
 OFFICIAL_URL = "https://api.meta.ai/v1/responses"
 MAX_REQUESTS = 6
@@ -186,7 +188,7 @@ class MetaClient:
             headers["Authorization"] = "Bearer " + self._api_key
         req = urllib.request.Request(self._url, data=data, method="POST", headers=headers)
         try:
-            with urllib.request.urlopen(req, timeout=self._timeout) as r:
+            with urllib.request.urlopen(req, timeout=self._timeout, context=trusted_tls_context()) as r:
                 status = getattr(r, "status", 200)
                 if not (200 <= int(status) <= 299):
                     raise MetaClientError("meta transport failed")

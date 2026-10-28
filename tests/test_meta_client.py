@@ -1,6 +1,7 @@
 """Offline MetaClient tests: injected transport or mocked HTTP only."""
 
 import json
+import ssl
 import urllib.error
 import urllib.request
 
@@ -73,14 +74,20 @@ def test_default_transport_http_mocked_and_credential_only_in_header(monkeypatch
         def read(self, n=-1):
             return json.dumps(ok()).encode()
 
-    def fake_urlopen(req, timeout=None):
+    def fake_urlopen(req, timeout=None, context=None):
         captured["req"] = req
         captured["timeout"] = timeout
+        captured["context"] = context
         return Resp()
 
     monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
     c = MetaClient()
     assert c.create_response("hello")["status"] == "completed"
+    context = captured["context"]
+    assert context.verify_mode == ssl.CERT_REQUIRED
+    assert context.check_hostname is True
+    assert context.minimum_version == ssl.TLSVersion.TLSv1_2
+    assert context.get_ca_certs()
     req = captured["req"]
     sent = json.loads(req.data.decode())
     assert sent["model"] == "muse-spark-1.3" and sent["store"] is False
