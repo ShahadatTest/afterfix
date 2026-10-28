@@ -1,0 +1,9 @@
+{
+  "advisory_instance_count": 0,
+  "advisory_unique_count": 0,
+  "counts_partial": false,
+  "inventory_sha256": "1243e75d3624de0913043d03791538afca29639b7cde0d0300b13174807e58b2",
+  "queried_count": 103,
+  "status": "complete_no_known_advisories",
+  "total_count": 103
+}

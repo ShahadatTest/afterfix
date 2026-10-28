@@ -18,3 +18,11 @@ These are installer exposures. The application does not import pip as part of it
 Next candidate: [pip26.2.2 on PyPI](https://pypi.org/project/pip/26.2.2/) ([official changelog](https://pip.pypa.io/en/stable/news/)). Lead verified the public wheel SHA256 `fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70`. Meta will prepare a separate hash-pinned installer requirement and setup text. It is not yet installed or re-queried. Preserve the original inventory/results when recording any later environment.
 
 OS/SQLite/toolchain advisories, pip vendored libraries, final secret review, mobile checks and release preparation remain separate work. No new Meta calls, dependency install, global configuration, deployment or production access occurred during this snapshot review.
+
+## Verified installer update and second snapshot
+
+The reviewed hash-pinned bootstrap actually upgraded only the project's `.venv` installer from pip25.0.1 to26.2.2. The other23 Python distributions remained unchanged. The explicit project interpreter reported26.2.2, and `pip check` reported no broken requirements. No global Python or application requirement was changed or reinstalled.
+
+A new actual103-triple public OSV query completed with zero indexed advisory matches and no partial counts. Lead independently verified the before/after packages, inventory delta, all103 request/result mappings, queried flags and source/inventory hashes. [Version2 evidence](evaluations/bootstrap-verified-v2/lead-review.json) preserves all artifacts; the original12-ID/six-issue snapshot above remains unchanged.
+
+This validates the bootstrap command and current project environment. It does not revalidate an entire fresh checkout or remove oldpip from retained historical QA clones. The application-requirements installation command was not rerun. Backend403/Rust32/browser evidence was not repeated for this installer-only change. OS/SQLite/toolchain and pip vendored-library advisories, unknown issues, secret review and mobile checks remain separate work. Zero indexed matches is not a security certification.

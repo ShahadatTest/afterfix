@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Installer update and second advisory snapshot accepted —2026-10-28
+
+Lead QA job5cc3ba1c completed6steps/exit0: reviewed Meta-generated bootstraprequirements/README command installed onlyprojectvenv pip25.0.1->26.2.2,23otherPython distributions unchanged, actualpipversion/pipcheck passed. New103publictriples OSV query completed0indexedmatches/no partialcounts; independentdelta/mappings/flags/hashes/counts checked. Original12IDs/sixissues snapshot preserved; version2 raw evidence+lead-review in evaluations/bootstrap-verified-v2/. ZeroMeta/runtimecalls or newcost, localcompleted$16.375588. No apprequirements reinstall/backend/Rust/UI/browser rerun, no globalPython change or securitycertification. HistoricalQAclones retainoldpip. Next concise releasehandoff/READMEactualstatus correction; mobile/secretreview/OSSQLitetoolchain pending.
+
 ## Hash-pinned installer preparation accepted —2026-10-28
 
 Wonder1.0 run90c41f02/job21baf87c:9394input/2646output(383reasoning),estimate$0.090496,cumulative local$16.375588. Full2stagedfiles/README diff reviewed; exact installer pin/hash/flags/relative links checked before copying README and requirements-bootstrap.txt. PublicPyPI26.2.2 wheelhash previously verified. Staticpreparation only; no app/runtime/lockfile changes or new testneeded. Backend403/Rust32/live5/7 unchanged/notrerun. Evidence bootstrap-prepared-90c41f02.json. Lead fixed backgroundQA controller reviewed/ASTparsed; nextprojectvenv-only bootstrap/packagecomparison/pipcheck/newpublicinventory+OSV, noMeta credentials/APIcalls. Remediation still unexecuted at acceptance.

@@ -1,0 +1,37 @@
+{
+  "reviewed_at": "2026-10-28T08:56:30.937778+00:00",
+  "job_id": "5cc3ba1c-9ae3-4c6c-ac02-47146a453f29",
+  "decision": "accepted",
+  "actual_checks": [
+    "All6steps exit0. Exacthash-pinned installer updated projectvenv pip25.0.1->26.2.2; all23otherPython distributions unchanged.",
+    "pipversion verified projectvenv; pipcheck No broken requirements found.",
+    "New103package inventory differs onlypipversion; allactual OSV103 mappings/queryflags/order/hashes/counts reviewed. Complete0indexedmatches, nopartialcounts.",
+    "Oldsnapshot12IDs/sixissues remains bytepreserved. Pinned product source/locks unchanged."
+  ],
+  "summary": {
+    "advisory_instance_count": 0,
+    "advisory_unique_count": 0,
+    "counts_partial": false,
+    "inventory_sha256": "1243e75d3624de0913043d03791538afca29639b7cde0d0300b13174807e58b2",
+    "queried_count": 103,
+    "status": "complete_no_known_advisories",
+    "total_count": 103
+  },
+  "artifact_sha256": {
+    "inventory.json": "1243e75d3624de0913043d03791538afca29639b7cde0d0300b13174807e58b2",
+    "packages-before.json": "f30f54a231564849182e8a0751e46689e51439ba08db45def1e336eb79a26efc",
+    "packages-after.json": "091c90dcf6d8489aa4f601a09e34a1bedfc8148f4baf06f1e8d197064d204dc0",
+    "steps.json": "59abb6480f1ffbaef9222ceda13879ee53f20f102fba6d090f8027c3c986fa7c",
+    "qa-summary.json": "3f8a051e46ba1a33298a33bb9c72efcca49e13b773e2e37f0a2d69a7dd6fe75b",
+    "osv/request.json": "03a77a4f9e7fc8e1a99c663578d38b8949399ab79b355388fe98695451f73265",
+    "osv/results.json": "97e681889d036e90a13f382bc875bf6e56f28d48c1d1f38505bc80b0fe420ba3",
+    "osv/summary.json": "d4104fff4d4ff3b0d0a451a6252e83d9bcf9ecac9bee0409b3daf183c287791e"
+  },
+  "paid_api_calls": 0,
+  "local_completed_estimate_usd": 16.375588,
+  "limits": [
+    "No apprequirements reinstall or backend/Rust/frontend/browser rerun; installeronly change.",
+    "No assessmentofOS/SQLite/toolchain/pipvendoredlibraries or unknown vulnerabilities; no certification.",
+    "Freshclones retained fromearlierQA stillcontainoldpip; future setup usesnewbootstrap. No globalPython change."
+  ]
+}

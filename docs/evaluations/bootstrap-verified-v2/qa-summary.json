@@ -1,0 +1,47 @@
+{
+  "job_id": "5cc3ba1c-9ae3-4c6c-ac02-47146a453f29",
+  "returncode": 0,
+  "error_type": null,
+  "steps": [
+    {
+      "step": "packages-before",
+      "returncode": 0,
+      "seconds": 0.714
+    },
+    {
+      "step": "bootstrap_pip",
+      "returncode": 0,
+      "seconds": 13.364
+    },
+    {
+      "step": "packages-after",
+      "returncode": 0,
+      "seconds": 0.369
+    },
+    {
+      "step": "pip_version",
+      "returncode": 0,
+      "seconds": 0.694
+    },
+    {
+      "step": "pip_check",
+      "returncode": 0,
+      "seconds": 1.138
+    },
+    {
+      "step": "public_osv",
+      "returncode": 0,
+      "seconds": 1.707
+    }
+  ],
+  "pins": {
+    "tools/audit_dependency_inventory.py": "652185c1adec8dfe3e133e1468f88c44c7d94b49daf888aa0c90a7faf12c4884",
+    "requirements-bootstrap.txt": "620780f2bd7c67bbdbf9e1a757da859956deb2f11962b34f7e938a998152125a",
+    "requirements.txt": "94a7b63609b83fee209ba81380b9c715b3d882d5586056858c60001b903ec5a8",
+    "frontend/package-lock.json": "0914839618c581d8467583d2ab24150c36c1a3cbf1689c1a366894fd7ebc664a",
+    "rust-verifier/Cargo.lock": "072e24b6e48bac7eefdad49d9dca69678af97e3625b61e784f81fb1cf98a2409",
+    "docs/evaluations/dependency-inventory-2026-10-28.json": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37"
+  },
+  "paid_api_calls": 0,
+  "limitations": "Only project installer updated; original snapshot retained; no backend/build/browser/certification claim."
+}

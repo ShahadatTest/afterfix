@@ -1,0 +1,32 @@
+[
+  {
+    "step": "packages-before",
+    "returncode": 0,
+    "seconds": 0.714
+  },
+  {
+    "step": "bootstrap_pip",
+    "returncode": 0,
+    "seconds": 13.364
+  },
+  {
+    "step": "packages-after",
+    "returncode": 0,
+    "seconds": 0.369
+  },
+  {
+    "step": "pip_version",
+    "returncode": 0,
+    "seconds": 0.694
+  },
+  {
+    "step": "pip_check",
+    "returncode": 0,
+    "seconds": 1.138
+  },
+  {
+    "step": "public_osv",
+    "returncode": 0,
+    "seconds": 1.707
+  }
+]
