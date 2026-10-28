@@ -1,0 +1,20 @@
+{
+  "kind": "lead_source_review_and_offline_probe",
+  "run_id": "ff1be8c5-de53-4727-8a2f-eb3c483dc6d8",
+  "model": "muse-wonder-1.0",
+  "usage": {"input_tokens": 25123, "output_tokens": 17400, "estimated_cost_usd": 0.448492},
+  "offline_tests": {"command": ".venv/Scripts/python.exe -m pytest -q tests/test_inventory_evaluation.py", "passed": 23, "seconds": 0.83},
+  "ui_copy": {"reviewed_exact_edits": 2, "base_run": "4682236f-0c49-47f6-b050-622fb68cdaa1", "build": "strict tsc and Vite passed; 22 modules; 198ms"},
+  "live_heldout_calls": 0,
+  "probe": {
+    "network": "none; injected local failing transport only",
+    "attempted_cases": 7,
+    "incorrectly_passed_unsupported_cases": ["H04-clean-replay", "H05-missing-opening", "H06-conflicting-quantity"],
+    "all_stop_categories": "model_client_error",
+    "unknown_usage_calls_each": 1,
+    "stopped_early": false,
+    "guard_constructor_argument_type": "WindowsPath; real guard requires absolute str"
+  },
+  "decision": "UI copy accepted; evaluation tooling corrections required, not installed",
+  "next": "Fix guard string argument, operational failure/unknown usage stop and scoring, snapshot bindings, persistence failures, response evidence counters and regression tests. Frozen manifest unchanged."
+}

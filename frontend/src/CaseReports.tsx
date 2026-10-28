@@ -202,7 +202,7 @@ export default function CaseReports({ incidentId, refreshSignal, clearSignal, fo
   return (
     <section className="panel cases-panel" aria-labelledby="cases-title">
       <div className="panel-head"><div><span className="eyebrow">Saved cases</span><h2 id="cases-title">History review (read-only)</h2>
-      <p className="muted">Restored reports are read-only. Selecting a case never restores approval, checkbox, apply-key or mutation authority, and never starts an investigation.</p></div></div>
+      <p className="muted">Saved cases are read-only. To start a new repair, run a fresh investigation.</p></div></div>
       <div className="cases-controls">
         <label className="cases-select-label" htmlFor="case-select">Saved case</label>
         <select id="case-select" className="cases-select" value={selectedId ?? ""} onChange={(e) => onSelect(e.target.value)} disabled={resetting || listState === "loading" || cases.length === 0}>
@@ -221,7 +221,7 @@ export default function CaseReports({ incidentId, refreshSignal, clearSignal, fo
 
       {report && reportState === "ready" && (
         <div className="stack cases-body">
-          <div className={`banner ${recovery.tone === "ok" ? "ok" : recovery.tone === "bad" ? "error" : "warn"}`} role="status"><strong>{recovery.label}.</strong> Historical report — read-only review of the full server record, not the active flow. Summary-list status is only the original investigation outcome.</div>
+          <div className={`banner ${recovery.tone === "ok" ? "ok" : recovery.tone === "bad" ? "error" : "warn"}`} role="status"><strong>{recovery.label}.</strong> Historical report — read-only. The summary shows the original investigation outcome; open the report for the current recovery state.</div>
           {unknownVersion && <div className="banner error" role="alert">Unsupported report version ({String(report.schema_version)}). Only safe metadata and bounded raw data are shown; version-1 fields are not assumed and this is not a success.</div>}
           {recordInvalid && <div className="banner error" role="alert">This saved record is invalid; unavailable sections are not reconstructed.</div>}
           <dl className="mini grid-info cases-grid">
