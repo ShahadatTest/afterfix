@@ -1,0 +1,776 @@
+{
+  "inventory_sha256": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37",
+  "packages": [
+    {
+      "ecosystem": "PyPI",
+      "name": "Pygments",
+      "queried": true,
+      "version": "2.21.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "annotated-doc",
+      "queried": true,
+      "version": "0.0.5",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "annotated-types",
+      "queried": true,
+      "version": "0.8.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "anyio",
+      "queried": true,
+      "version": "4.15.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "certifi",
+      "queried": true,
+      "version": "2026.10.23",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "click",
+      "queried": true,
+      "version": "8.5.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "colorama",
+      "queried": true,
+      "version": "0.4.6",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "fastapi",
+      "queried": true,
+      "version": "0.162.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "h11",
+      "queried": true,
+      "version": "0.16.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "httpcore",
+      "queried": true,
+      "version": "1.0.9",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "httpx",
+      "queried": true,
+      "version": "0.28.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "idna",
+      "queried": true,
+      "version": "3.20",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "iniconfig",
+      "queried": true,
+      "version": "2.3.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "opentelemetry-api",
+      "queried": true,
+      "version": "1.45.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "packaging",
+      "queried": true,
+      "version": "26.3",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pip",
+      "queried": true,
+      "version": "25.0.1",
+      "vulns": [
+        {
+          "id": "GHSA-4xh5-x5gv-qwph",
+          "modified": "2026-09-10T03:50:27.949321Z"
+        },
+        {
+          "id": "GHSA-58qw-9mgm-455v",
+          "modified": "2026-09-10T03:50:42.838011Z"
+        },
+        {
+          "id": "GHSA-6vgw-5pg2-w6jp",
+          "modified": "2026-09-10T03:50:34.266257Z"
+        },
+        {
+          "id": "GHSA-jp4c-xjxw-mgf9",
+          "modified": "2026-09-10T03:50:44.656580Z"
+        },
+        {
+          "id": "GHSA-qwm4-qh6w-59xr",
+          "modified": "2026-09-10T03:50:52.923367Z"
+        },
+        {
+          "id": "GHSA-wf93-45jw-7689",
+          "modified": "2026-09-10T03:51:09.636289Z"
+        },
+        {
+          "id": "PYSEC-2026-1795",
+          "modified": "2026-07-07T17:48:06.199964Z"
+        },
+        {
+          "id": "PYSEC-2026-1796",
+          "modified": "2026-07-07T17:48:06.240646Z"
+        },
+        {
+          "id": "PYSEC-2026-196",
+          "modified": "2026-07-13T16:45:04.859457Z"
+        },
+        {
+          "id": "PYSEC-2026-2875",
+          "modified": "2026-07-13T16:31:33.455648Z"
+        },
+        {
+          "id": "PYSEC-2026-2876",
+          "modified": "2026-07-13T16:32:57.447552Z"
+        },
+        {
+          "id": "PYSEC-2026-3721",
+          "modified": "2026-09-10T11:15:08.939447Z"
+        }
+      ]
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pluggy",
+      "queried": true,
+      "version": "1.7.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pydantic",
+      "queried": true,
+      "version": "2.14.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pydantic_core",
+      "queried": true,
+      "version": "2.50.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "pytest",
+      "queried": true,
+      "version": "9.1.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "starlette",
+      "queried": true,
+      "version": "1.10.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "typing-inspection",
+      "queried": true,
+      "version": "0.4.4",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "typing_extensions",
+      "queried": true,
+      "version": "4.16.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "PyPI",
+      "name": "uvicorn",
+      "queried": true,
+      "version": "0.54.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "itoa",
+      "queried": true,
+      "version": "1.0.18",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "memchr",
+      "queried": true,
+      "version": "2.8.3",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "proc-macro2",
+      "queried": true,
+      "version": "1.0.107",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "quote",
+      "queried": true,
+      "version": "1.0.47",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde",
+      "queried": true,
+      "version": "1.0.229",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_core",
+      "queried": true,
+      "version": "1.0.229",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_derive",
+      "queried": true,
+      "version": "1.0.229",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "serde_json",
+      "queried": true,
+      "version": "1.0.154",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "syn",
+      "queried": true,
+      "version": "3.0.9",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "unicode-ident",
+      "queried": true,
+      "version": "1.0.27",
+      "vulns": []
+    },
+    {
+      "ecosystem": "crates.io",
+      "name": "zmij",
+      "queried": true,
+      "version": "1.0.23",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@oxc-project/types",
+      "queried": true,
+      "version": "0.155.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm-eabi",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-android-arm64",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-arm64",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-darwin-x64",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-freebsd-x64",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm-gnueabihf",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-gnu",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-arm64-musl",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-ppc64-gnu",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-s390x-gnu",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-linux-x64-musl",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-openharmony-arm64",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-arm64-msvc",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@rolldown/pluginutils",
+      "queried": true,
+      "version": "1.0.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react",
+      "queried": true,
+      "version": "19.3.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react-dom",
+      "queried": true,
+      "version": "19.3.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-aix-ppc64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-darwin-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-darwin-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-freebsd-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-freebsd-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-arm",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-loong64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-mips64el",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-ppc64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-riscv64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-s390x",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-linux-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-netbsd-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-netbsd-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-openbsd-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-openbsd-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-sunos-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-win32-arm64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@typescript/typescript-win32-x64",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@vitejs/plugin-react",
+      "queried": true,
+      "version": "6.1.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "csstype",
+      "queried": true,
+      "version": "3.2.3",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "detect-libc",
+      "queried": true,
+      "version": "2.1.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fdir",
+      "queried": true,
+      "version": "6.5.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fsevents",
+      "queried": true,
+      "version": "2.3.3",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-android-arm64",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-arm64",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-darwin-x64",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-freebsd-x64",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm-gnueabihf",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-gnu",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-arm64-musl",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-gnu",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-linux-x64-musl",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-arm64-msvc",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "lightningcss-win32-x64-msvc",
+      "queried": true,
+      "version": "1.33.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "nanoid",
+      "queried": true,
+      "version": "3.3.20",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picocolors",
+      "queried": true,
+      "version": "1.1.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "picomatch",
+      "queried": true,
+      "version": "4.0.7",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "postcss",
+      "queried": true,
+      "version": "8.5.32",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "queried": true,
+      "version": "19.3.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "queried": true,
+      "version": "19.3.1",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "rolldown",
+      "queried": true,
+      "version": "1.2.15",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "scheduler",
+      "queried": true,
+      "version": "0.28.0",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "source-map-js",
+      "queried": true,
+      "version": "1.2.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "tinyglobby",
+      "queried": true,
+      "version": "0.2.17",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "typescript",
+      "queried": true,
+      "version": "7.0.2",
+      "vulns": []
+    },
+    {
+      "ecosystem": "npm",
+      "name": "vite",
+      "queried": true,
+      "version": "8.3.5",
+      "vulns": []
+    }
+  ],
+  "status": "findings"
+}

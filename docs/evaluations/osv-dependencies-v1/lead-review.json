@@ -1,0 +1,141 @@
+{
+  "reviewed_at": "2026-10-28T08:47:35.644622+00:00",
+  "job_id": "92c23061-f5bf-4564-acc8-0d532acefc99",
+  "decision": "accepted_snapshot_with_open_installer_remediation",
+  "job_returncode": 1,
+  "independent_checks": "All103 public mappings/order/hash/queryflags/counts verified; sources still pinned; raw artifacts byte-preserved.",
+  "artifact_sha256": {
+    "request.json": "a6d7333911599c847c04ac3af85100b5c568f0f05e48ca4d5bdfd54635e09ae3",
+    "results.json": "9337c4a3bf0eb1035ad74da2d1cda5f2d4c9774f7428d4f89bd6171ec77414e4",
+    "summary.json": "f4612a58614c9165ae9fdde14133add998908e0b59c9451b3eab65d2ecd72c23"
+  },
+  "summary": {
+    "advisory_instance_count": 12,
+    "advisory_unique_count": 12,
+    "counts_partial": false,
+    "inventory_sha256": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37",
+    "queried_count": 103,
+    "status": "findings",
+    "total_count": 103
+  },
+  "affected_packages": [
+    {
+      "ecosystem": "PyPI",
+      "name": "pip",
+      "queried": true,
+      "version": "25.0.1",
+      "vulns": [
+        {
+          "id": "GHSA-4xh5-x5gv-qwph",
+          "modified": "2026-09-10T03:50:27.949321Z"
+        },
+        {
+          "id": "GHSA-58qw-9mgm-455v",
+          "modified": "2026-09-10T03:50:42.838011Z"
+        },
+        {
+          "id": "GHSA-6vgw-5pg2-w6jp",
+          "modified": "2026-09-10T03:50:34.266257Z"
+        },
+        {
+          "id": "GHSA-jp4c-xjxw-mgf9",
+          "modified": "2026-09-10T03:50:44.656580Z"
+        },
+        {
+          "id": "GHSA-qwm4-qh6w-59xr",
+          "modified": "2026-09-10T03:50:52.923367Z"
+        },
+        {
+          "id": "GHSA-wf93-45jw-7689",
+          "modified": "2026-09-10T03:51:09.636289Z"
+        },
+        {
+          "id": "PYSEC-2026-1795",
+          "modified": "2026-07-07T17:48:06.199964Z"
+        },
+        {
+          "id": "PYSEC-2026-1796",
+          "modified": "2026-07-07T17:48:06.240646Z"
+        },
+        {
+          "id": "PYSEC-2026-196",
+          "modified": "2026-07-13T16:45:04.859457Z"
+        },
+        {
+          "id": "PYSEC-2026-2875",
+          "modified": "2026-07-13T16:31:33.455648Z"
+        },
+        {
+          "id": "PYSEC-2026-2876",
+          "modified": "2026-07-13T16:32:57.447552Z"
+        },
+        {
+          "id": "PYSEC-2026-3721",
+          "modified": "2026-09-10T11:15:08.939447Z"
+        }
+      ]
+    }
+  ],
+  "alias_groups": [
+    {
+      "github_id": "GHSA-4xh5-x5gv-qwph",
+      "pysec_alias": "PYSEC-2026-1795",
+      "cve": "CVE-2025-8869",
+      "fixed_version": "25.3",
+      "lead_applicability": "tar symlink fallback; Python3.12 implements PEP706, so described fallback not used",
+      "source": "https://osv.dev/vulnerability/GHSA-4xh5-x5gv-qwph"
+    },
+    {
+      "github_id": "GHSA-58qw-9mgm-455v",
+      "pysec_alias": "PYSEC-2026-2875",
+      "cve": "CVE-2026-3219",
+      "fixed_version": "26.1",
+      "lead_applicability": "ambiguous concatenated ZIP/tar installation",
+      "source": "https://osv.dev/vulnerability/GHSA-58qw-9mgm-455v"
+    },
+    {
+      "github_id": "GHSA-6vgw-5pg2-w6jp",
+      "pysec_alias": "PYSEC-2026-1796",
+      "cve": "CVE-2026-1703",
+      "fixed_version": "26.0",
+      "lead_applicability": "crafted wheel extraction can escape target prefixes",
+      "source": "https://osv.dev/vulnerability/GHSA-6vgw-5pg2-w6jp"
+    },
+    {
+      "github_id": "GHSA-jp4c-xjxw-mgf9",
+      "pysec_alias": "PYSEC-2026-2876",
+      "cve": "CVE-2026-6357",
+      "fixed_version": "26.1",
+      "lead_applicability": "self-update imports after wheel installation; disable-pip-version-check mitigates reviewed install path only",
+      "source": "https://osv.dev/vulnerability/GHSA-jp4c-xjxw-mgf9"
+    },
+    {
+      "github_id": "GHSA-qwm4-qh6w-59xr",
+      "pysec_alias": "PYSEC-2026-3721",
+      "cve": "CVE-2026-13346",
+      "fixed_version": "26.2.0",
+      "lead_applicability": "double-encoded URLs require malicious package index; fixed PyPI source reduces this exposure",
+      "source": "https://osv.dev/vulnerability/GHSA-qwm4-qh6w-59xr"
+    },
+    {
+      "github_id": "GHSA-wf93-45jw-7689",
+      "pysec_alias": "PYSEC-2026-196",
+      "cve": "CVE-2026-8643",
+      "fixed_version": "26.1.2",
+      "lead_applicability": "console/gui entry point path traversal during package installation",
+      "source": "https://osv.dev/vulnerability/GHSA-wf93-45jw-7689"
+    }
+  ],
+  "lead_conclusion": "12 distinct advisory record IDs represent6 alias-grouped issues in the fresh-clone installer pip25.0.1. Other102 package triples had no indexed matches in this completed snapshot. Installer is not an app runtime import; installation exposure still requires remediation. No exploit test or certification.",
+  "remediation_plan": {
+    "candidate": "pip26.2.2",
+    "source": "https://pypi.org/project/pip/26.2.2/",
+    "wheel_sha256": "fd7f4dfa8190e014013b9f08f3e973f4e4c26ffd179a204895533a7254813a70",
+    "status": "not_installed_or_requeried_yet; ask Meta for bounded hash-pinned bootstrap requirement/README correction; lead review then localvenv QA"
+  },
+  "limitations": [
+    "No OS/SQLite/toolchain/vendored pip dependency assessment or application exploit certification.",
+    "No package installed/upgraded; historical inventory/output remain immutable.",
+    "Zero Meta/runtime calls this QA; tracked local estimate remains16.285092USD."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "advisory_instance_count": 12,
+  "advisory_unique_count": 12,
+  "counts_partial": false,
+  "inventory_sha256": "39c2b9fac692ca42311ef718ef03673b20253d527716d0ff55324f4e1242cf37",
+  "queried_count": 103,
+  "status": "findings",
+  "total_count": 103
+}

@@ -20,7 +20,8 @@ This checklist separates recorded evidence from work still pending. Checked item
 
 - [x] Fresh Windows frontend npm12.0.2 install/build passed after disk recovery; native dependencies installed,22modules222ms, emitted JS matches prior build SHA256. Earlier failures retained, no product fix needed. See [fresh frontend evidence](evaluations/frontend-repro-accepted-2026-10-28.json).
 - [x] Pinned dd660c5 Windows reproducibility checked in separate fresh local clones: Python403/Rust32 tests and native checks/7offline apply cases, plus freshfrontend install/build. This was split validation, not a single all-in-one successful run; crossplatform remains pending.
-- [ ] Python, JavaScript, and Rust dependency advisory review.
+- [x] Public OSV snapshot reviewed for103 Python/npm/Cargo triples:12IDs/six alias-grouped issues in pip25.0.1 installer; other102 no indexed matches. See [dependency results](DEPENDENCY_RESULTS.md).
+- [ ] Remediate isolated installer/bootstrap to reviewed pinned pip26.2.2 and verify updated environment/advisory result; original evidence retained. OS/SQLite/toolchain/vendored dependencies remain separate.
 - [ ] Final secret review of source, reports, screenshots, and exported artifacts.
 - [ ] Actual mobile layout checks; the recorded browser viewport was desktop **1280 × 585**.
 - [x] Actual delayed old-session report discarded after signout/viewer signin; viewer remained readonly. See [browser session evidence](evaluations/browser-session-failure-2026-10-28.json).

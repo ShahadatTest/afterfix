@@ -1,5 +1,9 @@
 # Implementation provenance
 
+## Public dependency snapshot reviewed; installer correction queued —2026-10-28
+
+Lead QA job92c23061 completed one public OSV query of103triples, rc1/findings (not failure),12distinctIDs allfresh-clone installer pip25.0.1. Independent mappings/counts/hashes checked; original3artifacts bytepreserved in evaluations/osv-dependencies-v1/. OfficialOSV aliases establish six underlyingissues; other102triples noindexedmatches, no clean/certification claim. NoMeta/runtimecalls or installs, localcompletedestimate unchanged$16.285092. Lead reviewed public fixedranges/PyPI26.2.2/wheelhash, documented DEPENDENCY_RESULTS.md and accepted snapshot with installer remediation open. Meta job21baf87c queued prompt64 for separatehash-pinnedbootstraprequirement+READMEonly; no upgrade/resultclaimed. No app/runtime changes, livebenchmark5/7 preserved.
+
 ## Dependency audit corrections accepted —2026-10-28
 
 Wonder1.0 run48bdd679/jobc3374ce2:16830input/12007output(1857reasoning),estimate$0.307460,cumulative local$16.285092. Full staged source/tests/diff reviewed before copying/executing. Focused99offline tests passed1.13s; real103inventory defaultprepare rc0/not_queried/nullcounts, no network. Lead independently matched all103prepared public queries and current source hashes; installed code byte-identical to Meta staging. Scopednpm/strictfullmatch/schema/metadata/HTTPError bounds/pagination/duplicateJSON fixes accepted. Docs retained from first reviewed staging with lead outcome clarification. No backend/runtime/guard/frozenbenchmark changes; no real advisory result claimed yet. Evidence dependency-audit-accepted-48bdd679.json. Next bounded public OSV QA uses pinned sources and shared dispatcher/locks without Meta credentials/install/upgrade/retry.
