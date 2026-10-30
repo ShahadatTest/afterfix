@@ -1,0 +1,42 @@
+{
+  "video_filename": "afterfix-demo.mp4",
+  "duration_seconds": 179.979752,
+  "bytes": 4207470,
+  "sha256": "6ab71eaec0fa2ede2dc3d165165f1b8fa93ba0cdb9a50d78307fc9ca17b1c805",
+  "streams": [
+    {
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "codec_name": "aac",
+      "codec_type": "audio"
+    }
+  ],
+  "kind": "edited actual live-run screenshots with narration; not continuous recording",
+  "narration_voice": "Microsoft David Desktop, generic installed text-to-speech",
+  "screen_capture_method": "CUA browser screenshots of actual release-smoke81 actions",
+  "sampled_rendered_frames_inspected_seconds": [
+    80,
+    145
+  ],
+  "not_continuous_screen_recording": true,
+  "frozen_live_benchmark": "5/7 unchanged",
+  "first_provider_failure_retained": true,
+  "source_frame_sha256": {
+    "01-scenario.png": "e70b24e8a8274d8931762dec3a71a561b7cfe5cca542a4dc24bd2867e8204304",
+    "02-code-patch.png": "6f6790284b29142d1c2fdc3de67a1c62424f4101e0de4a967efdeca62b62e52e",
+    "03-events.png": "d39398f9e1ed8fc51d2d89eae633b83fdd088a0c5882750dcc72617fd682e554",
+    "05-live-needs-review.png": "a722d14a585cf5e1928efdd9ea90545544c31ec24dc280110417f1a2db73921c",
+    "06-live-missing-review.png": "728095207b2169e76d041947093bbf4c4001eddcfd88b9660defc2e802ca0c51",
+    "07-live-preview.png": "8dad50dffc9384b23ff3b19628a87bc6dcd9f8e066942d5d571cb218409063fe",
+    "08-rust-checks.png": "b81ea822456ccc1cd944aa6213d2d8b1e077e864556621296574f3189b54efe1",
+    "09-approved.png": "274af4e770e70743a9ed4c23ab5fe0f4c48d840dc987ba65805cb14526a7073b",
+    "10-stale-invalidated.png": "ddfd1c35d7936590d92eebbd01634a42516dc6558b20c78e9e274f71666f9891",
+    "11-fresh-preview111.png": "3c678890c0fa877ce7178928de185dfd516a8b818150714d50c72010ac03ee76",
+    "12-live-verified111.png": "be65788382570e5d28fc1b563471d8e9380dd5225fb6e6f3473a7064207d7bd6",
+    "13-report.png": "d3dd6b45bac8a93c3ccc7ae910f4d0e3e5576202986e3ccfe1f32718395a0e5f"
+  }
+}

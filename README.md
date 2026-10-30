@@ -1,5 +1,18 @@
 # AfterFix
 
+![AfterFix live release recovery](docs/assets/demo-verified.png)
+
+## Current release validation —2026-10-30
+
+Scenario Lab is integrated: three explicit synthetic demonstrations, separate load confirmation, safe missing-evidence rejection, and stale approval invalidation. Full strict frontend build and native scenario/API-session/case-state checks passed. Browser360/390/1280 viewport checks and delayed-initial-response/disabled404 checks passed.
+
+An isolated official Python3.14.10 (OpenSSL3.5.9, SQLite3.50.4) and Rust1.98.1 rebuild passed573Python and32Rust tests with unchanged product source. Global runtimes were not upgraded. This is compatibility evidence, not an all-platform or security certification. See [runtime results](docs/evaluations/release-runtime-2026-10-30.json).
+
+A separate real Meta release smoke retained its initial provider failure, rejected a missing-opening draft through validation, and completed stale-snapshot recovery101to111 after a fresh explicit investigation and approval. Both valid restocks20+1 and unrelated stock45 were preserved; old approval apply returned409. Four investigations cost a conservative$0.0357975, including one unknown call charged at its full bound. This does not replace or improve the frozen5/7 benchmark. See [live results](docs/evaluations/release-live-2026-10-30.json) and the [edited live-run demo script](docs/DEMO_RELEASE_SCRIPT.md).
+
+The historical setup and earlier evidence below are retained with their original versions/counts. Current source has newer Scenario Lab checks; deployment packaging is being prepared separately. Use private operator credentials for mutation; public access must not expose a known test-fixture operator token.
+
+
 AfterFix is a local, synthetic inventory-recovery demo. It helps an operator investigate inventory damaged by a duplicate-delivery bug after the code fix, review an evidence-linked repair, approve it explicitly, apply it separately, and verify that valid activity was preserved.
 
 It is not a production recovery product, an arbitrary SQL repair tool, or a universal rollback system. No security certification, production readiness, or perfect reliability is claimed.

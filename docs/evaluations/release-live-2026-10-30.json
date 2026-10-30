@@ -1,0 +1,82 @@
+{
+  "name": "release-smoke81-not-heldout-v1",
+  "investigations": 4,
+  "provider_requests_including_first_unknown": 10,
+  "confirmed_token_usage_requests": 9,
+  "conservative_cost_usd": 0.0357975,
+  "unknown_call_full_charge_usd": 0.010045,
+  "input_tokens": 9892,
+  "output_tokens": 3150,
+  "outcomes": {
+    "A": "live service failure; needs-review; no proposal/write, no retry of same case",
+    "B": "live model draft rejected by deterministic validation for missing opening; no repair",
+    "C": "live preview and approval; legitimate restock invalidates; old apply409; explicit fresh investigation/approval/apply/verify111"
+  },
+  "final_database": {
+    "stock": 111,
+    "gadget": 45,
+    "repair_events": 1,
+    "approvals": 2,
+    "restock_quantities": [
+      20,
+      1
+    ]
+  },
+  "original_frozen_benchmark_unchanged": "5/7 passes,2/7failures; no rerun",
+  "no_automatic_retry": true,
+  "browser": {
+    "stale": {
+      "afterLegitimateRestock": {
+        "applyButtons": 0,
+        "notice": [
+          "Added a legitimate synthetic 1-unit restock. The prior preview and any approval were invalidated; a fresh explicit investigation is required. This was not a repair or verification.",
+          "Needs review. Historical report \u00e2\u20ac\u201d read-only. The summary shows the original investigation outcome; open the report for the current recovery state."
+        ],
+        "stock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock101"
+      }
+    },
+    "final": {
+      "savedCases": [
+        {
+          "text": "CASE-89bde27c8f9b253d \u00c2\u00b7 10/30/2026, 10:20:51 PM \u00c2\u00b7 original status: proposed",
+          "value": "CASE-89bde27c8f9b253d"
+        },
+        {
+          "text": "CASE-6a7c14c91939ee2a \u00c2\u00b7 10/30/2026, 10:19:26 PM \u00c2\u00b7 original status: proposed",
+          "value": "CASE-6a7c14c91939ee2a"
+        }
+      ],
+      "stock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock111",
+      "verifiedText": [
+        "Verified. Final recorded stock is 111, and preservation of valid later activity was verified."
+      ]
+    },
+    "paidInvestigationLimit": 4,
+    "firstFailedAttemptRetained": true
+  },
+  "stale_apply_probe": {
+    "old_proposal": "PROP-9bb78f01",
+    "apply_status": 409,
+    "repair_events_before": 0,
+    "repair_events_after": 0
+  },
+  "auth_models_diagnostic": {
+    "http_status": 200,
+    "spark13_available": true,
+    "wonder_available": true,
+    "models_count": 9,
+    "key_printed": false,
+    "generation_calls": 0
+  },
+  "cleanup": {
+    "signed_out": true,
+    "tab_closed": true,
+    "viewport_reset": true,
+    "owned_servers_stopped": true
+  },
+  "limitations": [
+    "Separate release smoke, not new benchmark score.",
+    "First provider failure remains unknown at full0.010045 bound; token usage not fabricated.",
+    "UI report-download click did not yield browser download event; exact reports independently retrieved from actual read-only authenticated report endpoint."
+  ]
+}

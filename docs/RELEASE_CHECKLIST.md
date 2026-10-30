@@ -59,3 +59,17 @@ Contest deadline: **2026-11-04 21:00 America/New_York**, which is **2026-11-05 0
 ## Claim limits
 
 Do not claim security certification, production readiness, perfect scores, universal rollback, arbitrary SQL repair, mobile verification, or measured live improvement from the offline output-cap fix. Keep offline fixtures separate from live evidence.
+
+## Current candidate delta —2026-10-30
+
+- [x] Scenario Lab fullintegration, strictbuild and3native scripts accepted at7febe00.
+- [x] Actual offline browser all3scenarios, viewer/session/failure paths,360/390/1280 layouts.
+- [x] Remaining delayed-initialGET race and disabled404 browser checks passed.
+- [x] Official portablePython3.14.10/privateRust1.98.1 compatibility:573Python/32Rust tests; existingglobal runtimes unchanged.
+- [x] Real Meta release smoke: first provider failure retained; unsupported missingopening blocked; stale oldapply409; new snapshot101to111 verified with20+1restocks andGadget45 preserved. Frozen5/7 unchanged.
+- [x] Actual live-run edited narrated demo rendered179.98seconds,1920x1080 H.264/AAC; sampled frames/duration checked, first failure retained.
+- [ ] Current source/artifact scan/package and external publication.
+- [ ] Linux deployment build/CI, isolated SKLab canary, DNS/HTTPS and rollback validation.
+- [ ] Publicrepository/video publication and actual contestsubmission.
+
+Historical pending items above are superseded only to the explicit scope of this delta. Remaining OS/SQLite/pip-vendored applicability and crossplatform deployment checks are not cleared by Windows tests.

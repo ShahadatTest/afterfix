@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "name": "late initial incident ignored",
+      "result": {
+        "alerts": [],
+        "currentStock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock100",
+        "loading": false,
+        "scenario": "Current scenario: Missing opening recordLoad reference: a79e6c4c-4414-4391-a24c-c8bdf7155fd3"
+      }
+    },
+    {
+      "name": "actual lab disabled404 hides panel",
+      "result": {
+        "alerts": [],
+        "incident": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock100",
+        "scenarioPanel": false
+      }
+    }
+  ],
+  "mode": "offline synthetic; zero model calls",
+  "delayed_response": {
+    "captured_old_stock": 110,
+    "released": true
+  },
+  "source_revision": "7febe00",
+  "paid_api_calls": 0,
+  "cleanup": {
+    "signed_out": true,
+    "tab_closed": true,
+    "servers_stopped": true
+  }
+}
