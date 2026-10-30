@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ApiError, apiPost, apiGet } from "./api";
 import CaseReports from "./CaseReports";
 import { isActiveVerified, isRustApprovalReady, isValidPassingChecks } from "./caseState";
+import ScenarioLab from "./ScenarioLab";
+import { ADVANCE_CONFIRMATION, LOAD_CONFIRMATION, advanceSession, createLabSession, hasCanonicalAdvanceBinding, isKnownScenarioId, parseAdvanceResponse, parseLoadResponse } from "./scenarioState";
+import type { LabSession, ScenarioId } from "./scenarioState";
 import type {
   ApplyResponse, ApprovalResponse, AuthMeResponse, CitedStatement, EvidenceEvent, EvidenceResponse,
   IncidentResponse, InvestigationResult, PatchResponse, PreviewResponse, ResetResponse, VerifyResponse,
@@ -100,11 +103,13 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
   const [focusCaseId, setFocusCaseId] = useState<string | null>(null);
   const applyKeyRef = useRef<string | null>(null);
   const mutationLockRef = useRef(false);
+  const [labSession, setLabSession] = useState<LabSession | null>(null);
+  const incidentGenerationRef = useRef(0);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const lastFocusRef = useRef<HTMLElement | null>(null);
 
   const busyAny = busy !== null;
-  const resetting = busy === "reset";
+  const resetting = busy === "reset" || busy === "scenario-load";
   const proposalId = investigation?.proposal_id ?? preview?.proposal.proposal_id ?? null;
   const refreshCases = useCallback(() => setCaseRefresh((n) => n + 1), []);
 
@@ -119,12 +124,13 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
   }, []);
   const clearDownstream = useCallback(() => { invalidateStale(); }, [invalidateStale]);
 
-  const loadIncident = useCallback(async (id: string) => {
+  const loadIncident = useCallback(async (id: string, generation?: number) => {
     const [inc, ev, pa] = await Promise.all([
       apiGet<IncidentResponse>(`/api/incidents/${encodeURIComponent(id)}`),
       apiGet<EvidenceResponse>(`/api/incidents/${encodeURIComponent(id)}/evidence`),
       apiGet<PatchResponse>(`/api/incidents/${encodeURIComponent(id)}/patch`),
     ]);
+    if (generation !== undefined && generation !== incidentGenerationRef.current) return;
     setIncident(inc); setEvidence(ev); setPatch(pa.patch); setNotSeeded(false);
   }, []);
   const refreshIncident = useCallback(async (id: string) => {
@@ -140,13 +146,14 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
 
   useEffect(() => {
     let cancelled = false;
+    const generation = incidentGenerationRef.current;
     (async () => {
-      try { await loadIncident(DEFAULT_INCIDENT); }
+      try { await loadIncident(DEFAULT_INCIDENT, generation); }
       catch (e) {
-        if (cancelled) return;
+        if (cancelled || generation !== incidentGenerationRef.current) return;
         if (e instanceof ApiError && e.status === 404) setNotSeeded(true);
         else setError(e instanceof Error ? e.message : "Could not load the incident.");
-      } finally { if (!cancelled) setInitialLoading(false); }
+      } finally { if (!cancelled && generation === incidentGenerationRef.current) setInitialLoading(false); }
     })();
     return () => { cancelled = true; };
   }, [loadIncident]);
@@ -173,16 +180,18 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
   const isValidPreview = !!preview && preview.snapshot_match === true && preview.simulation_pass === true && isValidPassingChecks(preview.simulation_checks) && isValidPassingChecks(preview.invariants) && rustValid;
   const applySucceeded = isApplySuccess(applyResult);
   const verified = isVerified(verifyResult);
+  const scenarioAdvanceReady = hasCanonicalAdvanceBinding(labSession, preview, isValidPreview, false);
   const canApprove = !isViewer && isValidPreview && !!preview && preview.proposal.status === "proposed" && reviewed && !approval && !applyResult;
   const furthest: Stage = applySucceeded ? 3 : isValidPreview ? 2 : preview ? 1 : 0;
 
   async function runReset() {
     if (!canReset) { setError(isViewer ? "Viewers have read-only access and cannot load or reset demo data." : "Reset is not permitted for this account."); return; }
     if (!acquireMutation("reset")) return;
+    incidentGenerationRef.current += 1; setInitialLoading(false);
     // Reset-start invalidation happens through the resetting prop: CaseReports
     // bumps its generation, clears visible history/report/download state and
     // suspends history loads before this POST settles.
-    setError(null); setNotice(null); setFocusCaseId(null); clearDownstream();
+    setError(null); setNotice(null); setFocusCaseId(null); clearDownstream(); setLabSession(null);
     try {
       const r = await apiPost<ResetResponse>("/api/admin/reset", {});
       setIncidentId(r.incident_id); setSelectedEvent(null); setDialogMode(null);
@@ -192,6 +201,52 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
       setNotice(`Synthetic demo data loaded for ${r.incident_id}. Saved cases were cleared by the reset.`);
     } catch (e) { setError(e instanceof Error ? e.message : "Could not load demo data."); }
     finally { releaseMutation(); }
+  }
+
+  async function runScenarioLoad(id: ScenarioId) {
+    if (!canReset) { setError(isViewer ? "Viewers have read-only access and cannot load scenarios." : "Scenario loading is not permitted for this account."); return; }
+    if (!isKnownScenarioId(id)) { setError("Unknown scenario."); return; }
+    if (!acquireMutation("scenario-load")) return;
+    incidentGenerationRef.current += 1; setInitialLoading(false);
+    setError(null); setNotice(null); setFocusCaseId(null); clearDownstream();
+    setSelectedEvent(null); setDialogMode(null); setIncident(null); setEvidence(null); setPatch(""); setLabSession(null); setNotSeeded(false);
+    try {
+      const raw: unknown = await apiPost<unknown>(`/api/lab/scenarios/${encodeURIComponent(id)}/load`, { confirmation: LOAD_CONFIRMATION });
+      const parsed = parseLoadResponse(raw, id);
+      if (!parsed) throw new Error("Scenario load returned an invalid response. The previous data and lab authority are unavailable.");
+      await loadIncident(parsed.incident_id);
+      const session = createLabSession(parsed);
+      if (!session) throw new Error("Scenario load returned an invalid session. The previous lab authority is unavailable.");
+      setIncidentId(parsed.incident_id); setLabSession(session);
+      setNotice(`Synthetic scenario ${parsed.scenario_id} loaded. A fresh explicit investigation is required; nothing was investigated automatically.`);
+    } catch (e) { setError(e instanceof Error ? e.message : "Scenario could not be loaded."); }
+    finally { setCaseClear((n) => n + 1); releaseMutation(); }
+  }
+
+  async function runScenarioAdvance() {
+    if (!canReset) { setError(isViewer ? "Viewers have read-only access and cannot advance scenarios." : "Scenario advance is not permitted for this account."); return; }
+    const session = labSession;
+    const currentPreview = preview;
+    if (!session || !currentPreview || !hasCanonicalAdvanceBinding(session, currentPreview, isValidPreview, false) || !!applyResult) { setError("Advance requires a current canonical stale-snapshot preview with no applied repair. Run a fresh investigation to create a new preview."); return; }
+    const proposalId = currentPreview.proposal.proposal_id;
+    const expectedHash = session.snapshotHash;
+    if (!acquireMutation("scenario-advance")) return;
+    incidentGenerationRef.current += 1; setInitialLoading(false);
+    setError(null); setNotice(null); setSelectedEvent(null); setDialogMode(null); clearDownstream(); setLabSession(null); setStage(0);
+    try {
+      const raw: unknown = await apiPost<unknown>("/api/lab/scenarios/stale_snapshot/advance", { confirmation: ADVANCE_CONFIRMATION, load_id: session.loadId, proposal_id: proposalId, expected_snapshot_hash: expectedHash });
+      const parsed = parseAdvanceResponse(raw, session, proposalId, expectedHash);
+      if (!parsed) throw new Error("Scenario advance returned an invalid response. The prior preview, approval and lab authority are no longer available; nothing was retried.");
+      const next = advanceSession(session, parsed);
+      if (!next) throw new Error("Scenario advance returned an invalid session. The prior lab authority is no longer available; nothing was retried.");
+      setLabSession(next);
+      try { await refreshIncident(session.incidentId); refreshCases(); }
+      catch { setIncident(null); setEvidence(null); setError("The synthetic restock was added, but current incident and evidence could not be refreshed and are unavailable. Do not use the prior preview or approval."); }
+      setNotice("Added a legitimate synthetic 1-unit restock. The prior preview and any approval were invalidated; a fresh explicit investigation is required. This was not a repair or verification.");
+    } catch (e) {
+      setIncident(null); setEvidence(null);
+      setError(e instanceof ApiError && e.status === 409 ? "The underlying data changed, so the synthetic restock advance was rejected. The prior preview, approval and lab authority are no longer available; run a fresh investigation." : e instanceof Error ? e.message : "Scenario advance could not be completed. The prior lab authority is no longer available; nothing was retried.");
+    } finally { releaseMutation(); }
   }
 
   async function runInvestigate() {
@@ -309,6 +364,8 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
         <div aria-live="polite">{initialLoading && <div className="banner info" role="status">Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
         <div aria-live="polite">{notice && <div className="banner info" role="status">{notice}</div>}</div>
+
+        <ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} />
 
         {notSeeded && !incident ? (
           <section className="panel empty"><h2>No demo incident is loaded yet</h2>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : (<><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading…" : "Load demo"}</button></>)}</section>

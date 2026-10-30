@@ -1,0 +1,195 @@
+.scenario-panel {
+  min-width: 0;
+}
+
+.scenario-label {
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.scenario-copy,
+.scenario-current,
+.scenario-advance p {
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  min-width: 0;
+}
+
+.scenario-current {
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 10px;
+  padding: 0.7rem;
+}
+
+.scenario-current-title,
+.scenario-current-detail {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.scenario-current-detail {
+  margin-top: 0.35rem;
+  color: #6f6a5f;
+  font-size: 0.9rem;
+}
+
+.scenario-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+.scenario-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 1rem 0;
+  min-width: 0;
+}
+
+.scenario-fieldset legend {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.scenario-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.scenario-card {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  border: 1px solid #e5ddd0;
+  border-radius: 12px;
+  padding: 0.85rem;
+  background: #fffdf9;
+  cursor: pointer;
+  min-width: 0;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.scenario-card input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+}
+
+.scenario-card-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.scenario-card-text strong,
+.scenario-card-description {
+  display: block;
+}
+
+.scenario-card-description {
+  color: #6f6a5f;
+  margin-top: 0.3rem;
+  line-height: 1.4;
+}
+
+.scenario-selected {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 2px #ccfbf1;
+}
+
+.scenario-check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+  min-width: 0;
+  min-height: 44px;
+  box-sizing: border-box;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.scenario-check input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+}
+
+.scenario-check span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.scenario-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.scenario-panel .scenario-action,
+.scenario-panel .scenario-retry {
+  min-height: 44px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.scenario-card:focus-within,
+.scenario-check:focus-within {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.scenario-panel input:focus-visible,
+.scenario-panel button:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.scenario-error {
+  color: #7f1d1d;
+  overflow-wrap: anywhere;
+}
+
+.scenario-advance {
+  border-top: 1px solid #e5ddd0;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  min-width: 0;
+}
+
+.scenario-advance h3 {
+  margin: 0.2rem 0 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .scenario-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scenario-card {
+    width: 100%;
+  }
+
+  .scenario-actions,
+  .scenario-panel .scenario-action,
+  .scenario-panel .scenario-retry {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "reviewed_at_epoch": 1793350022.2381408,
+  "status": "accepted_local_synthetic_scenario_ui",
+  "model": "muse-wonder-1.0",
+  "integration_run": "c247f060-8477-43e3-b789-655f88a21771",
+  "component_run": "ff499f60-4131-4820-834c-6af5ac231a1b",
+  "integration_usage": {
+    "input_tokens": 33183,
+    "output_tokens": 7542,
+    "estimated_cost_usd": 0.283572
+  },
+  "tracked_conservative_project_usd": 19.842412,
+  "includes_unknown_prior_full_bound_usd": 0.877548,
+  "files_sha256": {
+    "frontend/src/App.tsx": "4646b92bd0516cce4176120acb55ecd51ded6d628831ddff150f28b68ef26ca2",
+    "frontend/src/scenarioState.ts": "b03249dca4523a3f0d60ac371700a62b027af6bcb98436b2643e14c50bd6a3c1",
+    "frontend/scripts/check-scenario-state.ts": "a40f87137ec0bdb7187e19c6772d0f006beec3f51dcbf2d059aaa898f0e681d3",
+    "frontend/src/ScenarioLab.tsx": "29ab3888b7c9cd9f563c8678412ddb28fb8280500e1339ac527c541931c296ac",
+    "frontend/src/scenario-lab.css": "2d51beee7a23807cc98de29410ed137a5ce692a55507d994659a91c28ffb4300"
+  },
+  "actual_checks": [
+    {
+      "name": "scenario-state",
+      "returncode": 0,
+      "seconds": 0.31
+    },
+    {
+      "name": "api-session",
+      "returncode": 0,
+      "seconds": 0.42
+    },
+    {
+      "name": "case-state",
+      "returncode": 0,
+      "seconds": 0.35
+    },
+    {
+      "name": "typecheck",
+      "returncode": 0,
+      "seconds": 0.58
+    },
+    {
+      "name": "vite-build",
+      "returncode": 0,
+      "seconds": 5.16
+    }
+  ],
+  "browser": {
+    "mode": "OFFLINE FakeMeta + real Rust, zero paid API calls",
+    "checks": [
+      {
+        "check": "stale advance after actual approval",
+        "result": {
+          "applyButtons": 0,
+          "currentStock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock101",
+          "investigateVisible": true,
+          "notices": [
+            "Added a legitimate synthetic 1-unit restock. The prior preview and any approval were invalidated; a fresh explicit investigation is required. This was not a repair or verification.",
+            "Needs review. Historical report \u2014 read-only. The summary shows the original investigation outcome; open the report for the current recovery state."
+          ]
+        }
+      },
+      {
+        "check": "360px mobile",
+        "result": {
+          "cards": [
+            {
+              "h": 121.83333587646484,
+              "w": 268.1458435058594
+            },
+            {
+              "h": 121.83333587646484,
+              "w": 268.1458435058594
+            },
+            {
+              "h": 144.2291717529297,
+              "w": 268.1458435058594
+            }
+          ],
+          "checkboxes": [
+            142.90625
+          ],
+          "grid": "268.146px",
+          "scrollWidth": 345,
+          "width": 360
+        }
+      },
+      {
+        "check": "390px mobile",
+        "result": {
+          "grid": "298.146px",
+          "scrollWidth": 375,
+          "width": 390
+        }
+      },
+      {
+        "check": "missing opening offline abstention",
+        "result": {
+          "applyOrApproveButtons": 0,
+          "currentStock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock100",
+          "needsReview": true
+        }
+      },
+      {
+        "check": "1280px desktop",
+        "result": {
+          "grid": "281.25px 281.25px 281.25px",
+          "scrollWidth": 1265,
+          "width": 1280
+        }
+      },
+      {
+        "check": "failed load503",
+        "result": {
+          "oldClientSessionAndIncidentAndDownloadCleared": true,
+          "syntheticDbUnchanged": {
+            "events": 5,
+            "cases": 1,
+            "approvals": 0,
+            "repairs": 0
+          },
+          "noAutomaticRetry": true
+        }
+      },
+      {
+        "check": "duplicate recovery offline FakeMeta plus real Rust",
+        "result": {
+          "mainVerificationText": "EVIDENCE-DRIVEN DATA RECOVERY\n\nRecover the data left behind.\n\nAfterFix examines the recorded evidence, previews a bounded repair, and only applies it after your explicit approval.\n\nSCENARIO LAB\nSynthetic scenarios\nSynthetic Scenario Lab\n\nThis panel offers fixed synthetic demonstrations. Loading or advancing a scenario makes no model requests. Running an investigation is a separate explicit action and does use model requests. This panel does not grant backend authority; the service makes the final decision on every action.\n\nCurrent scenario: Duplicate order\n\nLoad reference: a95ed1ca-12c8-40c5-84ef-36248da91a45\n\nChoose a scenario\nDuplicate order\nSynthetic inventory exercise with repeated order-delivery records.\nMissing opening record\nSynthetic inventory exercise with incomplete opening history.\nStale snapshot\nSynthetic inventory exercise where a later legitimate restock can invalidate an earlier snapshot.\nI understand that loading the selected scenario replaces the synthetic demo data and clears saved cases and approvals.\nLoad selected scenario\n\u2713\nInvestigate\n\u2713\nPreview\n\u2713\nApprove & apply\n\u2713\nVerify\nINCIDENT\nWidget stock discrepancy\n\nReported stock discrepancy for WIDGET-1; reconcile ledger against recorded events\n\nDatabase incident status (separate from recovery state): open\n\nPRODUCT ID\nWIDGET-1\nCURRENT RECORDED STOCK\n110\nEVENTS\n5\nSNAPSHOT\n4720f6999573\u2026\nSTAGE 4\nVerify the recovery\nVerify again\nVerified. Final recorded stock is 110, and preservation of valid later activity was verified.\nFINAL STOCK\n110\nOVERALL PASS\nYes\nPRESERVATION VERIFIED\nYes\n\u2713\nStock matches ledger\nstock=110 ledger=110\n\u2713\nNo outstanding duplicate\noutstanding=0\n\u2713\nQty consistent\nper-order quantities consistent\n\u2713\nRepair history valid\nprior repair references valid\n\u2713\nProposal binding\nproposal_product=WIDGET-1\n\u2713\nRepair recorded\nproposal=applied linked_repairs=1\n\u2713\nPreservation baseline\napproved baseline bound to proposal/product\n\u2713\nBaseline products present\nbaseline_products=2\n\u2713\nBaseline records preserved\nbaseline_events=6\n\u2713\nBaseline products ledger consistent\nall baseline products reconcile with current events; later events allowed\n\nFor the authoritative full export, use \u201cDownload full server report\u201d in Saved cases below. There is no separate session-only export.\n\nBack to investigation\nSAVED CASES\nHistory review (read-only)\n\nSaved cases are read-only. To start a new repair, run a fresh investigation.\n\nSaved case\nCASE-e2740d40ea026c82 \u00b7 10/30/2026, 2:43:23 PM \u00b7 original status: proposed\nRefresh cases\nDownload full server report (JSON)\nVerified. Historical report \u2014 read-only. The summary shows the original investigation outcome; open the report for the current recovery state.\nCASE ID\nCASE-e2740d40ea026c82\nINCIDENT ID\nINC-001\nRECORDED\n10/30/2026, 2:43:23 PM\nACTOR\noperator\nDATA LABEL\nsynthetic\nSCHEMA VERSION\n1\nRECORD STATUS\nok\nVERIFICATION STATUS\npassed\nPROPOSAL\nPROP-54f86e8b\nPRODUCT\nWIDGET-1\nDB INCIDENT STATUS (BEFORE CAPTURE)\nopen\nORIGINAL BEFORE STOCK\n100\nimmutable server capture\nORIGINAL PROPOSED AFTER\n110\noriginal preview, unchanged by apply\nCURRENT STOCK\n110\nfrom current report section\nReason / stop category\nREASON\nproposal_created\nSTOP CATEGORY\nproposal_created\nORIGINAL INVESTIGATION STATUS\nproposed\nModel usage (actual, when known)\nMODEL\nmuse-spark-1.3\nREQUESTS\n3\nINPUT TOKENS\n33\nOUTPUT TOKENS\n21\nTOTAL TOKENS\n54\nESTIMATED COST\n$0.00013\nModel hypothesis (claim)\n\nOFFLINE QA FIXTURE: duplicate-delivery evidence; no live model request.\n\nModel explanations are claims, distinct from server-captured events and actual model-read IDs.\n\nACTUAL MODEL-READ EVENT IDS\n#20, #22, #23, #24\nSELECTED / EVIDENCE IDS\n#20, #22, #23, #24\nModel observations (claims with citations)\n\nTwo deductions share one order.\n\nCited events: #22\nModel inferences (claims)\n\nThe later duplicate is the extra deduction.\n\nCited events: #23\nUncertainties (model claims)\n\nNone reported.\n\nInitial snapshot & preview checks\nBEFORE HASH / FINGERPRINT\na3453f6261efa0de49859892af093e076fe3e921da295c40d5d7b6c87af389c4\nPREVIEW SNAPSHOT MATCH (AT PREVIEW TIME)\nYes\nSIMULATION PASS\nYes\nREVERSE IDS\n#23\nPRESERVED RESTOCKS\n#24\nSimulation checks\n\u2713\nrepair_applies_cleanly\n\u2713\nledger_matches_stock_after\n\u2713\nno_outstanding_after\n\u2713\nqty_consistent\nInvariants\n\u2713\nledger_matches_stock\n\u2713\ncredit_equals_outstanding\n\u2713\nqty_consistent\n\u2713\nsimulatio",
+          "stock": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock110"
+        }
+      },
+      {
+        "check": "catalogue503 and viewer session",
+        "result": {
+          "incidentStillVisible": "DB incident statusopenProductWidget (WIDGET-1)Current recorded stock110",
+          "labError": "Scenarios could not be loaded. No changes were made.Retry loading scenarios",
+          "previousSessionVisible": false,
+          "viewerBanner": [
+            "Read-only viewer. You can inspect the incident, evidence, patch and saved case reports. Investigation, reset, approval and apply are disabled."
+          ]
+        }
+      },
+      {
+        "check": "viewer catalogue GET retry and mutation guards",
+        "result": {
+          "controls": [
+            {
+              "disabled": false,
+              "text": "",
+              "type": "radio"
+            },
+            {
+              "disabled": false,
+              "text": "",
+              "type": "radio"
+            },
+            {
+              "disabled": false,
+              "text": "",
+              "type": "radio"
+            },
+            {
+              "disabled": true,
+              "text": "",
+              "type": "checkbox"
+            },
+            {
+              "disabled": true,
+              "text": "Load selected scenario",
+              "type": "button"
+            }
+          ],
+          "previousSessionVisible": false,
+          "resetDisabled": true
+        }
+      }
+    ],
+    "limits": [
+      "Viewport overrides, not physical devices",
+      "No new live Meta/heldout evaluation",
+      "New initial GET race guard reviewed; delayed initial browser race not exercised in this pass",
+      "Lab disabled404 backend tested previously; not browser exercised in this pass"
+    ]
+  },
+  "request_counts": {
+    "GET /auth/me": 2,
+    "GET /lab/scenarios": 5,
+    "GET /incidents/INC-001": 10,
+    "GET /incidents/INC-001/evidence": 10,
+    "GET /incidents/INC-001/patch": 7,
+    "GET /incidents/INC-001/cases": 24,
+    "GET /cases/CASE-505be58bc653b0a8/report": 1,
+    "POST /lab/scenarios/stale_snapshot/load": 1,
+    "POST /incidents/INC-001/investigate": 3,
+    "GET /proposals/PROP-f3f6b4a7/preview": 1,
+    "GET /cases/CASE-0de9a5e08c6e2a30/report": 3,
+    "POST /proposals/PROP-f3f6b4a7/approve": 1,
+    "POST /lab/scenarios/stale_snapshot/advance": 1,
+    "POST /lab/scenarios/missing_opening/load": 1,
+    "GET /cases/CASE-fef3540d4e5bc348/report": 1,
+    "POST /lab/scenarios/duplicate_order/load": 2,
+    "GET /proposals/PROP-54f86e8b/preview": 1,
+    "GET /cases/CASE-e2740d40ea026c82/report": 5,
+    "POST /proposals/PROP-54f86e8b/approve": 1,
+    "POST /apply": 1,
+    "POST /verify": 1
+  },
+  "final_synthetic_database": {
+    "widget_stock": 110,
+    "gadget_stock": 45,
+    "repair_events": 1,
+    "approvals": 1
+  },
+  "paid_runtime_calls_this_review": 0,
+  "backend_checkpoint": "573 passed previously; unchanged backend, not rerun for frontend-only batch",
+  "cleanup": {
+    "signed_out": true,
+    "owned_tab_closed": true,
+    "viewport_reset": true,
+    "owned_servers_stopped": true,
+    "remaining_listeners": 0
+  },
+  "limits": [
+    "Viewport overrides, not physical devices",
+    "No new live Meta/heldout evaluation",
+    "New initial GET race guard reviewed; delayed initial browser race not exercised in this pass",
+    "Lab disabled404 backend tested previously; not browser exercised in this pass",
+    "No release/deployment/publication/submission"
+  ]
+}

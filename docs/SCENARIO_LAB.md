@@ -1,6 +1,6 @@
 # Scenario Lab backend contract
 
-Owner requested this extension on2026-10-28. Backend is accepted at Meta run5717c16d; UI is pending. These are synthetic demonstrations, separate from the frozen live benchmark. Loading/advancing makes no model call.
+Owner requested this extension on2026-10-28. Backend5717c16d and frontend componentff499f60/integrationc247f060 are accepted locally after actual build/native checks and offline browser QA. These are synthetic demonstrations, separate from the frozen live benchmark. Loading/advancing makes no model call.
 
 Enable only in the local synthetic instance: `AFTERFIX_ENABLE_SCENARIO_LAB=1`. Mutations additionally require the configured operator and existing `AFTERFIX_ALLOW_RESET=1`; viewer remains read-only. All paths use existing authentication and body bounds; browser paths prepend `/api`. Never enable for production data.
 
@@ -13,3 +13,5 @@ Load creates the canonical fixture using executable buggy/fixed domain processin
 UI must hold only the current load's session in memory, never restore approval or auto-investigate. Confirm load explicitly, clear active workflow/history/downloads before reset settles, and invalidate old preview/approval/key immediately on an advance attempt. After successful advance, refresh actual incident/evidence and explain that a fresh investigation is needed; a success here means a synthetic restock, not a repair or verification. The actual repair keeps existing Meta/credit/Rust/approval/separate-apply gates.
 
 Actual acceptance:43 focused offline tests plus independent failure probes; full Python suite573passed/one existing TestClient/httpx warning48.43s. Real existing required Rust executable used. No live model/browser result or new held-out score is inferred. Original failed staging and frozen5/7 live result remain preserved.
+
+Frontend acceptance2026-10-30: strict TypeScript/Vite build and native scenario/API-session/case-state checks passed. Actual loopback browser exercised all three scenarios using FakeMeta with realRust: duplicate110/one repair/preservation, missing-opening abstention, stale advance100to101 after approval and clearedauthority, load503 invalidation, catalogue GETretry, viewerreadonly,360/390/1280 viewportlayouts. Zero paid runtime calls; no new live benchmark improvement. Specific delayed-initial-read and disabled404 browser replays not exercised here. Evidence evaluations/scenario-ui-2026-10-30.json.
