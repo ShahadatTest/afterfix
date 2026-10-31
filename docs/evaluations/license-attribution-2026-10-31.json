@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-31",
+  "owner_request": "Use only AfterFix in the copyright attribution instead of the personal name or contributors label",
+  "copyright_notice": "Copyright (c) 2026 AfterFix",
+  "license": "MIT",
+  "scope": "Owner-selected project/brand attribution label; no new legal entity or ownership transfer asserted",
+  "checks": [
+    "Only copyright line changed in LICENSE; permission/conditions/warranty text identical",
+    "Current README attribution matches LICENSE",
+    "No dependency, runtime code, deployment or model request changes"
+  ],
+  "history": "Existing commits and dated attribution records retained; this is not a repository-wide identity erasure."
+}

@@ -1,5 +1,9 @@
 # AfterFix current state
 
+## Copyright attribution preference —2026-10-31
+
+Owner chose onlyAfterFix as the public project/brand attribution, replacing the personal-name/contributors alternatives. LICENSE now saysCopyright(c)2026AfterFix and current README matches. Standard MIT grant/conditions/warranty paragraphs are byte-equivalent after newline normalization. This is an attribution label, not a claim that a new legal entity exists or rights were transferred. Existing owner identity, dated records and Git history retained; no repository-wide identity erasure requested. Documentation-only change; no app tests/model calls/server changes. Evidence docs/evaluations/license-attribution-2026-10-31.json.
+
 ## MIT license selected and added —2026-10-31
 
 Owner explicitly delegated license choice after being told MIT permits commercial use/modification/distribution with preserved notices. Added canonical GitHub MIT template with Copyright(c)2026Shahadat Islam Koyel; updated current README/contribution/docs links and npm/Cargo project metadata. Root npm lock entry license updated only; dependency/version/integrity records unchanged, Cargo.lock untouched. Third-party dependencies and external model/API services keep their own terms. Prior license-pending history remains dated evidence, superseded by this entry.

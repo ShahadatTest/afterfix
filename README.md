@@ -85,6 +85,6 @@ This is an experimental inventory-recovery project with a documented SQLite conn
 
 ## License
 
-AfterFix project source is licensed under the [MIT License](LICENSE), copyright 2026 Shahadat Islam Koyel. Dependencies retain their respective licenses. Meta models/API and other external services are not licensed by this repository.
+AfterFix project source is licensed under the [MIT License](LICENSE), copyright 2026 AfterFix. Dependencies retain their respective licenses. Meta models/API and other external services are not licensed by this repository.
 
 [Development](docs/DEVELOPMENT.md) · [Security](SECURITY.md) · [Model provenance](docs/MODEL_PROVENANCE.md) · [Full documentation](docs/README.md) · [Current state](docs/STATE.md)
