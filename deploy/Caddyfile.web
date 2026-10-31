@@ -1,0 +1,30 @@
+:8080 {
+	root * /srv
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	handle /healthz {
+		respond "ok" 200
+	}
+
+	# Exclusive handle: proxy errors return an error, never the SPA fallback.
+	handle /api/* {
+		uri strip_prefix /api
+		reverse_proxy afterfix-api:8000
+	}
+
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}

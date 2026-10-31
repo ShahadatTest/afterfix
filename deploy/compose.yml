@@ -1,0 +1,93 @@
+name: afterfix
+
+services:
+  afterfix-api:
+    image: ${AFTERFIX_IMAGE:?AFTERFIX_IMAGE is required}
+    user: "10001:10001"
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    pids_limit: 128
+    cpus: 1.0
+    env_file:
+      - path: ${AFTERFIX_ENV_FILE:?AFTERFIX_ENV_FILE is required}
+        format: raw
+        required: true
+    environment:
+      AFTERFIX_DB: /data/afterfix.sqlite
+      AFTERFIX_RUNTIME_DIR: /runtime
+      AFTERFIX_ALLOW_RESET: "1"
+      AFTERFIX_ENABLE_SCENARIO_LAB: "1"
+    volumes:
+      - type: bind
+        source: ${AFTERFIX_DATA_BIND:?AFTERFIX_DATA_BIND is required}
+        target: /data
+      - type: bind
+        source: ${AFTERFIX_RUNTIME_BIND:?AFTERFIX_RUNTIME_BIND is required}
+        target: /runtime
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    networks:
+      - afterfix_backend
+    # Deliberately no ports: the backend is never published directly.
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2).read()"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+  afterfix-web:
+    image: ${AFTERFIX_WEB_IMAGE:?AFTERFIX_WEB_IMAGE is required}
+    user: "10001:10001"
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    pids_limit: 64
+    cpus: 0.50
+    ports:
+      # Loopback canary only; the existing edge proxy provides public HTTPS separately.
+      - "127.0.0.1:18881:8080"
+    volumes:
+      - type: bind
+        source: ${AFTERFIX_FRONTEND_BIND:?AFTERFIX_FRONTEND_BIND is required}
+        target: /srv
+        read_only: true
+      - type: bind
+        source: ${AFTERFIX_CADDYFILE_BIND:?AFTERFIX_CADDYFILE_BIND is required}
+        target: /etc/caddy/Caddyfile
+        read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+      - /config:size=16m,mode=0700,uid=10001,gid=10001
+      - /data:size=16m,mode=0700,uid=10001,gid=10001
+    networks:
+      - afterfix_backend
+      - afterfix_edge
+    depends_on:
+      afterfix-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/usr/bin/wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+
+networks:
+  # Not internal: the API must retain outbound HTTPS access to its provider.
+  # It has no published ports and is reachable only by these two services.
+  afterfix_backend:
+    name: afterfix_backend
+  # Pre-created/owned by the lead; the existing edge proxy is attached separately.
+  afterfix_edge:
+    name: afterfix_edge
+    external: true

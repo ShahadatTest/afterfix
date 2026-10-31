@@ -2,6 +2,12 @@
 
 ![AfterFix live release recovery](docs/assets/demo-verified.png)
 
+## Hosted preview —2026-10-31
+
+[Open AfterFix](https://afterfix.sklab.cc). Private operator/viewer access, synthetic scenarios, evidence and history are deployed behind HTTPS. The VPS Linux build passed573Python tests,32Rust tests, three native frontend checks and the strict production build. Container hardening, authenticated canary checks and an actual browser viewer session passed. See [deployment evidence](docs/evaluations/hosted-deployment-2026-10-31.json) and [deployment instructions](deploy/README.md).
+
+Live AI investigation is currently unavailable because the configured Meta account returned a billing error. The hosted instance has no Meta key provisioned; investigation fails closed before provider requests. The earlier real Meta recovery evidence and edited demo below remain historical results. Access keys are provided privately by the operator; never enter a Meta API key in the browser.
+
 ## Current release validation —2026-10-30
 
 Scenario Lab is integrated: three explicit synthetic demonstrations, separate load confirmation, safe missing-evidence rejection, and stale approval invalidation. Full strict frontend build and native scenario/API-session/case-state checks passed. Browser360/390/1280 viewport checks and delayed-initial-response/disabled404 checks passed.
@@ -10,7 +16,7 @@ An isolated official Python3.14.10 (OpenSSL3.5.9, SQLite3.50.4) and Rust1.98.1 r
 
 A separate real Meta release smoke retained its initial provider failure, rejected a missing-opening draft through validation, and completed stale-snapshot recovery101to111 after a fresh explicit investigation and approval. Both valid restocks20+1 and unrelated stock45 were preserved; old approval apply returned409. Four investigations cost a conservative$0.0357975, including one unknown call charged at its full bound. This does not replace or improve the frozen5/7 benchmark. See [live results](docs/evaluations/release-live-2026-10-30.json) and the [edited live-run demo script](docs/DEMO_RELEASE_SCRIPT.md).
 
-The historical setup and earlier evidence below are retained with their original versions/counts. Current source has newer Scenario Lab checks; deployment packaging is being prepared separately. Use private operator credentials for mutation; public access must not expose a known test-fixture operator token.
+The historical setup and earlier evidence below are retained with their original versions/counts. Current source includes Scenario Lab and deployment packaging. Use private operator credentials for mutation; public access must not expose a known test-fixture operator token.
 
 
 AfterFix is a local, synthetic inventory-recovery demo. It helps an operator investigate inventory damaged by a duplicate-delivery bug after the code fix, review an evidence-linked repair, approve it explicitly, apply it separately, and verify that valid activity was preserved.

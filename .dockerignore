@@ -1,0 +1,46 @@
+# Version control, local environments and secrets
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.venv
+venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# JavaScript dependencies and build output
+node_modules
+frontend/node_modules
+frontend/dist
+dist
+
+# Rust build output (the verifier is rebuilt in Docker)
+rust-verifier/target
+target
+
+# Caches and local tooling
+.cache
+.npm
+.cargo
+.rustup
+
+# Private/runtime/build output and operator material
+/data
+/runtime
+private
+artifacts
+bundle
+*.tar
+*.tar.gz
+*.sqlite
+*.sqlite-*
+*.log
+
+# Editor/OS noise
+.DS_Store
+.idea
+.vscode

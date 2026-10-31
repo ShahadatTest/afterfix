@@ -1,0 +1,74 @@
+name: linux-release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-release-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and validate hardened web image
+        run: |
+          set -eu
+          docker build --target web --file deploy/Dockerfile --tag afterfix-web:${{ github.sha }} .
+          docker run --rm --network none --read-only --cap-drop ALL \
+            --security-opt no-new-privileges --user 10001:10001 \
+            --entrypoint caddy afterfix-web:${{ github.sha }} version
+          docker run --rm \
+            --network none --read-only --cap-drop ALL \
+            --security-opt no-new-privileges --user 10001:10001 \
+            --tmpfs /tmp:size=32m,mode=1777 \
+            --tmpfs /config:size=16m,mode=0700,uid=10001,gid=10001 \
+            --tmpfs /data:size=16m,mode=0700,uid=10001,gid=10001 \
+            --volume "$GITHUB_WORKSPACE/deploy/Caddyfile.web:/etc/caddy/Caddyfile:ro" \
+            --entrypoint caddy afterfix-web:${{ github.sha }} \
+            validate --config /etc/caddy/Caddyfile --adapter caddyfile
+
+      - name: Build QA target (Linux tests block the release)
+        run: docker build --target qa --file deploy/Dockerfile --tag afterfix-qa:${{ github.sha }} .
+
+      - name: Build runtime image
+        run: docker build --target runtime --file deploy/Dockerfile --tag afterfix:${{ github.sha }} .
+
+      - name: Assemble downloadable bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bundle/frontend bundle/deploy
+          cid="$(docker create afterfix:${{ github.sha }})"
+          cleanup() { docker rm --force "$cid" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+          # Copy static files from a stopped container; the entrypoint is never run.
+          docker cp "$cid:/opt/afterfix/frontend/." bundle/frontend/
+          cleanup
+          trap - EXIT
+          cp deploy/compose.yml deploy/Caddyfile.web bundle/deploy/
+          printf '%s\n' "${{ github.sha }}" > bundle/source_sha.txt
+          printf '%s\n' 'afterfix:${{ github.sha }}' 'afterfix-web:${{ github.sha }}' > bundle/images.txt
+          docker save afterfix:${{ github.sha }} afterfix-web:${{ github.sha }} | gzip -6 > bundle/afterfix-image.tar.gz
+          test -f bundle/frontend/index.html
+          (
+            cd bundle
+            find . -type f ! -name SHA256SUMS -print0 | LC_ALL=C sort -z | xargs -0 sha256sum > SHA256SUMS
+          )
+
+      - name: Upload the single release artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: afterfix-linux-${{ github.sha }}
+          path: bundle/
+          retention-days: 1
+          if-no-files-found: error
