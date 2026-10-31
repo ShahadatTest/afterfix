@@ -1,5 +1,9 @@
 # AfterFix current state
 
+## GitHub publication readiness —2026-10-31
+
+Verified clean source and published master matchedf1f1fec before this documentation/ignore update. No tracked environment files, SQLite DBs, private keys, agent config or runtime accounting files found. Exact credential/encoding scan passed before feature publication. Added explicit Git ignore rules for generatedaccess.env/model.env/agent.json and private runtime ledger/lock filenames; git check-ignore verified all six nested paths and preserved.env.example eligibility. No product/runtime change or redundant test rerun. README/install guide/evaluation evidence are published. LICENSE file is absent; no license was selected on the owner's behalf. Meta billing/key/budget and actual live-AI acceptance remain separate from source publication readiness.
+
 ## Installable SQLite inventory agent —2026-10-31
 
 Owner approved Install → Connect → Scan → Preview → Approve → Repair → Verify. Codex implemented app/agent.py (stdlib interactive/argument installer, Docker launcher/owned stop/start, permission/port preflight, private keys, verified backup and explicit schema extension), agent_routes.py and agent_site.py; store/domain/auth/scenario hooks bind a configured source file/real patch and forcibly disable public reads/reset/lab. Source identity/schema/patch changes fail closed. Startup/manual scanning detects supported duplicate candidates or needs-review without model calls/business-row changes. Connected App panel and public Install & Connect instructions added; locked local UI makes no source reads, no standalone login introduced. Existing human approval/Rust/stale/idempotency/transaction chain retained, with bounded event append headroom. Reports now label connected_inventory. Supported first adapter is one product in a documented SQLite products/events contract; no actual production source, arbitrary schema mapping or unattended repair.

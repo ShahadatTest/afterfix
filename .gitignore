@@ -1,6 +1,12 @@
 .env
 .env.*
 !.env.example
+access.env
+model.env
+agent.json
+budget-state.json
+credit-state.json
+runner.lock
 .venv/
 node_modules/
 dist/
