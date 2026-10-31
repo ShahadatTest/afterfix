@@ -1,5 +1,7 @@
 # Local security review — 2026-10-27
 
+> Current deployment note (2026-10-31): the dated review below is historical. Owner-authorized HTTPS hosting and narrowly opt-in public synthetic reads are now deployed; anonymous mutations and invalid-auth fallback remain denied. See [current hosted checks](evaluations/hosted-health-2026-10-31.json), [public-view evidence](evaluations/direct-dashboard-2026-10-31.json) and [current state](STATE.md). This update is a focused health/access check, not a new penetration test or dependency-advisory scan.
+
 Codex inspected current source and ran bounded checks at the owner's request. This is a focused review, not a penetration test or security certification. No production, deployment, billing or live Meta requests were involved.
 
 ## Current stack verified

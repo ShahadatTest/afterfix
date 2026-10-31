@@ -1,5 +1,11 @@
 # AfterFix current state
 
+## Owner-requested current health review —2026-10-31 16:00UTC
+
+Read-only review of deployedbadef11 presentation /c0342562d203 API: both AfterFix containers healthy,72GiB free. API uid10001/read-only/cap-dropALL/no-new-privileges/no published port confirmed.24 fresh HTTPS/static/API checks passed: permitted public reads200, anonymous mutation attempts401, invalid auth401, operator identityGET200. SQLite quick_checkok,stock100,zero repairs/approvals. Fixed Rust binary exists/is executable and actual malformed-input smoke returnedokfalse/protocol1/version0.1.0. Initial probe checked a nonexistent optional Rust env name; corrected inspection to adapter's fixed executable path and replaced that misleading field in receipt. No product defect or change resulted.
+
+Live browser patch dialog/history refresh/dark theme/390px nooverflow/operator dialog358.79px/invalid-key denial/public disabled investigation passed; no console errors observed. First operator click during viewport transition did not open modal; stable-layout click did, and invalid-key rejection worked. Viewport reset. No app data mutations or provider requests. Hosted model key is absent; fresh provider billing clearance remains unverified, so hosted live AI recovery remains incomplete. Earlier601Python/32Rust acceptance was not rerun without source changes. Evidence docs/evaluations/hosted-health-2026-10-31.json. No runtime/deployment changes.
+
 ## Original branding and motion —2026-10-31
 
 Owner requested useful logo/photo/animation additions. Codex added an original local SVG AfterFix recovery monogram/favicon, a decorative evidence/review/approval illustration, short one-shot panel/diagram entrances, theme-icon hover motion and spinners tied only to actual loading/investigation state. No external assets/dependencies, photo, login page or splash. Reduced-motion preference disables these animations. No workflow authority/handlers changed; no provider calls.

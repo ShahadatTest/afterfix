@@ -1,0 +1,165 @@
+{
+  "checked_at_utc": "2026-10-31T16:00:48.710947+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/afterfix.svg",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/assets/index-Bjkf49hv.js",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/assets/index-Sdo7NTK-.css",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/incidents/INC-001",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/incidents/INC-001/evidence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/incidents/INC-001/patch",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/incidents/INC-001/cases",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/lab/scenarios",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/reset",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/incidents/INC-001/investigate",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/proposals",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/proposals/invalid/approve",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/apply",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/verify",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/lab/load",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/lab/advance",
+      "method": "POST",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/incidents/INC-002",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/openapi.json",
+      "method": "GET",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200
+    }
+  ],
+  "config": {
+    "meta_key_configured": false,
+    "public_viewer": true,
+    "scenario_lab": true
+  },
+  "database": {
+    "quick_check": "ok",
+    "stock": 100,
+    "repairs": 0,
+    "approvals": 0
+  },
+  "index_sha256": "2e605815490fa361d2f929e26e9d1bd25295486f8c6b733abe6359af8619193a",
+  "provider_requests": 0,
+  "writes_to_app_data": 0,
+  "rust_smoke": {
+    "fixed_binary_present": true,
+    "executable": true,
+    "malformed_input_rejected": true,
+    "protocol_version": 1,
+    "verifier_version": "0.1.0"
+  },
+  "browser": {
+    "patch_dialog": "passed",
+    "history_refresh": "passed",
+    "dark_theme": "passed",
+    "mobile_width": 390,
+    "document_width": 375,
+    "operator_dialog_width": 358.791687,
+    "invalid_operator_key": "rejected; remained public",
+    "viewer_investigation": "disabled",
+    "console_errors": [],
+    "viewport_reset": true
+  },
+  "limits": [
+    "No new provider request; current Meta billing clearance not tested",
+    "Hosted MODEL_API_KEY absent, so hosted live AI is not operational",
+    "601 Python and 32 Rust suite results are earlier acceptance; not rerun for unchanged source",
+    "Focused health/access review, not a penetration test or guarantee"
+  ]
+}
