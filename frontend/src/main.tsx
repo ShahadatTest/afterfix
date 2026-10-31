@@ -4,6 +4,10 @@ import { createRoot } from "react-dom/client";
 import { AuthGate, AuthProvider } from "./auth";
 import "./styles.css";
 import "./auth.css";
+import "./theme.css";
+import { initializeTheme } from "./ThemeToggle";
+
+initializeTheme();
 
 const rootElement = document.getElementById("root");
 

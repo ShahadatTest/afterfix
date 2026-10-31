@@ -3,6 +3,7 @@ import type { FormEvent, ReactNode } from "react";
 import { apiGet, clearAccessToken, isValidAccessKeyShape, registerUnauthorizedCallback, setAccessToken } from "./api";
 import type { AuthMeResponse } from "./types";
 import App from "./App";
+import ThemeToggle from "./ThemeToggle";
 
 interface AuthContextValue {
   actor: AuthMeResponse | null;
@@ -124,9 +125,15 @@ function SignInForm() {
 
   return (
     <main className="auth-shell">
+      <div className="auth-theme"><ThemeToggle /></div>
+      <aside className="auth-intro" aria-label="About AfterFix">
+        <div className="brand"><span className="brand-mark" aria-hidden="true">A<span className="brand-dot" /></span><div><strong>AfterFix</strong><span>Evidence-driven recovery</span></div></div>
+        <div className="auth-intro-copy"><span className="eyebrow">From incident to resolution</span><h2>Fix the data.<br />Preserve what’s right.</h2><p>A focused workspace for investigating an incident and reviewing a bounded repair.</p></div>
+        <ol className="auth-process"><li><span>01</span><div><strong>Investigate</strong><p>Trace the patch and recorded evidence.</p></div></li><li><span>02</span><div><strong>Review &amp; approve</strong><p>Inspect the preview before a separate apply.</p></div></li><li><span>03</span><div><strong>Verify</strong><p>Check the outcome and preserved activity.</p></div></li></ol>
+        <p className="auth-intro-foot">Synthetic inventory demo · Human approval required</p>
+      </aside>
       <section className="auth-card" aria-labelledby="signin-title">
-        <div className="brand"><span className="brand-mark" aria-hidden="true">A</span><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
-        <p className="demo-tag">Synthetic inventory / Local demo</p>
+        <span className="eyebrow">Recovery workspace</span>
         <h1 id="signin-title">Sign in</h1>
         <p className="auth-copy">Use the access key provided by the demo operator.</p>
         <p className="auth-warning">Do not enter your Meta API key.</p>
@@ -150,9 +157,10 @@ export function AuthGate() {
   return (
     <>
       <div className="auth-bar">
-        <span>Signed in as <strong className="mono">{actor.actor_id}</strong> · {actor.role}</span>
-        {isViewer && <span className="auth-readonly">Read-only viewer</span>}
+        <span className="workspace-crumb">Workspace <span aria-hidden="true">/</span> <strong>Inventory recovery</strong></span>
+        <div className="auth-session"><span className="auth-role">{isViewer ? "Read-only viewer" : "Operator"}</span><ThemeToggle />
         <button type="button" className="btn btn-small" onClick={signOut}>Sign out</button>
+        </div>
       </div>
       {/* sessionId changes only once, synchronously with an accepted
           sign-in, so each session gets exactly one fresh App mount. */}

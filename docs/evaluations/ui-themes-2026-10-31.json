@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-31",
+  "url": "https://afterfix.sklab.cc",
+  "provenance": "Codex implementation under owner UI/theme direction; no provider generation request",
+  "base_revision": "0a1eb0a1bd64249364822ca8ed50d22baea1f2ec",
+  "frontend_source_context": "a7967211f8ab",
+  "source_archive_sha256": "691e0dfa7519e6a2d2ae57d1d67737916397caf38d70091eedeb655b9ac6f21e",
+  "changes": [
+    "Light/dark theme switch in sign-in and authenticated header; system default and remembered theme-only preference",
+    "Compact navy sidebar, section links, incident metrics and stage navigation",
+    "Scenario Lab retains explicit selection/confirmation and is a collapsed secondary section",
+    "Responsive sign-in, themed cards, dialogs and status colors"
+  ],
+  "actual_checks": {
+    "node_version": "24.22.1",
+    "native_api_session": "passed",
+    "native_case_state": "passed",
+    "native_scenario_state": "passed",
+    "strict_typescript_vite_build": "passed",
+    "vite_modules": 27,
+    "build_ms": 320,
+    "theme_mouse_toggle": "passed",
+    "theme_keyboard_space": "passed",
+    "theme_reload_persistence": "passed in isolated preview",
+    "reload_returns_to_signin": "passed; access token remains memory-only",
+    "viewer_investigation_enabled": false,
+    "viewer_scenario_load_enabled": false,
+    "operator_load_enabled_before_selection": false,
+    "operator_load_enabled_after_selection_only": false,
+    "operator_load_enabled_after_confirmation": true,
+    "operator_confirmation_cleared_after_check": true,
+    "scenario_load_requests": 0,
+    "modal_mobile_width": 358.7917,
+    "modal_viewport_width": 390,
+    "viewport_checks": [
+      {
+        "width": 1272,
+        "content_width": 1257
+      },
+      {
+        "width": 390,
+        "content_width": 375
+      },
+      {
+        "width": 360,
+        "content_width": 345
+      }
+    ],
+    "public_https_new_index_and_asset_hashes": "passed",
+    "public_viewer_signin_and_theme_toggle": "passed"
+  },
+  "deployment": {
+    "static_assets": [
+      {
+        "path": "assets/index-BpgLvB5E.css",
+        "sha256": "23b0ac062c9b2c265a5d3d0cbfdbb6b81849ff0c5908564abcbc5846b9d49393"
+      },
+      {
+        "path": "assets/index-BbL9RXzm.js",
+        "sha256": "fefc2af81e8dfb4a1b9e328759c4be78878b321d7b1374cb07145b300a231af8"
+      }
+    ],
+    "atomic_index_switch": true,
+    "rollback_index_retained": true,
+    "old_assets_retained": true,
+    "backend_restarted": false,
+    "edge_changed": false,
+    "healthy_afterwards": true
+  },
+  "model_requests": 0,
+  "backend_tests": "Not rerun for presentation-only changes; previous Linux573Python/32Rust acceptance retained",
+  "limitations": [
+    "No live AI recovery in this UI check; provider billing blocker unchanged.",
+    "Browser viewport checks are not physical-device/accessibility certification.",
+    "No saved server case was available in hosted fixture; empty history and permission/confirmation states were checked."
+  ]
+}

@@ -346,26 +346,26 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
   return (
     <div className="shell">
       <aside className="rail">
-        <div className="brand"><span className="brand-mark" aria-hidden="true">A</span><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
-        <p className="demo-tag">Synthetic inventory / Local demo</p>
+        <div className="brand"><span className="brand-mark" aria-hidden="true">A<span className="brand-dot" /></span><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
+        <p className="demo-tag">Synthetic workspace</p>
+        <nav className="rail-nav" aria-label="Workspace sections"><a className="rail-link" href="#recovery-workspace"><Icon d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />Overview</a>{incident && <><a className="rail-link" href="#evidence-timeline"><Icon d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />Evidence</a><a className="rail-link" href="#cases-title"><Icon d="M4 4v6h6M4.5 9a8 8 0 1 1-1 7M12 8v5l3 2" />Case history</a></>}</nav>
         <div className="rail-card">
           <span className="eyebrow">Current incident</span>
           <strong className="mono">{incident?.incident.id ?? incidentId}</strong>
           {incident ? (<dl><div><dt>DB incident status</dt><dd>{incident.incident.status}</dd></div><div><dt>Product</dt><dd>{incident.product.name} <span className="mono">({incident.product.product_id})</span></dd></div><div><dt>Current recorded stock</dt><dd>{incident.product.stock}</dd></div></dl>) : <p className="muted">No incident loaded.</p>}
         </div>
         <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>
-        <p className="rail-note">{isViewer ? "Read-only viewer: demo data must be loaded by an operator." : canReset ? "Reset loads synthetic demo data only and clears saved cases." : "Reset is not permitted for this account."}</p>
+        <p className="rail-note">{isViewer ? "Viewing access. An operator manages scenarios and repairs." : canReset ? "Reset replaces synthetic data and clears saved cases." : "Reset is not permitted for this account."}</p>
         {patch && <button type="button" className="btn btn-ghost" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" /> Code patch</button>}
+        <div className="rail-footer"><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3" /><span>Repairs require<br /><strong>your explicit approval</strong></span></div>
       </aside>
 
-      <main className="workspace">
-        <header className="hero"><p className="eyebrow">Evidence-driven data recovery</p><h1>Recover the data left behind.</h1><p className="lede">AfterFix examines the recorded evidence, previews a bounded repair, and only applies it after your explicit approval.</p></header>
-        {isViewer && <div className="banner warn" role="status"><strong>Read-only viewer.</strong> You can inspect the incident, evidence, patch and saved case reports. Investigation, reset, approval and apply are disabled.</div>}
+      <main className="workspace" id="recovery-workspace">
+        <header className="hero"><div><p className="eyebrow">Incident workspace</p><h1>Inventory recovery</h1><p className="lede">Investigate the evidence. Review the repair. Preserve valid activity.</p></div><span className="workspace-reference mono">{incident?.incident.id ?? incidentId}</span></header>
+        {isViewer && <div className="banner info viewer-notice" role="status"><strong>Viewer access</strong><span>Inspect evidence and saved reports. An operator runs investigation and repair.</span></div>}
         <div aria-live="polite">{initialLoading && <div className="banner info" role="status">Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
         <div aria-live="polite">{notice && <div className="banner info" role="status">{notice}</div>}</div>
-
-        <ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} />
 
         {notSeeded && !incident ? (
           <section className="panel empty"><h2>No demo incident is loaded yet</h2>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : (<><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading…" : "Load demo"}</button></>)}</section>
@@ -376,7 +376,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
           })}</nav>
 
           <section className="panel incident-panel">
-            <div><span className="eyebrow">Incident</span><h2>{incident.product.name} stock discrepancy</h2><p>{incident.incident.description}</p><p className="muted">Database incident status (separate from recovery state): {incident.incident.status}</p></div>
+            <div><span className="eyebrow">Current incident</span><h2>{incident.product.name} stock discrepancy</h2><p>{incident.incident.description}</p><p className="incident-status"><span className="status-dot" aria-hidden="true" />Database incident: <strong>{incident.incident.status}</strong></p></div>
             <dl className="stats"><div><dt>Product ID</dt><dd className="mono">{incident.product.product_id}</dd></div><div><dt>Current recorded stock</dt><dd>{incident.product.stock}</dd></div><div><dt>Events</dt><dd>{evidence.events.length}</dd></div><div><dt>Snapshot</dt><dd className="mono short" title={evidence.snapshot_hash}>{evidence.snapshot_hash.slice(0, 12)}…</dd></div></dl>
           </section>
 
@@ -443,7 +443,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
 
           <CaseReports incidentId={incident.incident.id} refreshSignal={caseRefresh} clearSignal={caseClear} focusCaseId={focusCaseId} resetting={resetting} />
 
-          <section className="panel"><div className="panel-head"><div><span className="eyebrow">Evidence timeline</span><h2>Recorded events for {incident.product.name}</h2></div><span className="muted">{sortedEvents.length} events</span></div>
+          <section className="panel" id="evidence-timeline"><div className="panel-head"><div><span className="eyebrow">Evidence timeline</span><h2>Recorded events for {incident.product.name}</h2></div><span className="event-count">{sortedEvents.length} events</span></div>
             <p className="muted">{evidence.note}</p>
             {preview && <p className="legend"><span className="sw reverse" /> {applySucceeded ? "Reversed by this repair" : "To be reversed"} <span className="sw preserve" /> Preserved restock</p>}
             <ol className="timeline">{sortedEvents.map((ev) => {
@@ -455,6 +455,8 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
             {!sortedEvents.length && <p className="muted">No events were returned for this product.</p>}
           </section>
         </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>Incident unavailable</h2><p>{error ?? "The incident could not be loaded."}</p>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : <button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>Load demo</button>}</section>) : null}
+        <ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} />
+        <footer className="workspace-footer"><span>AfterFix · Synthetic inventory workspace</span><span>Evidence → Preview → Approval → Verification</span></footer>
       </main>
 
       <dialog ref={dialogRef} className="dialog" aria-labelledby="dialog-title" onClose={handleDialogClose} onCancel={handleDialogClose}>

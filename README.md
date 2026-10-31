@@ -6,6 +6,8 @@
 
 [Open AfterFix](https://afterfix.sklab.cc). Private operator/viewer access, synthetic scenarios, evidence and history are deployed behind HTTPS. The VPS Linux build passed573Python tests,32Rust tests, three native frontend checks and the strict production build. Container hardening, authenticated canary checks and an actual browser viewer session passed. See [deployment evidence](docs/evaluations/hosted-deployment-2026-10-31.json) and [deployment instructions](deploy/README.md).
 
+The interface includes a light/dark switch with a remembered theme preference, a compact recovery workspace and a collapsible Scenario Lab. Mouse/keyboard switching, reload persistence,360/390px layouts and viewer/operator confirmation states were checked in an isolated preview; public HTTPS sign-in and theme switching were checked after the static update. See [UI evidence](docs/evaluations/ui-themes-2026-10-31.json).
+
 Live AI investigation is currently unavailable because the configured Meta account returned a billing error. The hosted instance has no Meta key provisioned; investigation fails closed before provider requests. The earlier real Meta recovery evidence and edited demo below remain historical results. Access keys are provided privately by the operator; never enter a Meta API key in the browser.
 
 ## Current release validation —2026-10-30

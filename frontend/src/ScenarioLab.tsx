@@ -138,20 +138,18 @@ export default function ScenarioLab({
   };
 
   return (
-    <section className="panel scenario-panel" aria-labelledby="scenario-title">
-      <div className="panel-head">
+    <details className="panel scenario-panel" aria-labelledby="scenario-title">
+      <summary className="scenario-summary">
         <div>
-          <span className="eyebrow">Scenario Lab</span>
+          <span className="eyebrow">Scenario Lab · Demo tools</span>
           <h2 id="scenario-title">Synthetic scenarios</h2>
         </div>
-        <span className="scenario-label">Synthetic Scenario Lab</span>
-      </div>
-
+        <span className="scenario-summary-note">Choose a scenario<span className="scenario-chevron" aria-hidden="true">⌄</span></span>
+      </summary>
+      <div className="scenario-content">
       <p className="scenario-copy">
-        This panel offers fixed synthetic demonstrations. Loading or advancing a scenario makes
-        no model requests. Running an investigation is a separate explicit action and does use
-        model requests. This panel does not grant backend authority; the service makes the final
-        decision on every action.
+        Choose a synthetic incident to explore. Loading or advancing a scenario makes no model
+        requests. Investigation is a separate action that uses model requests.
       </p>
 
       {labSession && currentTitle && (
@@ -317,6 +315,7 @@ export default function ScenarioLab({
           )}
         </>
       )}
-    </section>
+      </div>
+    </details>
   );
 }
