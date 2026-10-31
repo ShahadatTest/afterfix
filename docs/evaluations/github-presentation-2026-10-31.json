@@ -43,5 +43,14 @@
     ]
   },
   "availability": "Hosted preview online; live Meta key/budget/billing clearance still pending. Historical live benchmark remains5/7 with failures retained.",
-  "remaining": "License selection pending; no license or private reporting channel invented."
+  "remaining": "License selection pending; no license or private reporting channel invented.",
+  "published_review": {
+    "commit": "846cce9",
+    "readme_render": "Actual public GitHub page inspected; banner and workspace screenshot loaded with nonzero natural width",
+    "about": "Description, live homepage and10topic links visible",
+    "community_navigation": "GitHub README/Contributing/Security tabs visible; API recognizes readme/contributing/PR template",
+    "mermaid": "Actual GitHub diagram iframe renders Transactional apply node",
+    "viewport": "Temporary override reset",
+    "proof": "Private screenshot github-readme.jpg retained in control directory; repo tab kept as deliverable"
+  }
 }
