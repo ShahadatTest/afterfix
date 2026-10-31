@@ -1,5 +1,13 @@
 # AfterFix current state
 
+## Dashboard refinement —2026-10-31
+
+Owner clarified “login page bad” means EXCLUDE login page and improve dashboard. Login markup/auth.css/ThemeToggle are identical to prior commit; prior theme.css prefix retained and only authenticated-workspace rules appended. Changed App.tsx/CaseReports.tsx/theme.css: compact context strip, visible stage actions, adjacent desktop evidence inspector, legible unavailable stages, real record details and concise empty history. No authentication or repair-authority handlers changed.
+
+VPS frontend build passed all3 native checks, strict TypeScript and Vite27modules/393ms. Actual viewer browser passed light/dark desktop two-column layout (1272px viewport/1257content;638.67+320columns),390/360single-column layout without overflow, history refresh, raw restock details(qty20), patch dialog and disabled investigation. Isolated OFFLINE FakeTransport+realRust browser journey passed investigation/preview/review-gated approval/separate apply/verification/populated history. Approval disabled before review and apply disabled before approval. Independent offline DB: stock110,Gadget45,one repair/approval/case. These are fixture results, not live Meta output or actual provider token/cost usage. Initial QA proxy failed on internal-only bridge; corrected only proxy ingress topology, leaving API internal/no model key. No protection bypass or production change.
+
+Production DB independently remainedstock100,zero repairs/approvals. Frontend contextef79c7be5283 built from26file archiveSHA256912bd8a03ef5c3478cbc6de60c5631a6027d6f2858ca554c5183625b1441370e, then atomically switched existing index with old assets/index retained for rollback. HTTPS index/asset hashes and API health/auth401 passed. Backend/edge unchanged; providercalls0. Three owned QA containers/two QA networks/two SSH tunnels removed, viewport reset. Public evidence: docs/evaluations/dashboard-refinement-2026-10-31.json. Billing blocker, original heldout benchmark and paused automation unchanged.
+
 ## UI refresh —2026-10-31
 
 Owner requested a professional UI with both light/dark themes. Codex implemented presentation changes directly: ThemeToggle.tsx/theme.css, auth/App markup, a collapsed Scenario Lab and compact recovery workspace. Only the theme preference is stored under afterfix-theme; credential/session logic and approval/apply guards were not changed. No API key or provider generation was used.

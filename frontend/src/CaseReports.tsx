@@ -201,20 +201,19 @@ export default function CaseReports({ incidentId, refreshSignal, clearSignal, fo
 
   return (
     <section className="panel cases-panel" aria-labelledby="cases-title">
-      <div className="panel-head"><div><span className="eyebrow">Saved cases</span><h2 id="cases-title">History review (read-only)</h2>
+      <div className="panel-head"><div><span className="eyebrow">Investigation records</span><h2 id="cases-title">Case history</h2>
       <p className="muted">Saved cases are read-only. To start a new repair, run a fresh investigation.</p></div></div>
-      <div className="cases-controls">
+      {listState === "ready" && cases.length === 0 && !resetting ? <div className="cases-empty-state"><span className="cases-empty-symbol" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 6h6l2 2h8v12H4zM4 6V4h7l2 2h7v2" strokeLinejoin="round" /></svg></span><div><strong>No saved investigations</strong><p>A recorded investigation will appear here with its full report.</p></div><button type="button" className="btn btn-small" onClick={refresh}>Refresh cases</button></div> : <div className="cases-controls">
         <label className="cases-select-label" htmlFor="case-select">Saved case</label>
         <select id="case-select" className="cases-select" value={selectedId ?? ""} onChange={(e) => onSelect(e.target.value)} disabled={resetting || listState === "loading" || cases.length === 0}>
           {cases.length === 0 ? <option value="">No saved cases</option> : cases.map((c) => <option key={c.case_id} value={c.case_id}>{c.case_id} · {timeText(c.created_at)} · original status: {str(c.status) ?? "unknown"}{c.record_status === "invalid" ? " · invalid" : ""}</option>)}
         </select>
         <button type="button" className="btn" onClick={refresh} disabled={resetting || listState === "loading"}>Refresh cases</button>
         <button type="button" className="btn btn-primary" onClick={download} disabled={resetting || !selectedId || downloading || reportState === "loading"}>{downloading ? "Preparing download…" : "Download full server report (JSON)"}</button>
-      </div>
+      </div>}
       {resetting && <p className="muted" role="status">Reset in progress — saved-case history is suspended and will reload when the reset finishes.</p>}
       {listState === "loading" && !resetting && <p className="muted" role="status">Loading saved cases…</p>}
       {listState === "error" && <div className="banner error" role="alert">{error ?? "Saved cases are unavailable."} <button type="button" className="btn btn-small" onClick={refresh}>Try refresh</button></div>}
-      {listState === "ready" && cases.length === 0 && <p className="muted">No saved cases for this incident yet. A completed investigation that records successfully will appear here.</p>}
       {listState === "ready" && cases.length > 0 && reportState === "loading" && <p className="muted" role="status">Loading full report…</p>}
       {reportState === "error" && <div className="banner warn" role="alert"><strong>Report needs review / unavailable.</strong> {error ?? "The full report could not be loaded."}</div>}
       {downloadError && <div className="banner error" role="alert"><strong>Download failed.</strong> {downloadError}</div>}

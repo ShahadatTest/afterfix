@@ -352,16 +352,15 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
         <div className="rail-card">
           <span className="eyebrow">Current incident</span>
           <strong className="mono">{incident?.incident.id ?? incidentId}</strong>
-          {incident ? (<dl><div><dt>DB incident status</dt><dd>{incident.incident.status}</dd></div><div><dt>Product</dt><dd>{incident.product.name} <span className="mono">({incident.product.product_id})</span></dd></div><div><dt>Current recorded stock</dt><dd>{incident.product.stock}</dd></div></dl>) : <p className="muted">No incident loaded.</p>}
+          {incident ? (<dl><div><dt>Product</dt><dd>{incident.product.name} <span className="mono">({incident.product.product_id})</span></dd></div><div><dt>Database incident</dt><dd>{incident.incident.status}</dd></div></dl>) : <p className="muted">No incident loaded.</p>}
         </div>
         <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>
         <p className="rail-note">{isViewer ? "Viewing access. An operator manages scenarios and repairs." : canReset ? "Reset replaces synthetic data and clears saved cases." : "Reset is not permitted for this account."}</p>
-        {patch && <button type="button" className="btn btn-ghost" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" /> Code patch</button>}
         <div className="rail-footer"><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3" /><span>Repairs require<br /><strong>your explicit approval</strong></span></div>
       </aside>
 
       <main className="workspace" id="recovery-workspace">
-        <header className="hero"><div><p className="eyebrow">Incident workspace</p><h1>Inventory recovery</h1><p className="lede">Investigate the evidence. Review the repair. Preserve valid activity.</p></div><span className="workspace-reference mono">{incident?.incident.id ?? incidentId}</span></header>
+        <header className="hero"><div><p className="eyebrow"><span className="mono">{incident?.incident.id ?? incidentId}</span><span className="hero-separator" aria-hidden="true">/</span>Inventory incident</p><h1>Recovery workspace</h1><p className="lede">From recorded evidence to a reviewed, verified repair.</p></div><div className="hero-actions">{incident && <span className="incident-state"><span className="status-dot" aria-hidden="true" />DB incident: {incident.incident.status}</span>}{patch && <button type="button" className="btn" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" />Code patch</button>}</div></header>
         {isViewer && <div className="banner info viewer-notice" role="status"><strong>Viewer access</strong><span>Inspect evidence and saved reports. An operator runs investigation and repair.</span></div>}
         <div aria-live="polite">{initialLoading && <div className="banner info" role="status">Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
@@ -370,21 +369,25 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
         {notSeeded && !incident ? (
           <section className="panel empty"><h2>No demo incident is loaded yet</h2>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : (<><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading…" : "Load demo"}</button></>)}</section>
         ) : incident && evidence ? (<>
+          <section className="panel incident-panel">
+            <div className="incident-identity"><span className="eyebrow">Incident context</span><h2>{incident.product.name} stock discrepancy</h2><p>{incident.incident.description}</p></div>
+            <dl className="stats"><div><dt>Product ID</dt><dd className="mono">{incident.product.product_id}</dd></div><div><dt>Current recorded stock</dt><dd>{incident.product.stock}</dd></div><div><dt>Events</dt><dd>{evidence.events.length}</dd></div><div><dt>Snapshot</dt><dd className="mono short" title={evidence.snapshot_hash}>{evidence.snapshot_hash.slice(0, 12)}…</dd></div></dl>
+          </section>
+
+          <div className="recovery-layout">
+          <div className="recovery-primary">
+          <div className="workflow-heading"><span className="eyebrow">Recovery workflow</span><span>Stage {stage + 1} of {STAGES.length}</span></div>
           <nav className="stages" aria-label="Recovery stages">{STAGES.map((label, i) => {
             const idx = i as Stage; const done = idx < furthest || (idx === 3 && verified);
             return (<button key={label} type="button" className={`stage ${stage === idx ? "active" : ""} ${done ? "done" : ""}`} aria-current={stage === idx ? "step" : undefined} disabled={busyAny || idx > furthest} onClick={() => setStage(idx)}><span className="stage-num">{done ? "✓" : i + 1}</span>{label}</button>);
           })}</nav>
 
-          <section className="panel incident-panel">
-            <div><span className="eyebrow">Current incident</span><h2>{incident.product.name} stock discrepancy</h2><p>{incident.incident.description}</p><p className="incident-status"><span className="status-dot" aria-hidden="true" />Database incident: <strong>{incident.incident.status}</strong></p></div>
-            <dl className="stats"><div><dt>Product ID</dt><dd className="mono">{incident.product.product_id}</dd></div><div><dt>Current recorded stock</dt><dd>{incident.product.stock}</dd></div><div><dt>Events</dt><dd>{evidence.events.length}</dd></div><div><dt>Snapshot</dt><dd className="mono short" title={evidence.snapshot_hash}>{evidence.snapshot_hash.slice(0, 12)}…</dd></div></dl>
-          </section>
-
-          {stage === 0 && (<section className="panel"><div className="panel-head"><div><span className="eyebrow">Stage 1</span><h2>Investigate the evidence</h2></div>
+          {stage === 0 && (<section className="panel investigation-panel"><div className="panel-head"><div><span className="eyebrow">Stage 1 · Evidence review</span><h2>Investigate the evidence</h2></div>
             <button type="button" className="btn btn-primary" onClick={runInvestigate} disabled={busyAny || isViewer}>{busy === "investigate" ? "Investigating…" : investigation ? "Investigate again (uses model requests)" : "Run investigation (uses model requests)"}</button></div>
             {busy === "investigate" && <p className="muted" role="status">Investigating the patch and recorded events…</p>}
             {isViewer && <p className="muted">Viewers cannot run an investigation.</p>}
             {!investigation && busy !== "investigate" && !isViewer && <p className="muted">Starting a fresh investigation is explicit and uses model requests. Nothing is approved or applied automatically.</p>}
+            {!investigation && busy !== "investigate" && <div className="investigation-empty"><div className="investigation-symbol" aria-hidden="true"><Icon d="M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM15 15l6 6M7 8h6M7 11h4" /></div><h3>Build a case from the evidence</h3><p>Review the code change and recorded events. An investigation produces a draft for review before any repair is approved.</p><div className="investigation-inputs"><span><Icon d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5" />Code patch &amp; event records</span><span><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" />Approval before apply</span></div></div>}
             {investigation && (<div className="stack">
               {investigation.case_recording_status === "recorded" && investigation.case_id && <p className="muted">Durable case recorded: <span className="mono">{investigation.case_id}</span> (see Saved cases — read-only history).</p>}
               {investigation.case_recording_status === "unavailable" && <div className="banner warn" role="status"><strong>Case recording unavailable.</strong> No durable case ID, version or report exists for this live investigation; it may continue, but authoritative durable export is disabled for it.</div>}
@@ -442,18 +445,23 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
           </section>)}
 
           <CaseReports incidentId={incident.incident.id} refreshSignal={caseRefresh} clearSignal={caseClear} focusCaseId={focusCaseId} resetting={resetting} />
+          </div>
 
-          <section className="panel" id="evidence-timeline"><div className="panel-head"><div><span className="eyebrow">Evidence timeline</span><h2>Recorded events for {incident.product.name}</h2></div><span className="event-count">{sortedEvents.length} events</span></div>
-            <p className="muted">{evidence.note}</p>
+          <aside className="evidence-inspector" aria-label="Recorded evidence" tabIndex={0}>
+          <section className="panel" id="evidence-timeline"><div className="panel-head"><div><span className="eyebrow">Recorded evidence</span><h2>Event timeline</h2></div><span className="event-count">{sortedEvents.length} records</span></div>
+            <p className="inspector-product"><span className="mono">{incident.product.product_id}</span><span>Read-only ledger</span></p>
+            <details className="evidence-context"><summary>How evidence is used</summary><p>{evidence.note}</p></details>
             {preview && <p className="legend"><span className="sw reverse" /> {applySucceeded ? "Reversed by this repair" : "To be reversed"} <span className="sw preserve" /> Preserved restock</p>}
             <ol className="timeline">{sortedEvents.map((ev) => {
               const cls = reverseIds.has(ev.id) ? "reverse" : preservedIds.has(ev.id) ? "preserve" : "";
-              return (<li key={ev.id} id={`event-${ev.id}`} className={`${cls} ${selectedEvent?.id === ev.id ? "selected" : ""}`}>
-                <div className="event-main"><span className="mono event-id">#{ev.id}</span><div><strong>{ev.kind}</strong><span className="event-meta">{formatTs(ev.ts)} · qty {ev.qty}{ev.order_id ? <> · order <span className="mono">{ev.order_id}</span></> : ""}</span>{ev.note && <span className="event-note">{ev.note}</span>}</div></div>
+              return (<li key={ev.id} id={`event-${ev.id}`} data-kind={ev.kind} className={`${cls} ${selectedEvent?.id === ev.id ? "selected" : ""}`}>
+                <div className="event-main"><div className="event-topline"><span className="mono event-id">#{ev.id}</span><strong>{formatCheckName(ev.kind)}</strong><span className="event-quantity">qty {ev.qty}</span></div><span className="event-meta">{formatTs(ev.ts)}{ev.order_id ? <> · <span className="mono">{ev.order_id}</span></> : ""}</span>{ev.note && <span className="event-note">{ev.note}</span>}</div>
                 <div className="event-tags">{reverseIds.has(ev.id) && <span className="tag tag-reverse">{applySucceeded ? "Reversed" : "To reverse"}</span>}{preservedIds.has(ev.id) && <span className="tag tag-preserve">Preserved</span>}<button type="button" className="btn btn-small" onClick={() => openEvent(ev)} disabled={busyAny}>Details</button></div></li>);
             })}</ol>
             {!sortedEvents.length && <p className="muted">No events were returned for this product.</p>}
           </section>
+          </aside>
+          </div>
         </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>Incident unavailable</h2><p>{error ?? "The incident could not be loaded."}</p>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : <button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>Load demo</button>}</section>) : null}
         <ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} />
         <footer className="workspace-footer"><span>AfterFix · Synthetic inventory workspace</span><span>Evidence → Preview → Approval → Verification</span></footer>

@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-31",
+  "url": "https://afterfix.sklab.cc",
+  "scope": "Owner clarified login page excluded; dashboard presentation only",
+  "implementation": "Codex under owner direction; no Meta generation",
+  "base_revision": "fe35cf906797f011d2f450464df89afbe8cadf02",
+  "frontend_source_context": "ef79c7be5283",
+  "source_archive_sha256": "912bd8a03ef5c3478cbc6de60c5631a6027d6f2858ca554c5183625b1441370e",
+  "login_protection": {
+    "auth_tsx_identical": true,
+    "auth_css_identical": true,
+    "ThemeToggle_identical": true,
+    "prior_theme_css_prefix_identical": true,
+    "new_css_targets_authenticated_workspace_only": true
+  },
+  "changes": [
+    "Compact incident context and readable stage navigation",
+    "Recovery workflow with adjacent scrollable evidence inspector at desktop width",
+    "Record detail dialogs, actual quantities and case-history empty state",
+    "Single-column mobile layout; existing light/dark themes retained"
+  ],
+  "build": {
+    "native_checks": [
+      "check-api-session: mocked fetch regression assertions passed (native Node, NOT browser/mobile QA)",
+      "check-case-state: all assertions passed",
+      "scenario-state checks passed"
+    ],
+    "strict_typescript": "passed",
+    "vite": "passed",
+    "modules": 27,
+    "build_ms": 393
+  },
+  "browser_checks": {
+    "desktop": {
+      "viewport": 1272,
+      "content_width": 1257,
+      "recovery_columns_px": [
+        638.667,
+        320
+      ]
+    },
+    "mobile": [
+      {
+        "viewport": 390,
+        "content_width": 375,
+        "inspector_position": "static"
+      },
+      {
+        "viewport": 360,
+        "content_width": 345
+      }
+    ],
+    "light_and_dark": "inspected",
+    "viewer_investigation_enabled": false,
+    "empty_history_refresh": "passed",
+    "event_details": "last restock record opened,qty20,raw evidence shown",
+    "code_patch_mobile": "opened successfully",
+    "populated_report_no_overflow": "passed in isolated offline fixture",
+    "report_download_control_enabled": "passed in isolated populated fixture; download transfer not exercised"
+  },
+  "offline_visual_qa": {
+    "transport": "FakeTransport from accepted tests; explicitly labelled OFFLINE UI QA FIXTURE; not live Meta output",
+    "verifier": "actual fixed Rust executable",
+    "network": "API internal-only; static proxy separate host-access bridge",
+    "model_key_present": false,
+    "provider_calls": 0,
+    "ui_path": "investigate,preview,review checkbox,approve,separate apply,verify,populated case history",
+    "approval_before_review_enabled": false,
+    "approval_after_review_enabled": true,
+    "apply_before_approval_enabled": false,
+    "apply_after_approval_enabled": true,
+    "verify_again_visible": true,
+    "independent_database_assertions": {
+      "stock": 110,
+      "gadget_stock": 45,
+      "repairs": 1,
+      "approvals": 1,
+      "cases": 1
+    },
+    "note": "Synthetic request/token/cost fields are fixture values, not actual provider usage. Initial internal-only proxy publication failed; corrected QA network topology without changing production."
+  },
+  "production_data_assertions": {
+    "stock": 100,
+    "repairs": 0,
+    "approvals": 0
+  },
+  "deployment": {
+    "status": "passed",
+    "url": "https://afterfix.sklab.cc",
+    "source_context": "ef79c7be5283",
+    "source_archive_sha256": "912bd8a03ef5c3478cbc6de60c5631a6027d6f2858ca554c5183625b1441370e",
+    "old_index_sha256": "b5c5ffdf0ce164ad7b2ad3e2ba23064a3d9ff21776d48b66a7c1d0cb767e0345",
+    "new_index_sha256": "8f623d6306344c9d3f426102da460136f81fa7cdebe16cfbdd4b00f1ea476f51",
+    "assets": [
+      {
+        "path": "assets/index-BAbMUdPa.css",
+        "sha256": "e39dcdef4cfee37f13b8271e90d1530684444c09615ff7757ca8229a72e7507b"
+      },
+      {
+        "path": "assets/index-BU1xjb7N.js",
+        "sha256": "7f4e96fe97f31c0ae161d9da460331ef2ee7df45dec7f04904bc08117a5a3b6b"
+      }
+    ],
+    "backend_changed": false,
+    "edge_changed": false,
+    "production_data_mutations": 0,
+    "provider_calls": 0,
+    "rollback": "Atomically restore index-before.html; immutable old assets retained."
+  },
+  "cleanup": {
+    "owned_preview_containers_removed": 3,
+    "owned_qa_networks_removed": 2,
+    "owned_ssh_tunnels_closed": 2,
+    "viewport_reset": true
+  },
+  "limitations": [
+    "Provider billing blocker unchanged; no hosted live AI recovery claimed.",
+    "No backend test rerun for presentation-only changes; previous Linux acceptance retained.",
+    "Browser viewport evidence is not physical-device/accessibility certification."
+  ]
+}

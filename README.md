@@ -8,6 +8,8 @@
 
 The interface includes a light/dark switch with a remembered theme preference, a compact recovery workspace and a collapsible Scenario Lab. Mouse/keyboard switching, reload persistence,360/390px layouts and viewer/operator confirmation states were checked in an isolated preview; public HTTPS sign-in and theme switching were checked after the static update. See [UI evidence](docs/evaluations/ui-themes-2026-10-31.json).
 
+The desktop dashboard now places recovery controls beside the evidence inspector, with compact incident context and a concise case-history empty state. Login was excluded from this refinement. A clearly labelled offline transport with the real Rust verifier exercised the populated preview, approval, apply, verification and report layouts; these fixture results are separate from live Meta evidence. See [dashboard checks](docs/evaluations/dashboard-refinement-2026-10-31.json).
+
 Live AI investigation is currently unavailable because the configured Meta account returned a billing error. The hosted instance has no Meta key provisioned; investigation fails closed before provider requests. The earlier real Meta recovery evidence and edited demo below remain historical results. Access keys are provided privately by the operator; never enter a Meta API key in the browser.
 
 ## Current release validation —2026-10-30
