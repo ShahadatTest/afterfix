@@ -1,0 +1,33 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "For sensitive findings, follow SECURITY.md. Do not attach real inventory files, access keys, provider keys or private ledgers."
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Include your operating system, Docker version and hosted/local-agent mode.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Use minimal synthetic records and exact actions or commands.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and observed behavior
+      description: Include the current workflow stage and any sanitized error message.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Model and validation context
+      description: Was the model live, absent or an explicit offline fixture? What checks did you run? Remove credentials and private data.

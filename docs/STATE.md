@@ -1,5 +1,11 @@
 # AfterFix current state
 
+## GitHub presentation refresh —2026-10-31
+
+Owner asked for professional repository presentation. Codex rewrote the chronological README into a concise product/install/evidence overview with an original local SVG brand banner and actual fresh public light/dark screenshots; added docs index/gallery/architecture/development guides, root CONTRIBUTING/SECURITY guidance, two issue forms and a PR template. Previous README is retained in docs/README_HISTORY_2026-10-31.md with corrected relative links; dated validation and heldout failures are preserved. Installation and connected fixture screenshots are clearly labelled; no fake CI/usage or new runtime claim.111 local Markdown/HTML targets checked with zero missing, SVG XML parsed; public/fixture screenshots visually reviewed. Product code unchanged, no redundant test rerun.
+
+GitHub About description/homepage and10topics updated/verified. Existing RC1 release renamed as historical and given a current-status note; original tag target6952d7fafcee78abd4465529dabcaa04115af1e6 and video/source ZIP digests unchanged. No release assets/tag/new release, application deployment, model request or security setting changed. Private reporting is currently disabled and SECURITY.md says so. License remains unselected. Public evidence docs/evaluations/github-presentation-2026-10-31.json. Rendered GitHub verification accompanies publication. Main Meta billing/key/budget blocker remains explicit in the new README.
+
 ## GitHub publication readiness —2026-10-31
 
 Verified clean source and published master matchedf1f1fec before this documentation/ignore update. No tracked environment files, SQLite DBs, private keys, agent config or runtime accounting files found. Exact credential/encoding scan passed before feature publication. Added explicit Git ignore rules for generatedaccess.env/model.env/agent.json and private runtime ledger/lock filenames; git check-ignore verified all six nested paths and preserved.env.example eligibility. No product/runtime change or redundant test rerun. README/install guide/evaluation evidence are published. LICENSE file is absent; no license was selected on the owner's behalf. Meta billing/key/budget and actual live-AI acceptance remain separate from source publication readiness.

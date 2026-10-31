@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-31",
+  "scope": "GitHub presentation/documentation only; no application, deployment, billing or model request changes",
+  "changes": [
+    "Concise product README with original SVG banner, actual light/dark screenshots, install path and dated evidence table",
+    "Documentation index/gallery/architecture/development guides; prior README retained as a dated history file with corrected relative links",
+    "Contribution/security guidance plus two issue forms and PR template",
+    "Repository About description, homepage and ten specific topics",
+    "Existing RC1 title/current-status note clarified; original target/tag/video/source archives retained"
+  ],
+  "validation": {
+    "local_links_checked": 111,
+    "missing_local_targets": [],
+    "banner_svg": "parsed successfully",
+    "screenshots": {
+      "connected-fixture.jpg": "6d0b14fe0b7dad9c354a9445d7479e1eaaba114eed45603a59c45f1423115528",
+      "install-connect.jpg": "255f840924737d0c44ecf0f7034f0b46e1a1fdbbc3504857f1d1dbf23569d126",
+      "workspace-dark.jpg": "12d31ef4b366c51ee3b644a50b5776108623f8eb84e0c731f6e1914c5d9307bc",
+      "workspace-light.jpg": "20b1009d1ee49b1149aa1959b48b22b4b539c99eb0f25dfd5fe01428753fbfc8"
+    },
+    "release_target_unchanged": true,
+    "video_source_archive_digests_unchanged": true,
+    "app_code_changed": false,
+    "tests_rerun": false,
+    "private_reporting_enabled": false,
+    "license_selected": false
+  },
+  "repository": {
+    "url": "https://github.com/ShahadatTest/afterfix",
+    "description": "Evidence-driven inventory recovery with Meta investigation, Python/Rust verification and human-approved repair. Includes a local SQLite agent.",
+    "homepage": "https://afterfix.sklab.cc",
+    "topics": [
+      "data-recovery",
+      "fastapi",
+      "human-in-the-loop",
+      "inventory",
+      "meta-ai",
+      "python",
+      "react",
+      "rust",
+      "sqlite",
+      "typescript"
+    ]
+  },
+  "availability": "Hosted preview online; live Meta key/budget/billing clearance still pending. Historical live benchmark remains5/7 with failures retained.",
+  "remaining": "License selection pending; no license or private reporting channel invented."
+}
