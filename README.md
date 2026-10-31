@@ -4,7 +4,7 @@
 
 ## Hosted preview —2026-10-31
 
-[Open AfterFix](https://afterfix.sklab.cc). Private operator/viewer access, synthetic scenarios, evidence and history are deployed behind HTTPS. The VPS Linux build passed573Python tests,32Rust tests, three native frontend checks and the strict production build. Container hardening, authenticated canary checks and an actual browser viewer session passed. See [deployment evidence](docs/evaluations/hosted-deployment-2026-10-31.json) and [deployment instructions](deploy/README.md).
+[Open AfterFix](https://afterfix.sklab.cc). The synthetic dashboard opens directly without a login page. Public access is view-only; choose **Operator access** inside the dashboard for private repair controls. The latest Linux build passed601Python tests, three native frontend checks and the strict production build. Public-read and private-mutation boundaries, cancelled operator verification and role changes were checked. Earlier32Rust tests and hardened hosting evidence are retained. See [direct dashboard evidence](docs/evaluations/direct-dashboard-2026-10-31.json) and [deployment instructions](deploy/README.md).
 
 The interface includes a light/dark switch with a remembered theme preference, a compact recovery workspace and a collapsible Scenario Lab. Mouse/keyboard switching, reload persistence,360/390px layouts and viewer/operator confirmation states were checked in an isolated preview; public HTTPS sign-in and theme switching were checked after the static update. See [UI evidence](docs/evaluations/ui-themes-2026-10-31.json).
 
@@ -51,8 +51,8 @@ Latest recorded checks:
 - Native Node API-session and case-state checks passed.
 - An actual authenticated Chrome recovery using real Spark 1.3 completed **100 → 110** with one actor-bound approval/repair and **10 preservation checks passed**.
 - Durable version 1 reports, saved case history, read-only reload, and exact JSON download are implemented.
-- Saved case history restores automatically after sign-in, but it never restores approval, checkbox, or apply state. Any new mutation requires a fresh, explicit investigation.
-- A browser reload forgets the in-memory application token and requires sign-in again.
+- Saved case history loads as read-only data; it never restores approval, checkbox, or apply state. Any new mutation requires a fresh, explicit investigation.
+- A browser reload forgets operator access and opens the public dashboard. Re-enter the operator key inside the dashboard only when needed.
 - Actual stale-state checks passed: an approval/apply `409` invalidates downstream state and refreshes to stock 101 with 5 events. When refresh returns `503`, the old data remains visible with a clear warning. The final independent database check found 0 repairs in that failure path.
 - Actual desktop viewport checked: **1280 × 585**, with no horizontal overflow. This was not a mobile check.
 
@@ -139,6 +139,7 @@ Before using protected routes, read [docs/AUTH.md](docs/AUTH.md) and [docs/RUNTI
 - All related processes must share that ledger. Do not create a second ledger for an existing project.
 - Use the runtime initializer only for a genuinely new, zero-usage project. For an existing owner/shared ledger, never reset it and never start a new split ledger; follow [docs/RUNTIME.md](docs/RUNTIME.md).
 - Application access tokens are separate from the Meta key. Use distinct URL-safe tokens of 32–128 characters for operator and, optionally, viewer. There are no default or public QA credentials.
+- For a public synthetic demo, explicitly set `AFTERFIX_PUBLIC_VIEWER=1`. The fixed demo's read-only GET routes open without a key; all anonymous mutations remain denied. The default remains private. The frontend always opens the dashboard, with an optional Operator access dialog.
 - Reset is allowed only for the operator and only when `AFTERFIX_ALLOW_RESET=1` is explicitly set.
 - The shared guard uses a $100 project cap, $50 reserve, and 24-hour credit-freshness check. Account-wide usage outside this ledger is uncertain, so no overage is assumed or authorized.
 - Each investigation is bounded to 6 calls and an estimated $0.25 guard.

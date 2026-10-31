@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-31",
+  "scope": "Owner-approved removal of standalone login/intro page; direct public synthetic dashboard with inline operator access",
+  "source_context": "c0342562d203",
+  "source_archive_sha256": "6e6d000011f9bd13f8cd62b5151cafd9d688839d6be800d1fca1de4e3add317a",
+  "implementation": "Codex under owner direction; no provider generation",
+  "configuration": "AFTERFIX_PUBLIC_VIEWER=1 on hosted synthetic instance; application default remains private",
+  "security_contract": {
+    "anonymous_GET": "fixed synthetic incident/evidence/patch/history, canonical case report, scenario catalogue, viewer identity only",
+    "anonymous_POST": "denied before model/database mutations",
+    "invalid_authorization": "401; never guest fallback",
+    "malformed_server_tokens": "503",
+    "body_bound_bytes": 65536,
+    "credentials_in_frontend": false,
+    "operator_keys": "memory only; no URL/storage/cookie persistence",
+    "role_transition": "remount App state on authenticated/public boundaries",
+    "cancel_pending_access": "invalidates request ownership and clears token"
+  },
+  "checks": {
+    "local_focused_tests": "43 passed,1 existing warning",
+    "linux_full_tests": [
+      "601 passed, 1 warning in 50.60s"
+    ],
+    "new_public_auth_tests": 28,
+    "native_frontend_checks": [
+      "check-api-session: mocked fetch regression assertions passed (native Node, NOT browser/mobile QA)",
+      "check-case-state: all assertions passed",
+      "scenario-state checks passed"
+    ],
+    "strict_typescript_vite": "passed",
+    "canary_http": [
+      {
+        "path": "/auth/me",
+        "status": 200,
+        "with_key": false,
+        "method": "GET"
+      },
+      {
+        "path": "/incidents/INC-001",
+        "status": 200,
+        "with_key": false,
+        "method": "GET"
+      },
+      {
+        "path": "/lab/scenarios",
+        "status": 200,
+        "with_key": false,
+        "method": "GET"
+      },
+      {
+        "path": "/incidents/INC-001/cases",
+        "status": 200,
+        "with_key": false,
+        "method": "GET"
+      },
+      {
+        "path": "/admin/reset",
+        "status": 401,
+        "with_key": false,
+        "method": "POST"
+      },
+      {
+        "path": "/incidents/INC-001/investigate",
+        "status": 401,
+        "with_key": false,
+        "method": "POST"
+      },
+      {
+        "path": "/apply",
+        "status": 401,
+        "with_key": false,
+        "method": "POST"
+      },
+      {
+        "path": "/auth/me",
+        "status": 401,
+        "with_key": true,
+        "method": "GET"
+      },
+      {
+        "path": "/auth/me",
+        "status": 200,
+        "with_key": true,
+        "method": "GET"
+      },
+      {
+        "path": "/openapi.json",
+        "status": 401,
+        "with_key": false,
+        "method": "GET"
+      }
+    ],
+    "browser": {
+      "fresh_public_dashboard_without_key": "passed",
+      "standalone_signin_headings": 0,
+      "public_investigation_enabled": false,
+      "cancelled_delayed_verification_stays_public": "passed after2second delayed identity response",
+      "invalid_key": "error in inline dialog; remains public",
+      "valid_operator_key": "verified Operator; investigation control enabled after incident loaded",
+      "return_to_public": "control disabled; no login page",
+      "mobile_dialog": {
+        "viewport": 390,
+        "content_width": 375,
+        "dialog_width": 358.79
+      },
+      "escape_cancel": "passed",
+      "public_https_fresh_tab_without_key": "passed"
+    }
+  },
+  "deployment": {
+    "status": "passed",
+    "url": "https://afterfix.sklab.cc",
+    "source_context": "c0342562d203",
+    "source_archive_sha256": "6e6d000011f9bd13f8cd62b5151cafd9d688839d6be800d1fca1de4e3add317a",
+    "public_viewer_identity": {
+      "actor_id": "viewer",
+      "role": "viewer",
+      "can_reset": false
+    },
+    "anonymous_reads": 200,
+    "anonymous_mutations": 401,
+    "invalid_key": 401,
+    "operator_identity": "verified",
+    "backend_image": "afterfix:c0342562d203",
+    "assets": [
+      {
+        "path": "assets/index-bgkExd3P.js",
+        "sha256": "1329089d7df93c674d622f43226ceaee2dde3003cb3c51ab923e578c37beddff"
+      },
+      {
+        "path": "assets/index--gJsfeQI.css",
+        "sha256": "12521da8464a6d3480eaaeb89502b4f40cee6f662172617802274dce3d15adb8"
+      }
+    ],
+    "old_index_sha256": "8f623d6306344c9d3f426102da460136f81fa7cdebe16cfbdd4b00f1ea476f51",
+    "new_index_sha256": "386181d9e4fc0247a9620f3868f3d827c64f0705f6fa84df385c102ef0781121",
+    "production_data": {
+      "stock": 100,
+      "repairs": 0,
+      "approvals": 0
+    },
+    "model_requests": 0,
+    "edge_changed": false,
+    "rollback": "Private env/compose/index backups and prior backend image retained; restore config/index and recreate only AfterFix API. DB backup retained separately."
+  },
+  "cleanup": {
+    "owned_canary_containers_removed": 2,
+    "owned_network_removed": true,
+    "owned_tunnel_closed": true,
+    "temporary_canary_credentials_removed": true,
+    "viewport_reset": true
+  },
+  "limitations": [
+    "Hosted live AI investigation remains unconfigured pending billing resolution; no model requests made.",
+    "This public mode exposes synthetic demo records; it is not tenant isolation or security certification.",
+    "An early immediate operator button probe occurred during incident loading; after waiting for loaded incident it correctly enabled."
+  ]
+}

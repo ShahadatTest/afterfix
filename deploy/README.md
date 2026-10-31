@@ -58,6 +58,8 @@ A new synthetic SQLite database is created/loaded only through the operator's ex
 
 ## Required private environment
 
+The owner-approved public synthetic dashboard uses `AFTERFIX_PUBLIC_VIEWER=1` in the private runtime environment. This opt-in allows a narrow set of anonymous GETs and makes no model requests. The application's default is private. Anonymous POSTs, unknown routes and invalid credentials remain denied. Keep the operator key private; the dashboard's optional Operator access dialog accepts it in memory. Do not publish bearer tokens in browser assets or proxy configuration.
+
 Supply credentials only through a private env file outside the repository and image, referenced by `AFTERFIX_ENV_FILE`. Compose reads it with `format: raw`, so characters in values are not interpolated by Compose. Never use build args, labels, inline Compose secrets, CI outputs, logs or commits for credentials.
 
 The backend requires:

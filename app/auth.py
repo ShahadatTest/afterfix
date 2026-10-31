@@ -16,6 +16,20 @@ from dataclasses import dataclass
 MAX_BODY_BYTES = 65536
 BODY_READ_TIMEOUT_SECONDS = 5.0
 _TOKEN_RE = re.compile(r"[A-Za-z0-9_-]{32,128}")
+_PUBLIC_READ_PATHS = frozenset({
+    "/auth/me", "/lab/scenarios", "/incidents/INC-001",
+    "/incidents/INC-001/evidence", "/incidents/INC-001/patch",
+    "/incidents/INC-001/cases",
+})
+_PUBLIC_REPORT = re.compile(r"/cases/CASE-[0-9a-f]{16}/report")
+
+
+def public_read_allowed(method, path):
+    """Explicit opt-in for the owner's public synthetic demo, GET only."""
+    import os
+    return (os.environ.get("AFTERFIX_PUBLIC_VIEWER") == "1"
+            and method == "GET"
+            and (path in _PUBLIC_READ_PATHS or _PUBLIC_REPORT.fullmatch(path) is not None))
 
 
 @dataclass(frozen=True)
@@ -166,38 +180,41 @@ class AuthMiddleware:
 
         auth_values = [v for k, v in scope.get("headers", []) if k.lower() == b"authorization"]
         www = [(b"www-authenticate", b"Bearer")]
-        if len(auth_values) != 1:
-            await _send_json(send, 401, "unauthorized", www)
-            return
-        raw = auth_values[0]
-        if len(raw) > 256:
-            await _send_json(send, 401, "unauthorized", www)
-            return
-        try:
-            text = raw.decode("ascii")
-        except Exception:
-            await _send_json(send, 401, "unauthorized", www)
-            return
-        parts = text.split()
-        if len(parts) != 2 or parts[0].lower() != "bearer":
-            await _send_json(send, 401, "unauthorized", www)
-            return
-        candidate = parts[1]
-        if len(candidate) > 128 or not candidate.isascii():
-            await _send_json(send, 401, "unauthorized", www)
-            return
-        cand = candidate.encode("ascii")
-        is_operator = hmac.compare_digest(cand, operator.encode("ascii"))
-        is_viewer = (
-            hmac.compare_digest(cand, viewer.encode("ascii")) if viewer is not None else False
-        )
-        if is_operator:
-            actor = Actor(actor_id="operator", role="operator")
-        elif is_viewer:
+        if not auth_values and public_read_allowed(method, path):
             actor = Actor(actor_id="viewer", role="viewer")
         else:
-            await _send_json(send, 401, "unauthorized", www)
-            return
+            if len(auth_values) != 1:
+                await _send_json(send, 401, "unauthorized", www)
+                return
+            raw = auth_values[0]
+            if len(raw) > 256:
+                await _send_json(send, 401, "unauthorized", www)
+                return
+            try:
+                text = raw.decode("ascii")
+            except Exception:
+                await _send_json(send, 401, "unauthorized", www)
+                return
+            parts = text.split()
+            if len(parts) != 2 or parts[0].lower() != "bearer":
+                await _send_json(send, 401, "unauthorized", www)
+                return
+            candidate = parts[1]
+            if len(candidate) > 128 or not candidate.isascii():
+                await _send_json(send, 401, "unauthorized", www)
+                return
+            cand = candidate.encode("ascii")
+            is_operator = hmac.compare_digest(cand, operator.encode("ascii"))
+            is_viewer = (
+                hmac.compare_digest(cand, viewer.encode("ascii")) if viewer is not None else False
+            )
+            if is_operator:
+                actor = Actor(actor_id="operator", role="operator")
+            elif is_viewer:
+                actor = Actor(actor_id="viewer", role="viewer")
+            else:
+                await _send_json(send, 401, "unauthorized", www)
+                return
 
         if actor.role == "viewer" and not (method == "GET" or (method == "POST" and path == "/verify")):
             await _send_json(send, 403, "forbidden")

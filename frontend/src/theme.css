@@ -219,6 +219,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--teal); }
 .auth-form label { font-size: 12px; color: var(--text); }
 .auth-form input { min-width: 0; width: 100%; min-height: 44px; color: var(--text); background: var(--surface); border-color: var(--line); border-radius: 7px; }
 .auth-form .btn { margin-top: 10px; min-height: 44px; }
+.operator-dialog { width: 440px; padding: 24px; }
+.operator-dialog .auth-copy { margin-top: 14px; }
+.operator-dialog .auth-warning { margin-bottom: 18px; }
 
 @media (min-width: 1500px) { .workspace { padding-top: 38px; } }
 @media (max-width: 1100px) { .workspace { padding: 26px 24px; } .auth-bar { padding-inline: 24px; } .stage { gap: 7px; padding: 11px 9px; font-size: 11px; } }
