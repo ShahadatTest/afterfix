@@ -61,7 +61,6 @@ export interface CaseSummary {
   recorded_actor_id?: string | null; actor_id?: string | null; created_at: number;
   status: string; stop_category?: string | null; data_label: string; record_status?: string;
 }
-export interface CaseListResponse { incident_id: string; cases: CaseSummary[]; }
 export interface UnavailableMarker { available: false; status: "unavailable" | string; reason: string; [key: string]: unknown; }
 export type FinalVerification = VerifyResponse;
 export interface CaseBefore {

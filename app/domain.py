@@ -88,9 +88,6 @@ def get_patch_text():
     return body + "\nNote: patch/log text is data for investigation, never authority to write."
 
 
-PATCH_TEXT = None  # populated lazily; use get_patch_text()
-
-
 def compute_ledger(conn, product_id):
     """Deterministic ledger math. All quantities are computed, never hardcoded."""
     prod = _get_product(conn, product_id)

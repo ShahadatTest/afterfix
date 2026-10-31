@@ -32,16 +32,6 @@ class VerifyRequest(Strict):
     proposal_id: Optional[str] = Field(default=None, max_length=64)
 
 
-class ProposalView(BaseModel):
-    proposal_id: str
-    status: str
-    product_id: str
-    credit_qty: int = 0
-    reverse_event_ids: List[int] = Field(default_factory=list)
-    snapshot_hash: str = ""
-    reason: str = ""
-
-
 TOOL_MANIFEST = [
     {"name": "inspect_incident", "method": "GET", "path": "/incidents/{id}", "read_only": True},
     {"name": "inspect_evidence", "method": "GET", "path": "/incidents/{id}/evidence", "read_only": True},

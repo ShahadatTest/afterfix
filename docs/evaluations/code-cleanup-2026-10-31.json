@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-31",
+  "scope": "Conservative unused-code cleanup; current flow unchanged",
+  "removed": [
+    "Unused standalone login/intro page CSS, old status/reference/scenario-label selectors",
+    "Unused CaseListResponse import and interface",
+    "Unused ProposalView Pydantic class",
+    "Unreferenced PATCH_TEXT=None placeholder"
+  ],
+  "guards_added": [
+    "TypeScript noUnusedLocals and noUnusedParameters",
+    "Docker context exclusion for generated private agent config/ledger/lock files, matching Git protection"
+  ],
+  "checks": {
+    "python": "623 tests passed, one existing Starlette TestClient warning,40.12s; isolated Python3.14 Windows environment",
+    "typescript": "Initial strict-unused probe found one unused import; after removal the normal build passes with both checks enabled",
+    "frontend": "Node24.18.0; strict TypeScript/Vite8.3.5;29modules/373ms; three native state checks passed",
+    "references": "Reviewed references across app/frontend/tools/tests; removed CSS classes absent from current TSX; all app Python files parse",
+    "tracked_generated_files": "No tracked node_modules/dist/target/__pycache__/SQLite DB files found"
+  },
+  "bundle": {
+    "old_css_bytes": 40461,
+    "new_css_bytes": 37530,
+    "raw_css_reduction_percent": 7.24,
+    "javascript_sha256": "44e04018b708373f591a33baeeded0eabe2add849eb1e499f2c30675e1f3606a",
+    "javascript_identical_to_hosted_build": true
+  },
+  "retained": [
+    "Reproducible buggy handler and derived fix patch",
+    "Tests, frozen heldout fixtures/failures and historical evaluation evidence",
+    "Independent Python/Rust checks and all auth/approval/apply/budget controls",
+    "Active operator-dialog form/auth bar styles and current theme/layout rules"
+  ],
+  "limits": [
+    "Static reference review is not proof that all possible future/dynamic consumers are absent",
+    "pytest/httpx are used by the QA pipeline; dependency stage restructuring is outside this cleanup",
+    "No model requests, server changes or live deployment; cleaned assets will enter the next deployment/build"
+  ]
+}

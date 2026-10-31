@@ -2,16 +2,6 @@
   min-width: 0;
 }
 
-.scenario-label {
-  border-radius: 999px;
-  padding: 0.3rem 0.7rem;
-  background: #fef3c7;
-  color: #92400e;
-  border: 1px solid #fcd34d;
-  font-size: 0.8rem;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
 
 .scenario-copy,
 .scenario-current,

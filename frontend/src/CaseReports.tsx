@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { apiGet } from "./api";
 import { caseRecoveryLabel, hasMatchingCaseIdentity, isRecord } from "./caseState";
-import type { CaseListResponse, CaseReport, CaseSummary, NamedCheck } from "./types";
+import type { CaseReport, CaseSummary, NamedCheck } from "./types";
 import "./cases.css";
 
 type Rec = Record<string, unknown>;
