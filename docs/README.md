@@ -4,6 +4,7 @@ Start with the [project overview](../README.md), then choose the path that match
 
 | I want to… | Read |
 | --- | --- |
+| Check the project license | [MIT License](../LICENSE) |
 | Explore the shared synthetic dashboard | [Live preview](https://afterfix.sklab.cc) |
 | Install beside a compatible inventory file | [Local SQLite agent](INSTALL_AGENT.md) |
 | Understand the supported schema and installation changes | [Connector contract](INSTALL_AGENT.md#supported-sqlite-contract) |

@@ -7,7 +7,8 @@
   <a href="docs/INSTALL_AGENT.md">Install locally</a> ·
   <a href="https://github.com/ShahadatTest/afterfix/releases/tag/v0.1.0-rc1">Recorded demo</a> ·
   <a href="docs/README.md">Documentation</a> ·
-  <a href="CONTRIBUTING.md">Contribute</a>
+  <a href="CONTRIBUTING.md">Contribute</a> ·
+  <a href="LICENSE">MIT license</a>
 </p>
 
 # AfterFix
@@ -80,6 +81,10 @@ The model cannot run SQL, shell commands, approve a proposal or apply a repair. 
 
 ## Project scope
 
-This is an experimental inventory-recovery project with a documented SQLite connector and synthetic/isolated-fixture validation. Arbitrary database repair, PostgreSQL, unattended apply, tenant isolation, production readiness and universal rollback are outside the current release. License selection is pending; no `LICENSE` file has been added.
+This is an experimental inventory-recovery project with a documented SQLite connector and synthetic/isolated-fixture validation. Arbitrary database repair, PostgreSQL, unattended apply, tenant isolation, production readiness and universal rollback are outside the current release.
+
+## License
+
+AfterFix project source is licensed under the [MIT License](LICENSE), copyright 2026 Shahadat Islam Koyel. Dependencies retain their respective licenses. Meta models/API and other external services are not licensed by this repository.
 
 [Development](docs/DEVELOPMENT.md) · [Security](SECURITY.md) · [Model provenance](docs/MODEL_PROVENANCE.md) · [Full documentation](docs/README.md) · [Current state](docs/STATE.md)

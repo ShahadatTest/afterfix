@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-31",
+  "owner_authorization": "Owner delegated license choice after MIT commercial-use terms were explained",
+  "license": "MIT",
+  "copyright": "2026 Shahadat Islam Koyel",
+  "template": "GitHub licenses API MIT body, matching Choose a License standard template",
+  "license_sha256": "0304b3be973987e2d0f05785c71df6cdf39d686e4cbfd431ee043391b8d4d79a",
+  "scope": "AfterFix project source; dependencies and external model/API services retain their separate terms",
+  "checks": [
+    "Canonical template preserved except year/fullname substitution",
+    "npm package and lockroot license metadata agree; every dependency/version/integrity record unchanged",
+    "Rust package license metadata set without dependency/lock changes",
+    "Current README/contribution/docs pointers updated; historical records preserved"
+  ],
+  "sources": [
+    "https://choosealicense.com/licenses/mit/",
+    "https://dev.meta.ai/legal/terms-of-service"
+  ],
+  "limits": [
+    "No copyrightability, ownership-clearance or third-party-code guarantee",
+    "Public hackathon event page and prior participant summary inspected; full Official Rules were not available in the web-rendered details page, so contest licensing compliance is not certified"
+  ],
+  "tests_rerun": false,
+  "runtime_changes": false
+}

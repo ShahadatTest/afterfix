@@ -1,5 +1,11 @@
 # AfterFix current state
 
+## MIT license selected and added —2026-10-31
+
+Owner explicitly delegated license choice after being told MIT permits commercial use/modification/distribution with preserved notices. Added canonical GitHub MIT template with Copyright(c)2026Shahadat Islam Koyel; updated current README/contribution/docs links and npm/Cargo project metadata. Root npm lock entry license updated only; dependency/version/integrity records unchanged, Cargo.lock untouched. Third-party dependencies and external model/API services keep their own terms. Prior license-pending history remains dated evidence, superseded by this entry.
+
+Checked standard MIT text and official Meta Model API content-rights/service-scope terms through read-only sources; no terms/account/billing action or model call. Full hackathon Official Rules were not retrievable through the web-rendered details page, so no contest-compliance or ownership-clearance certification is claimed. Metadata/documentation-only change: template/JSON/TOML/link/diff checks rather than rerunning app tests. Evidence docs/evaluations/license-2026-10-31.json. Source publication includes license detection verification; no live deployment.
+
 ## Conservative unused-code cleanup —2026-10-31
 
 Owner asked to find unnecessary code. Reviewed app/frontend/tools and test references using AST/name/class searches plus TypeScript unused checks. Removed unreferenced standalone-login/intro CSS and obsolete status/reference/scenario-label rules; kept active operator-dialog form/auth-bar/theme rules. Removed unused CaseListResponse import/interface, ProposalView class and PATCH_TEXT=None placeholder. Enabled noUnusedLocals/noUnusedParameters for future builds; added Docker-context ignores for generated private agent config/ledger/lock files. Bug reproduction, tests, frozen failure/evaluation history and independent validation/approval/cost guards remain intentional. No tracked generated dependencies/build/cache/DB files found.

@@ -1,6 +1,6 @@
 # Contributing to AfterFix
 
-Start with the [project overview](README.md), [supported connector contract](docs/INSTALL_AGENT.md#supported-sqlite-contract) and [architecture](docs/ARCHITECTURE.md). License selection is pending; discuss substantial contributions with the maintainer before preparing them.
+Start with the [project overview](README.md), [supported connector contract](docs/INSTALL_AGENT.md#supported-sqlite-contract) and [architecture](docs/ARCHITECTURE.md). Please submit contributions under the project’s [MIT License](LICENSE).
 
 ## Propose a change
 
