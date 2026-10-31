@@ -4,7 +4,7 @@
   "license": "MIT",
   "copyright": "2026 Shahadat Islam Koyel",
   "template": "GitHub licenses API MIT body, matching Choose a License standard template",
-  "license_sha256": "0304b3be973987e2d0f05785c71df6cdf39d686e4cbfd431ee043391b8d4d79a",
+  "license_sha256": "aba316a4b7426dc46524c9f4ec51adfdd180aadea8a918649856522e7458ceb3",
   "scope": "AfterFix project source; dependencies and external model/API services retain their separate terms",
   "checks": [
     "Canonical template preserved except year/fullname substitution",
@@ -21,5 +21,14 @@
     "Public hackathon event page and prior participant summary inspected; full Official Rules were not available in the web-rendered details page, so contest licensing compliance is not certified"
   ],
   "tests_rerun": false,
-  "runtime_changes": false
+  "runtime_changes": false,
+  "license_worktree_sha256": "0304b3be973987e2d0f05785c71df6cdf39d686e4cbfd431ee043391b8d4d79a",
+  "published_verification": {
+    "commit": "feec3d0",
+    "github_license_key": "mit",
+    "github_license_name": "MIT License",
+    "license_git_blob": "867b11fbd94d2b5f85c7715bf33adab6fbecaa9f",
+    "committed_license_bytes": 1077,
+    "initial_rest_lookup": "Initial license endpoint404 during indexing; subsequent GraphQL recognizesMIT and commit-pinned content was retrieved."
+  }
 }
