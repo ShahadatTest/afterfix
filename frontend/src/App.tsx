@@ -3,6 +3,7 @@ import { ApiError, apiPost, apiGet } from "./api";
 import CaseReports from "./CaseReports";
 import { isActiveVerified, isRustApprovalReady, isValidPassingChecks } from "./caseState";
 import ScenarioLab from "./ScenarioLab";
+import RecoveryIllustration from "./RecoveryIllustration";
 import { ADVANCE_CONFIRMATION, LOAD_CONFIRMATION, advanceSession, createLabSession, hasCanonicalAdvanceBinding, isKnownScenarioId, parseAdvanceResponse, parseLoadResponse } from "./scenarioState";
 import type { LabSession, ScenarioId } from "./scenarioState";
 import type {
@@ -346,7 +347,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
   return (
     <div className="shell">
       <aside className="rail">
-        <div className="brand"><span className="brand-mark" aria-hidden="true">A<span className="brand-dot" /></span><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
+        <div className="brand"><img className="brand-mark" src="/afterfix.svg" width="40" height="40" alt="" /><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
         <p className="demo-tag">Synthetic workspace</p>
         <nav className="rail-nav" aria-label="Workspace sections"><a className="rail-link" href="#recovery-workspace"><Icon d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />Overview</a>{incident && <><a className="rail-link" href="#evidence-timeline"><Icon d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />Evidence</a><a className="rail-link" href="#cases-title"><Icon d="M4 4v6h6M4.5 9a8 8 0 1 1-1 7M12 8v5l3 2" />Case history</a></>}</nav>
         <div className="rail-card">
@@ -362,7 +363,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
       <main className="workspace" id="recovery-workspace">
         <header className="hero"><div><p className="eyebrow"><span className="mono">{incident?.incident.id ?? incidentId}</span><span className="hero-separator" aria-hidden="true">/</span>Inventory incident</p><h1>Recovery workspace</h1><p className="lede">From recorded evidence to a reviewed, verified repair.</p></div><div className="hero-actions">{incident && <span className="incident-state"><span className="status-dot" aria-hidden="true" />DB incident: {incident.incident.status}</span>}{patch && <button type="button" className="btn" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" />Code patch</button>}</div></header>
         {isViewer && <div className="banner info viewer-notice" role="status"><strong>Viewer access</strong><span>Inspect evidence and saved reports. An operator runs investigation and repair.</span></div>}
-        <div aria-live="polite">{initialLoading && <div className="banner info" role="status">Loading incident and evidence…</div>}</div>
+        <div aria-live="polite">{initialLoading && <div className="banner info loading-status" role="status"><span className="activity-spinner" aria-hidden="true" />Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
         <div aria-live="polite">{notice && <div className="banner info" role="status">{notice}</div>}</div>
 
@@ -384,10 +385,10 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
 
           {stage === 0 && (<section className="panel investigation-panel"><div className="panel-head"><div><span className="eyebrow">Stage 1 · Evidence review</span><h2>Investigate the evidence</h2></div>
             <button type="button" className="btn btn-primary" onClick={runInvestigate} disabled={busyAny || isViewer}>{busy === "investigate" ? "Investigating…" : investigation ? "Investigate again (uses model requests)" : "Run investigation (uses model requests)"}</button></div>
-            {busy === "investigate" && <p className="muted" role="status">Investigating the patch and recorded events…</p>}
+            {busy === "investigate" && <p className="muted loading-status" role="status"><span className="activity-spinner" aria-hidden="true" />Investigating the patch and recorded events…</p>}
             {isViewer && <p className="muted">Viewers cannot run an investigation.</p>}
             {!investigation && busy !== "investigate" && !isViewer && <p className="muted">Starting a fresh investigation is explicit and uses model requests. Nothing is approved or applied automatically.</p>}
-            {!investigation && busy !== "investigate" && <div className="investigation-empty"><div className="investigation-symbol" aria-hidden="true"><Icon d="M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM15 15l6 6M7 8h6M7 11h4" /></div><h3>Build a case from the evidence</h3><p>Review the code change and recorded events. An investigation produces a draft for review before any repair is approved.</p><div className="investigation-inputs"><span><Icon d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5" />Code patch &amp; event records</span><span><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" />Approval before apply</span></div></div>}
+            {!investigation && busy !== "investigate" && <div className="investigation-empty"><RecoveryIllustration /><h3>Build a case from the evidence</h3><p>Review the code change and recorded events. An investigation produces a draft for review before any repair is approved.</p><div className="investigation-inputs"><span><Icon d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5" />Code patch &amp; event records</span><span><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5z" />Approval before apply</span></div></div>}
             {investigation && (<div className="stack">
               {investigation.case_recording_status === "recorded" && investigation.case_id && <p className="muted">Durable case recorded: <span className="mono">{investigation.case_id}</span> (see Saved cases — read-only history).</p>}
               {investigation.case_recording_status === "unavailable" && <div className="banner warn" role="status"><strong>Case recording unavailable.</strong> No durable case ID, version or report exists for this live investigation; it may continue, but authoritative durable export is disabled for it.</div>}

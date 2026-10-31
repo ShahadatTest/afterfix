@@ -1,5 +1,11 @@
 # AfterFix current state
 
+## Original branding and motion —2026-10-31
+
+Owner requested useful logo/photo/animation additions. Codex added an original local SVG AfterFix recovery monogram/favicon, a decorative evidence/review/approval illustration, short one-shot panel/diagram entrances, theme-icon hover motion and spinners tied only to actual loading/investigation state. No external assets/dependencies, photo, login page or splash. Reduced-motion preference disables these animations. No workflow authority/handlers changed; no provider calls.
+
+Actual VPS frontend build passed three native checks, strict TypeScript and Vite28modules/422ms. Browser inspected light/dark,390/360px without horizontal overflow, loaded logo/illustration and disabled viewer investigation. CDP emulated reduced-motion produced animation-name none on hero and all diagram groups; emulation cleared. Fresh live public dashboard loads without login. Contextb776a19488e7/28files archiveSHA2560aa45d4c2c15f773c53a372c63dcf8cfd131667279377838e0156afdf5412c04. Static-only deployment verified HTTPS index, JS/CSS/SVG hashes, public identity, stock100 and anonymous apply401. Backend/edge untouched; old index/assets retained for rollback. Initial canary referenced missing packaged config and failed to mount; recreated owned canary using existing reviewed config. Owned preview/tunnel removed and viewport reset. Evidence docs/evaluations/branding-motion-2026-10-31.json. Meta billing blocker and paused automation unchanged.
+
 ## Direct dashboard / no login page —2026-10-31
 
 Owner explicitly requested removal of the standalone login/intro page. The hosted site now opens directly as Public view, without a key. Optional Operator access is an inline dialog in the dashboard. Authenticated/public role changes remount App to discard local repair/report authority. Closing a pending verification invalidates its attempt; credentials stay memory-only. API public synthetic reads are narrowly opt-in viaAFTERFIX_PUBLIC_VIEWER=1, defaultOFF; anonymous mutations, invalid auth fallback, other routes and malformed server configuration remain denied. SPEC/AUTH/deploy docs updated to this approved scope.

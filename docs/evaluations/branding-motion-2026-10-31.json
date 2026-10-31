@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-31",
+  "provenance": "Codex-authored presentation changes; no Meta generation or runtime provider requests",
+  "scope": [
+    "Original local SVG monogram and favicon",
+    "Decorative evidence/review/approval illustration",
+    "Short one-shot panel/illustration entrances and real-loading spinner",
+    "Reduced-motion preference respected; no standalone login or splash"
+  ],
+  "checks": {
+    "native_frontend": [
+      "api-session passed",
+      "case-state passed",
+      "scenario-state passed"
+    ],
+    "build": "Node 24.22.1, strict TypeScript, Vite 8.3.5; 28 modules; 422ms",
+    "browser": [
+      "Desktop light/dark inspected",
+      "390px and 360px fit without horizontal overflow",
+      "SVG logo loaded; decorative illustration rendered",
+      "Emulated reduced-motion: hero and all three diagram groups computed animation-name none; emulation cleared",
+      "Fresh live public dashboard loaded without login heading; operator-only investigation disabled"
+    ],
+    "limits": "No new backend or live-AI recovery claim; historical backend acceptance is separate"
+  },
+  "deployment": {
+    "status": "passed",
+    "source_context": "b776a19488e7",
+    "assets": [
+      {
+        "path": "afterfix.svg",
+        "sha256": "92aaa076fa26a8e96f38e76ddaaeb6ab83f2707c8d217a1bb41ae0327993ed10"
+      },
+      {
+        "path": "assets/index-Bjkf49hv.js",
+        "sha256": "be75fbb46f6b1831b51979e43efa2df4a3dfeebfe348c199e39eb7a2684c07fe"
+      },
+      {
+        "path": "assets/index-Sdo7NTK-.css",
+        "sha256": "0b8a3c573d4657cffc5e07dd3d41546fe4165172c64b6be640530037c01ec8e6"
+      }
+    ],
+    "old_index_sha256": "386181d9e4fc0247a9620f3868f3d827c64f0705f6fa84df385c102ef0781121",
+    "new_index_sha256": "2e605815490fa361d2f929e26e9d1bd25295486f8c6b733abe6359af8619193a",
+    "public_viewer": true,
+    "anonymous_apply": 401,
+    "stock": 100,
+    "backend_changed": false,
+    "edge_changed": false,
+    "model_requests": 0,
+    "rollback": "Atomic restore of index-before.html; prior assets retained."
+  },
+  "operations": {
+    "canary_setup": "Initial mount referenced an unpackaged config path and failed; recreated only owned canary using existing reviewed Caddyfile. No production impact.",
+    "cleanup": "Owned preview container and SSH tunnel removed; viewport override reset",
+    "backend_or_edge_restart": false
+  }
+}

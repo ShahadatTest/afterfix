@@ -70,7 +70,6 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--teal); }
 .rail { position: fixed; inset: 0 auto 0 0; width: 244px; z-index: 20; padding: 28px 18px 20px; gap: 18px; overflow-y: auto; background: var(--rail); color: var(--rail-text); border-right: 1px solid var(--rail-line); }
 .brand { gap: 10px; }
 .brand-mark { position: relative; border-radius: 11px; background: #28bfa6; color: #092f2a; font-size: 21px; letter-spacing: -1px; }
-.brand-dot { position: absolute; width: 5px; height: 5px; right: 7px; bottom: 8px; border-radius: 50%; background: #092f2a; }
 .brand strong { font-size: 19px; letter-spacing: -.5px; }
 .brand span { color: var(--muted); font-size: 11px; }
 .rail .brand span, .auth-intro .brand span { color: var(--rail-muted); }
@@ -318,8 +317,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--teal); }
 .investigation-panel .panel-head .btn { font-size: 11px; padding: 10px 12px; }
 .investigation-panel > p.muted { font-size: 11px; line-height: 1.7; }
 .investigation-empty { border-top: 1px solid var(--line); margin-top: 18px; padding: 26px 10px 15px; text-align: center; }
-.investigation-symbol { width: 50px; height: 50px; display: grid; place-items: center; border: 1px solid var(--accent-line); border-radius: 13px; background: var(--accent-soft); color: var(--teal); margin: 0 auto 15px; }
-.investigation-symbol .icon { height: 25px; width: 25px; }
+.recovery-illustration { display: block; width: min(100%, 300px); height: auto; margin: -8px auto 15px; }
 .investigation-empty h3 { font-size: 16px; letter-spacing: -.3px; font-weight: 600; margin: 0 0 7px; }
 .investigation-empty > p { font-size: 12px; line-height: 1.8; color: var(--muted); max-width: 42ch; margin: 0 auto; }
 .investigation-inputs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 16px; margin-top: 22px; color: var(--muted); font-size: 10px; }
@@ -396,4 +394,28 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--teal); }
   .evidence-inspector .event-tags .btn { min-height: 36px; }
   .cases-empty-state { flex-wrap: wrap; }
   .cases-empty-state .btn { width: 100%; min-height: 40px; margin-top: 8px; }
+}
+
+/* Short, decorative motion. No animation conveys approval or live AI status. */
+.rail .brand-mark { display: block; width: 40px; height: 40px; flex: 0 0 40px; background: transparent; border-radius: 11px; }
+.loading-status { display: flex; align-items: center; gap: 9px; }
+.activity-spinner { display: inline-block; flex: 0 0 14px; width: 14px; height: 14px; border: 2px solid var(--accent-line); border-top-color: var(--teal); border-radius: 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero { animation: workspace-enter 260ms ease-out both; }
+  .recovery-primary > .panel { animation: workspace-enter 220ms ease-out both; }
+  .recovery-illustration > g { transform-box: fill-box; transform-origin: center; animation: diagram-enter 350ms ease-out both; }
+  .recovery-illustration .flow-review { animation-delay: 70ms; }
+  .recovery-illustration .flow-approval { animation-delay: 140ms; }
+  .activity-spinner { animation: activity-turn 800ms linear infinite; }
+  .theme-toggle svg { transition: transform 180ms ease-out; }
+  .theme-toggle:hover svg { transform: rotate(15deg); }
+  .btn, .rail-link { transition: background-color 140ms, border-color 140ms, box-shadow 140ms; }
+  .btn:not(:disabled):hover { box-shadow: 0 2px 7px #10203712; }
+  @keyframes workspace-enter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes diagram-enter { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes activity-turn { to { transform: rotate(360deg); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero, .recovery-primary > .panel, .recovery-illustration > g, .activity-spinner { animation: none; }
+  .theme-toggle svg, .btn, .rail-link { transition: none; }
 }
