@@ -62,7 +62,7 @@ class AdvanceRequest(BaseModel):
 
 
 def _enabled():
-    return os.environ.get("AFTERFIX_ENABLE_SCENARIO_LAB") == "1"
+    return os.environ.get("AFTERFIX_AGENT_MODE") != "1" and os.environ.get("AFTERFIX_ENABLE_SCENARIO_LAB") == "1"
 
 
 def _require_enabled():

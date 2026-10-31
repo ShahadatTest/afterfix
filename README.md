@@ -2,6 +2,12 @@
 
 ![AfterFix live release recovery](docs/assets/demo-verified.png)
 
+## Local installable SQLite agent
+
+Run `python -m app.agent install` from a checkout to connect a compatible inventory SQLite file and code-fix patch. The terminal setup validates the schema, requires explicit extension consent, saves a verified backup and starts a local Docker agent. It scans on startup/on demand; existing Meta investigation, Python/Rust preview, human approval and separate transactional repair remain required. No model call starts automatically. The first connector supports one selected product and a fixed inventory ledger contract, not arbitrary databases. Read the [installation and compatibility guide](docs/INSTALL_AGENT.md) before connecting a file. The shared hosted site stays a synthetic demo and never accepts your database upload.
+
+The local-agent extension passed623Linux backend tests and an actual isolated Docker install/scan/approved-repair/report check. Its tool response was explicitly injected offline; this is not new live Meta evidence. See [agent acceptance](docs/evaluations/installable-agent-2026-10-31.json). The hosted site gained installation instructions; its backend remains the earlier synthetic preview.
+
 ## Hosted preview —2026-10-31
 
 [Open AfterFix](https://afterfix.sklab.cc). The synthetic dashboard opens directly without a login page. Public access is view-only; choose **Operator access** inside the dashboard for private repair controls. The latest Linux build passed601Python tests, three native frontend checks and the strict production build. Public-read and private-mutation boundaries, cancelled operator verification and role changes were checked. Earlier32Rust tests and hardened hosting evidence are retained. See [direct dashboard evidence](docs/evaluations/direct-dashboard-2026-10-31.json) and [deployment instructions](deploy/README.md).

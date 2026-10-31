@@ -4,6 +4,8 @@ import CaseReports from "./CaseReports";
 import { isActiveVerified, isRustApprovalReady, isValidPassingChecks } from "./caseState";
 import ScenarioLab from "./ScenarioLab";
 import RecoveryIllustration from "./RecoveryIllustration";
+import AgentConnection from "./AgentConnection";
+import type { AgentScan } from "./AgentConnection";
 import { ADVANCE_CONFIRMATION, LOAD_CONFIRMATION, advanceSession, createLabSession, hasCanonicalAdvanceBinding, isKnownScenarioId, parseAdvanceResponse, parseLoadResponse } from "./scenarioState";
 import type { LabSession, ScenarioId } from "./scenarioState";
 import type {
@@ -78,8 +80,10 @@ function investigationReasonText(reason: string | null | undefined): string {
   }
 }
 
-export default function App({ actor }: { actor: AuthMeResponse }) {
+export default function App({ actor, locked = false }: { actor: AuthMeResponse; locked?: boolean }) {
   const isViewer = actor.role === "viewer";
+  const connected = actor.workspace_mode === "connected";
+  const [agentScan, setAgentScan] = useState<AgentScan | null>(null);
   const canReset = actor.role === "operator" && actor.can_reset;
   const [incidentId, setIncidentId] = useState(DEFAULT_INCIDENT);
   const [incident, setIncident] = useState<IncidentResponse | null>(null);
@@ -141,11 +145,24 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
     ]);
     setIncident(inc); setEvidence(ev);
   }, []);
+  const runAgentScan = async () => {
+    if (!connected || isViewer || !acquireMutation("agent-scan")) return;
+    setError(null); invalidateStale();
+    const generation = ++incidentGenerationRef.current;
+    try {
+      const result = await apiPost<AgentScan>("/api/agent/scan", {});
+      setAgentScan(result);
+      await loadIncident(DEFAULT_INCIDENT, generation);
+      refreshCases();
+    } catch (e) { setError(e instanceof Error ? e.message : "Could not scan the connected inventory."); }
+    finally { releaseMutation(); }
+  };
   const refreshAfterStale = useCallback(async (): Promise<boolean> => {
     try { await refreshIncident(incidentId); refreshCases(); return true; } catch { return false; }
   }, [refreshIncident, incidentId, refreshCases]);
 
   useEffect(() => {
+    if (locked) { setInitialLoading(false); return; }
     let cancelled = false;
     const generation = incidentGenerationRef.current;
     (async () => {
@@ -157,7 +174,7 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
       } finally { if (!cancelled && generation === incidentGenerationRef.current) setInitialLoading(false); }
     })();
     return () => { cancelled = true; };
-  }, [loadIncident]);
+  }, [loadIncident, locked]);
 
   useEffect(() => {
     const dlg = dialogRef.current;
@@ -348,24 +365,25 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
     <div className="shell">
       <aside className="rail">
         <div className="brand"><img className="brand-mark" src="/afterfix.svg" width="40" height="40" alt="" /><div><strong>AfterFix</strong><span>Recovery workspace</span></div></div>
-        <p className="demo-tag">Synthetic workspace</p>
+        <p className="demo-tag">{connected ? "Connected inventory" : "Synthetic workspace"}</p>
         <nav className="rail-nav" aria-label="Workspace sections"><a className="rail-link" href="#recovery-workspace"><Icon d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />Overview</a>{incident && <><a className="rail-link" href="#evidence-timeline"><Icon d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />Evidence</a><a className="rail-link" href="#cases-title"><Icon d="M4 4v6h6M4.5 9a8 8 0 1 1-1 7M12 8v5l3 2" />Case history</a></>}</nav>
         <div className="rail-card">
           <span className="eyebrow">Current incident</span>
           <strong className="mono">{incident?.incident.id ?? incidentId}</strong>
           {incident ? (<dl><div><dt>Product</dt><dd>{incident.product.name} <span className="mono">({incident.product.product_id})</span></dd></div><div><dt>Database incident</dt><dd>{incident.incident.status}</dd></div></dl>) : <p className="muted">No incident loaded.</p>}
         </div>
-        <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>
-        <p className="rail-note">{isViewer ? "Viewing access. An operator manages scenarios and repairs." : canReset ? "Reset replaces synthetic data and clears saved cases." : "Reset is not permitted for this account."}</p>
+        {!connected && <button type="button" className="btn btn-ghost" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading demo…" : incident ? "Reset demo" : "Load demo"}</button>}
+        <p className="rail-note">{connected ? "Connected inventory. Scans never change stock; repairs require your approval." : isViewer ? "Viewing access. An operator manages scenarios and repairs." : canReset ? "Reset replaces synthetic data and clears saved cases." : "Reset is not permitted for this account."}</p>
         <div className="rail-footer"><Icon d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3" /><span>Repairs require<br /><strong>your explicit approval</strong></span></div>
       </aside>
 
       <main className="workspace" id="recovery-workspace">
         <header className="hero"><div><p className="eyebrow"><span className="mono">{incident?.incident.id ?? incidentId}</span><span className="hero-separator" aria-hidden="true">/</span>Inventory incident</p><h1>Recovery workspace</h1><p className="lede">From recorded evidence to a reviewed, verified repair.</p></div><div className="hero-actions">{incident && <span className="incident-state"><span className="status-dot" aria-hidden="true" />DB incident: {incident.incident.status}</span>}{patch && <button type="button" className="btn" onClick={() => setDialogMode("patch")} disabled={busyAny}><Icon d="M8 6l-6 6 6 6M16 6l6 6-6 6" />Code patch</button>}</div></header>
-        {isViewer && <div className="banner info viewer-notice" role="status"><strong>Viewer access</strong><span>Inspect evidence and saved reports. An operator runs investigation and repair.</span></div>}
+        {isViewer && <div className="banner info viewer-notice" role="status"><strong>{connected ? "Private inventory" : "Viewer access"}</strong><span>{connected ? "Use Operator access to unlock evidence, scans and repair controls." : "Inspect evidence and saved reports. An operator runs investigation and repair."}</span></div>}
         <div aria-live="polite">{initialLoading && <div className="banner info loading-status" role="status"><span className="activity-spinner" aria-hidden="true" />Loading incident and evidence…</div>}</div>
         <div aria-live="assertive">{error && <div className="banner error" role="alert">{error}</div>}</div>
         <div aria-live="polite">{notice && <div className="banner info" role="status">{notice}</div>}</div>
+        {connected && <AgentConnection connected operator={!isViewer} busy={busyAny} scanning={busy === "agent-scan"} result={agentScan} onScan={runAgentScan} />}
 
         {notSeeded && !incident ? (
           <section className="panel empty"><h2>No demo incident is loaded yet</h2>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : (<><p>Load the synthetic inventory demo to begin.</p><button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>{busy === "reset" ? "Loading…" : "Load demo"}</button></>)}</section>
@@ -463,9 +481,9 @@ export default function App({ actor }: { actor: AuthMeResponse }) {
           </section>
           </aside>
           </div>
-        </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>Incident unavailable</h2><p>{error ?? "The incident could not be loaded."}</p>{isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : <button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>Load demo</button>}</section>) : null}
-        <ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} />
-        <footer className="workspace-footer"><span>AfterFix · Synthetic inventory workspace</span><span>Evidence → Preview → Approval → Verification</span></footer>
+        </>) : !initialLoading && !notSeeded ? (<section className="panel empty"><h2>{locked ? "Inventory locked" : "Incident unavailable"}</h2><p>{connected && isViewer ? "Use Operator access to unlock your local inventory. No inventory data is public." : error ?? "The incident could not be loaded."}</p>{connected ? null : isViewer ? <p>An operator must load the synthetic inventory demo before you can inspect it.</p> : <button type="button" className="btn btn-primary" onClick={runReset} disabled={busyAny || !canReset}>Load demo</button>}</section>) : null}
+        {!connected && <><AgentConnection connected={false} operator={!isViewer} busy={busyAny} result={null} onScan={runAgentScan} /><ScenarioLab actor={actor} busy={busy} labSession={labSession} advanceReady={scenarioAdvanceReady} hasAppliedRepair={!!applyResult} onLoad={runScenarioLoad} onAdvance={runScenarioAdvance} /></>}
+        <footer className="workspace-footer"><span>AfterFix · {connected ? "Connected inventory workspace" : "Synthetic inventory workspace"}</span><span>Evidence → Preview → Approval → Verification</span></footer>
       </main>
 
       <dialog ref={dialogRef} className="dialog" aria-labelledby="dialog-title" onClose={handleDialogClose} onCancel={handleDialogClose}>

@@ -25,10 +25,23 @@ def get_db_path():
 
 
 def connect(path=None):
-    conn = sqlite3.connect(path or get_db_path(), timeout=10)
+    from app import agent
+    target = path or get_db_path()
+    if agent.enabled():
+        from pathlib import Path
+        conn = sqlite3.connect(Path(target).resolve().as_uri() + "?mode=rw", uri=True, timeout=10)
+    else:
+        conn = sqlite3.connect(target, timeout=10)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys=ON")
-    init_db(conn)
+    try:
+        if agent.enabled():
+            agent.guard_connection(conn)
+        else:
+            init_db(conn)
+    except BaseException:
+        conn.close()
+        raise
     return conn
 
 

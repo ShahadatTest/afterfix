@@ -2,6 +2,7 @@ export interface AuthMeResponse {
   actor_id: "operator" | "viewer";
   role: "operator" | "viewer";
   can_reset: boolean;
+  workspace_mode?: "connected";
 }
 export interface Incident { id: string; product_id: string; description: string; status: string; }
 export interface Product { product_id: string; name: string; stock: number; }

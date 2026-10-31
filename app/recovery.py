@@ -155,6 +155,9 @@ def build_proposal(conn, incident_id, product_id, evidence_ids):
     def needs(reason):
         _store_proposal(conn, pid, incident_id, product_id, 0, [], "", "needs_review", reason)
         return _get_proposal(conn, pid)
+    from app import agent
+    if agent.enabled() and conn.execute("SELECT count(*) FROM events").fetchone()[0] >= agent.MAX_EVENTS:
+        return needs("connector event capacity reached; no room for a repair audit event")
     if inc["product_id"] != product_id:
         return needs("wrong incident/product binding: incident does not concern this product")
     if not evidence_ids:
@@ -404,6 +407,9 @@ def apply_proposal(conn, proposal_id, approval_id, idempotency_key, actor_id="lo
             return result
         if p["status"] != "approved":
             raise ApprovalError("proposal is not approved")
+        from app import agent
+        if agent.enabled() and conn.execute("SELECT count(*) FROM events").fetchone()[0] >= agent.MAX_EVENTS:
+            raise ApprovalError("connector event capacity reached; no repair was applied")
         try:
             base = json.loads(ap["baseline_json"] or "")
             if not isinstance(base, dict) or base.get("proposal_id") != proposal_id or base.get("product_id") != p["product_id"] or base.get("snapshot_hash") != ap["snapshot_hash"]:

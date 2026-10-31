@@ -1,0 +1,230 @@
+{
+  "date": "2026-10-31",
+  "provenance": "Codex implementation at explicit owner request; Meta billing blocked; no provider calls",
+  "source": {
+    "context": "f6ae022fb977",
+    "files": 185,
+    "sha256": "d89b60ad3e84f8f819e61add749dc7e342df3f1bbe542d29b75b4b3269784b42"
+  },
+  "scope": {
+    "installer": "python -m app.agent install; interactive or explicit-argument setup; Docker single-container UI/API/Rust",
+    "connector": "SQLite inventory contract, one selected product; installation backup and explicit schema-extension consent",
+    "scan": "startup/manual; incident metadata only, no business-row changes",
+    "repair": "Existing read-only model tools, deterministic Python/Rust preview, actor-bound approval, separate transactional/idempotent apply, verification and reports",
+    "privacy": "Loopback port, operator unlock, no public source reads; reset and Scenario Lab disabled in agent mode",
+    "boundary": "No arbitrary schemas/SQL, production validation, PostgreSQL, silent model calls, unattended repair or continuous monitor"
+  },
+  "tests": {
+    "windows_focused_connector": "22 passed; actual local Rust adapter exercised",
+    "linux_final_image": "623 passed, one existing Starlette TestClient warning,44.59s",
+    "frontend": "Three native state checks + strict TypeScript/Vite passed; identical frontend layer cached in final backend/report build. Actual UI build29modules/269ms.",
+    "browser": [
+      "Initial connected page locks inventory without issuing source-read requests",
+      "Private operator unlock displays connected product; scan button updates real source incident",
+      "Current case report says connected_inventory; offline hypothesis clearly labels injected fixture",
+      "No reset or Scenario Lab in connected UI; lock clears source data",
+      "Identical client tested at390px: document375px, connection panel342.67px, no horizontal overflow",
+      "Synthetic installation card tested at360px: document345px, card312.67px, no overflow; theme switching passed",
+      "Fresh live public dashboard renders expanded Install & Connect card and correct guide URL"
+    ]
+  },
+  "actual_install": {
+    "status": "passed",
+    "checked_at_utc": "2026-10-31T16:48:01.778263+00:00",
+    "source_context": "f6ae022fb977",
+    "install": "actual noninteractive CLI install, permission preflight, backup, schema extension and container startup",
+    "startup_scan": {
+      "enabled": true,
+      "connector": "sqlite-inventory-v1",
+      "product_id": "PART-X",
+      "product_name": "OFFLINE connector fixture",
+      "events": 4,
+      "stock": 282,
+      "status": "candidate",
+      "reason": "Repeated order deductions found. Evidence and the code fix must be investigated before any repair.",
+      "snapshot_hash": "632942c99caf642b19bba3987e6fe5b4098443e01678b6d6e471e025fe763ee6",
+      "incident_id": "INC-001",
+      "model_requests": 0,
+      "model_key_configured": false,
+      "runtime_configured": false
+    },
+    "stock_before": 282,
+    "business_rows_unchanged_after_install_and_scan": true,
+    "checks": [
+      {
+        "path": "/",
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "path": "/health",
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "path": "/api/auth/me",
+        "method": "GET",
+        "status": 401
+      },
+      {
+        "path": "/api/auth/me",
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "path": "/api/agent/status",
+        "method": "GET",
+        "status": 200
+      },
+      {
+        "path": "/api/agent/scan",
+        "method": "POST",
+        "status": 200
+      },
+      {
+        "path": "/api/admin/reset",
+        "method": "POST",
+        "status": 403
+      },
+      {
+        "path": "/api/lab/scenarios",
+        "method": "GET",
+        "status": 404
+      },
+      {
+        "path": "/api/incidents/INC-001/investigate",
+        "method": "POST",
+        "status": 503
+      },
+      {
+        "path": "/api/agent/scan",
+        "method": "POST",
+        "status": 422
+      },
+      {
+        "path": "/api/auth/me",
+        "method": "GET",
+        "status": 401
+      },
+      {
+        "path": "/api/auth/me",
+        "method": "GET",
+        "status": 400
+      },
+      {
+        "path": "/access.env",
+        "method": "GET",
+        "status": 404
+      }
+    ],
+    "provider_requests": 0,
+    "model_absent_investigation": 503,
+    "container": "afterfix-agent-26d23397aa61",
+    "next": "Browser connection/scan check, then deterministic approved HTTP repair and final DB verification."
+  },
+  "offline_connected_recovery": {
+    "status": "passed",
+    "source_context": "f6ae022fb977",
+    "method": "Injected offline tool transport in explicit fixture controller, actual installed agent/SQLite/Rust/API approvals and report. Not a live Meta investigation.",
+    "draft": {
+      "case_id": "CASE-012817a64c21ca6a",
+      "proposal_id": "PROP-64a88fb2",
+      "fixture_transport_calls": 3,
+      "provider_requests": 0,
+      "label": "OFFLINE CONNECTOR TEST FIXTURE"
+    },
+    "http_checks": [
+      {
+        "path": "/proposals/PROP-64a88fb2/preview",
+        "status": 200
+      },
+      {
+        "path": "/apply",
+        "status": 422
+      },
+      {
+        "path": "/proposals/PROP-64a88fb2/approve",
+        "status": 200
+      },
+      {
+        "path": "/apply",
+        "status": 200
+      },
+      {
+        "path": "/apply",
+        "status": 200
+      },
+      {
+        "path": "/verify",
+        "status": 200
+      },
+      {
+        "path": "/cases/CASE-012817a64c21ca6a/report",
+        "status": 200
+      },
+      {
+        "path": "/agent/scan",
+        "status": 200
+      }
+    ],
+    "before_stock": 282,
+    "state": {
+      "stock": 300,
+      "unrelated_stock": 64,
+      "repair_events": 1,
+      "restock_total": 43,
+      "approvals": 1,
+      "cases": 1
+    },
+    "verification_checks": 10,
+    "provider_requests": 0,
+    "product_data": "isolated synthetic source file; production demo unchanged"
+  },
+  "review_corrections": [
+    "Capacity/identifier boundary guards added and tested before final acceptance",
+    "Initial offline fixture citation union was invalid and correctly rejected; fixture corrected without relaxing product guards",
+    "A host-rejection400 has no credential-bearing body; corrected overly broad no-store expectation in review harness",
+    "Connected report origin label corrected from legacy synthetic label and covered by focused regression"
+  ],
+  "deployment": {
+    "status": "passed",
+    "source_context": "f6ae022fb977",
+    "assets": [
+      {
+        "path": "afterfix.svg",
+        "sha256": "92aaa076fa26a8e96f38e76ddaaeb6ab83f2707c8d217a1bb41ae0327993ed10"
+      },
+      {
+        "path": "assets/index-B-SYku1D.css",
+        "sha256": "2c97da89577abb83bf860d240d9f5c1fb31389f84a2d30879b4db2fdb8683816"
+      },
+      {
+        "path": "assets/index-NKjxHiOH.js",
+        "sha256": "44e04018b708373f591a33baeeded0eabe2add849eb1e499f2c30675e1f3606a"
+      }
+    ],
+    "old_index_sha256": "2e605815490fa361d2f929e26e9d1bd25295486f8c6b733abe6359af8619193a",
+    "new_index_sha256": "3dcf9d091f4e8dcc7933d0807ef35a4726555ccaeb5b88af5edd6c5bc8108f96",
+    "public_viewer": true,
+    "anonymous_apply": 401,
+    "stock": 100,
+    "backend_changed": false,
+    "edge_changed": false,
+    "model_requests": 0,
+    "rollback": "Atomic restore of index-before.html; prior assets retained."
+  },
+  "cleanup": {
+    "stop_start_existing_installation": "passed; stock300 and exactly one repair preserved",
+    "owned_test_agent_container": "removed using CLI ownership check",
+    "owned_static_canary": "removed",
+    "source_and_private_backup": "retained privately",
+    "production_api_changed": false
+  },
+  "limitations": [
+    "Live Meta billing clearance/key/budget still not provisioned; genuine hosted investigation remains unavailable",
+    "Offline fixture transport calls are not provider token/cost/live-AI evidence",
+    "Actual Docker installation tested on Linux; Windows module/tests/ACL code do not establish Windows Docker end-to-end compatibility",
+    "Only isolated synthetic source fixtures were connected/repaired; no owner production database accessed",
+    "Hosted backend remains c0342562d203; only static install UI updated. New connector runtime is delivered through the public checkout/installer."
+  ]
+}

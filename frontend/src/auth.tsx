@@ -155,16 +155,17 @@ export function AuthGate() {
   const [accessOpen, setAccessOpen] = useState(false);
   // This is a presentation-only view role. The server independently permits
   // only explicitly enabled public synthetic GET routes; no credential is sent.
-  const displayActor = actor ?? PUBLIC_VIEW;
+  const localAgent = document.querySelector('meta[name="afterfix-workspace"]')?.getAttribute("content") === "connected";
+  const displayActor = actor ?? (localAgent ? { ...PUBLIC_VIEW, workspace_mode: "connected" as const } : PUBLIC_VIEW);
   return <>
     <div className="auth-bar">
       <span className="workspace-crumb">Workspace <span aria-hidden="true">/</span><strong>Inventory recovery</strong></span>
-      <div className="auth-session"><span className="auth-role">{actor?.role === "operator" ? "Operator" : actor ? "Read-only viewer" : "Public view"}</span><ThemeToggle />
-        {actor ? <button type="button" className="btn btn-small" onClick={signOut}>Return to public view</button> : <button type="button" className="btn btn-small" onClick={() => setAccessOpen(true)}>Operator access</button>}
+      <div className="auth-session"><span className="auth-role">{actor?.role === "operator" ? "Operator" : actor ? "Read-only viewer" : localAgent ? "Private inventory" : "Public view"}</span><ThemeToggle />
+        {actor ? <button type="button" className="btn btn-small" onClick={signOut}>{localAgent ? "Lock inventory" : "Return to public view"}</button> : <button type="button" className="btn btn-small" onClick={() => setAccessOpen(true)}>Operator access</button>}
       </div>
     </div>
     {/* Role boundaries remount every local repair/report/approval state. */}
-    <App key={`${actor ? "authenticated" : "public"}-${sessionId}`} actor={displayActor} />
+    <App key={`${actor ? "authenticated" : "public"}-${sessionId}`} actor={displayActor} locked={localAgent && !actor} />
     {accessOpen && <OperatorAccess onDone={() => setAccessOpen(false)} />}
   </>;
 }

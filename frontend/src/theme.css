@@ -419,3 +419,15 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--teal); }
   .hero, .recovery-primary > .panel, .recovery-illustration > g, .activity-spinner { animation: none; }
   .theme-toggle svg, .btn, .rail-link { transition: none; }
 }
+
+.agent-install { margin: 24px 0; padding: 20px; }
+.agent-install summary { cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.agent-install summary strong { display: block; margin-top: 3px; font-size: 15px; }
+.agent-install p, .agent-connected p { font-size: 12px; line-height: 1.8; color: var(--muted); }
+.agent-chip { display: inline-flex; padding: 4px 9px; border: 1px solid var(--accent-line); background: var(--accent-soft); color: var(--teal); border-radius: 6px; font-size: 10px; }
+.agent-steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); padding: 0; list-style-position: inside; gap: 10px; }
+.agent-steps li { padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 7px; font-size: 11px; }
+.agent-doc-link { font-size: 12px; font-weight: 600; }
+.agent-connected { margin: 0 0 20px; padding: 20px; }
+.agent-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; }
+@media(max-width:600px) { .agent-install summary { align-items: flex-start; flex-direction: column; } .agent-steps { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }

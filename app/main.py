@@ -8,7 +8,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
 
-from app import case_report, domain, investigator, recovery, scenario_lab, schemas, store
+from app import agent, case_report, domain, investigator, recovery, scenario_lab, schemas, store
+from app.agent_routes import router as agent_router
 from app.auth import Actor, AuthMiddleware, InvestigationGate, reset_allowed
 from app.meta_client import MetaClient
 from app.runtime_budget import RuntimeBudgetError, RuntimeBudgetTransport, RuntimeLockBusy
@@ -16,6 +17,7 @@ from app.runtime_budget import RuntimeBudgetError, RuntimeBudgetTransport, Runti
 app = FastAPI(title="AfterFix API", version="1.0.0")
 app.add_middleware(AuthMiddleware)
 app.include_router(scenario_lab.router)
+app.include_router(agent_router)
 
 investigation_gate = InvestigationGate()
 _DEFAULT_GATE = investigation_gate
@@ -51,6 +53,11 @@ async def sanitized_validation_exception_handler(
 
 class InvestigateRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
+
+
+@app.exception_handler(agent.AgentError)
+async def sanitized_agent_error(request: Request, exc: agent.AgentError):
+    return JSONResponse(status_code=503, content={"detail": "inventory connection unavailable; review local configuration"})
 
 
 def get_investigation_client():
@@ -117,11 +124,14 @@ def health():
 @app.get("/auth/me")
 def auth_me(request: Request):
     actor = _actor(request)
-    return {
+    result = {
         "actor_id": actor.actor_id,
         "role": actor.role,
         "can_reset": bool(actor.role == "operator" and reset_allowed()),
     }
+    if agent.enabled():
+        result["workspace_mode"] = "connected"
+    return result
 
 
 @app.get("/tools/manifest")

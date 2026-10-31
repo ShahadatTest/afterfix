@@ -78,6 +78,9 @@ def process_restock(conn, product_id, qty, note="received shipment"):
 
 def get_patch_text():
     """Diff derived from the actual handler sources, not a fictional patch."""
+    from app import agent
+    if agent.enabled():
+        return agent.configured_patch()
     a = inspect.getsource(process_order_buggy).splitlines()
     b = inspect.getsource(process_order_fixed).splitlines()
     diff = difflib.unified_diff(a, b, fromfile="process_order_buggy", tofile="process_order_fixed", lineterm="")

@@ -31,6 +31,11 @@ _RUST_KEYS = ("enabled", "status", "verifier_version", "snapshot_hash", "checks"
 _PROPOSAL_KEYS = ("proposal_id", "incident_id", "product_id", "snapshot_hash", "status", "credit_qty", "reverse_event_ids", "reason")
 
 
+def _data_label():
+    from app import agent
+    return "connected_inventory" if agent.enabled() else "synthetic"
+
+
 class CaseNotFound(Exception):
     pass
 
@@ -520,7 +525,7 @@ def record_case(conn, actor_id, before, result):
     if incident_id != inv.get("incident_id") or product_id != inv.get("product_id"):
         incident_id, product_id = inv.get("incident_id"), inv.get("product_id")
     record = _bounded({
-        "schema_version": SCHEMA_VERSION, "case_id": case_id, "data_label": "synthetic",
+        "schema_version": SCHEMA_VERSION, "case_id": case_id, "data_label": _data_label(),
         "incident_id": incident_id, "product_id": product_id, "proposal_id": inv.get("proposal_id"),
         "recorded_actor_id": actor_id, "actor_id": actor_id, "created_at": created,
         "before": before_out, "investigation": inv, "initial_preview": preview, "initial_proposal": inv.get("proposal"),
@@ -723,7 +728,7 @@ def _load_record(row):
                 if ip.get(k) != pp.get(k): raise CaseInvalid('case_binding_invalid')
             if ip.get('id', ip.get('proposal_id')) != pp.get('proposal_id'): raise CaseInvalid('case_binding_invalid')
     return {
-        "schema_version": SCHEMA_VERSION, "case_id": row["case_id"], "data_label": "synthetic",
+        "schema_version": SCHEMA_VERSION, "case_id": row["case_id"], "data_label": _data_label(),
         "incident_id": row["incident_id"], "product_id": row["product_id"], "proposal_id": row["proposal_id"],
         "recorded_actor_id": row["actor_id"], "actor_id": row["actor_id"], "created_at": row["created_at"],
         "before": before, "investigation": inv, "initial_preview": prev, "initial_proposal": inv.get("proposal"),
@@ -739,9 +744,9 @@ def list_cases(conn, incident_id):
             try:
                 rec = _load_record(r)
                 inv = rec["investigation"]
-                out.append({"case_id": rec["case_id"], "incident_id": rec["incident_id"], "product_id": rec["product_id"], "proposal_id": rec["proposal_id"], "recorded_actor_id": rec["recorded_actor_id"], "created_at": rec["created_at"], "status": inv.get("status"), "stop_category": inv.get("stop_category"), "data_label": "synthetic"})
+                out.append({"case_id": rec["case_id"], "incident_id": rec["incident_id"], "product_id": rec["product_id"], "proposal_id": rec["proposal_id"], "recorded_actor_id": rec["recorded_actor_id"], "created_at": rec["created_at"], "status": inv.get("status"), "stop_category": inv.get("stop_category"), "data_label": _data_label()})
             except Exception:
-                out.append({"case_id": r["case_id"], "incident_id": r["incident_id"], "product_id": r["product_id"], "proposal_id": r["proposal_id"], "recorded_actor_id": r["actor_id"], "created_at": r["created_at"], "status": "needs_review", "data_label": "synthetic", "record_status": "invalid"})
+                out.append({"case_id": r["case_id"], "incident_id": r["incident_id"], "product_id": r["product_id"], "proposal_id": r["proposal_id"], "recorded_actor_id": r["actor_id"], "created_at": r["created_at"], "status": "needs_review", "data_label": _data_label(), "record_status": "invalid"})
         return out
     finally:
         snap.close()
@@ -845,7 +850,7 @@ def build_report(conn, case_id):
         row = snap.execute("SELECT * FROM case_records WHERE case_id=?", (case_id,)).fetchone()
         if row is None:
             raise CaseNotFound("case not found")
-        base = {"schema_version": SCHEMA_VERSION, "case_id": case_id, "data_label": "synthetic", "recorded_actor_id": row["actor_id"], "actor_id": row["actor_id"], "created_at": row["created_at"], "incident_id": row["incident_id"], "product_id": row["product_id"], "proposal_id": row["proposal_id"]}
+        base = {"schema_version": SCHEMA_VERSION, "case_id": case_id, "data_label": _data_label(), "recorded_actor_id": row["actor_id"], "actor_id": row["actor_id"], "created_at": row["created_at"], "incident_id": row["incident_id"], "product_id": row["product_id"], "proposal_id": row["proposal_id"]}
         try:
             rec = _load_record(row)
         except Exception:

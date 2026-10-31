@@ -27,7 +27,8 @@ _PUBLIC_REPORT = re.compile(r"/cases/CASE-[0-9a-f]{16}/report")
 def public_read_allowed(method, path):
     """Explicit opt-in for the owner's public synthetic demo, GET only."""
     import os
-    return (os.environ.get("AFTERFIX_PUBLIC_VIEWER") == "1"
+    return (os.environ.get("AFTERFIX_AGENT_MODE") != "1"
+            and os.environ.get("AFTERFIX_PUBLIC_VIEWER") == "1"
             and method == "GET"
             and (path in _PUBLIC_READ_PATHS or _PUBLIC_REPORT.fullmatch(path) is not None))
 
@@ -61,7 +62,7 @@ def _load_tokens():
 def reset_allowed():
     import os
 
-    return os.environ.get("AFTERFIX_ALLOW_RESET") == "1"
+    return os.environ.get("AFTERFIX_AGENT_MODE") != "1" and os.environ.get("AFTERFIX_ALLOW_RESET") == "1"
 
 
 class InvestigationGate:
